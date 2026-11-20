@@ -56,10 +56,10 @@ def main():
     print_banner(f"PIPELINE EXÉCUTÉ AVEC SUCCÈS EN {elapsed:.2f} SECONDES")
     print("Tous les livrables sont à jour dans le dossier 'data/' :")
     print(f"  • data/all_data.csv                       (Univers brut 1 247 valeurs)")
-    print(f"  • data/actifs_notre_secteur_healthtech_ai.csv (Univers sélectionnable du fonds)")
+    print(f"  • data/actifs_notre_secteur_healthtech_ai.csv (Univers sélectionnable du fonds)")  # Modif Mohamed
     print(f"  • data/portefeuille_final_pondere.csv     (Portefeuille final avec poids optimaux)")
     print(f"  • data/resultats_backtest_comparaison.csv (Tableau complet de backtest)")
-    print(f"  • data/sbti/jointure_sbti_msci.csv        (Statut SBTi de chaque valeur, jointure ISIN)")
+    print(f"  • data/sbti/jointure_sbti_msci.csv        (Statut SBTi de chaque valeur, jointure ISIN)")  # Modif Mohamed
     print("=" * 80 + "\n")
 
 

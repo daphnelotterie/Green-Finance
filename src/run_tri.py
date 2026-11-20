@@ -21,7 +21,7 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
   - Étape 11 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
   ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv'
   ==> Exporte 'data/sbti/jointure_sbti_msci.csv' (statut SBTi de chaque valeur de l'univers)
-"""
+"""  # Modif Mohamed
 
 import csv
 import os
@@ -35,14 +35,14 @@ try:
         DNSHControversyFilter,
         GoodGovernanceAndRatingFilter,
         ParisAlignmentITRFilter,
-        EnvironmentalPillarFilter,
-        SectorCarbonFootprintFilter,
+        EnvironmentalPillarFilter,  # Modif Mohamed
+        SectorCarbonFootprintFilter,  # Modif Mohamed
         SectorCarbonIntensityFilter,
         ClimateSDGFilter,
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
-        SBTI_STATUS_FIELDS,
+        SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
 except ImportError:
     from filters import (
@@ -51,14 +51,14 @@ except ImportError:
         DNSHControversyFilter,
         GoodGovernanceAndRatingFilter,
         ParisAlignmentITRFilter,
-        EnvironmentalPillarFilter,
-        SectorCarbonFootprintFilter,
+        EnvironmentalPillarFilter,  # Modif Mohamed
+        SectorCarbonFootprintFilter,  # Modif Mohamed
         SectorCarbonIntensityFilter,
         ClimateSDGFilter,
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
-        SBTI_STATUS_FIELDS,
+        SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
 
 
@@ -89,40 +89,40 @@ def export_to_csv(filepath: str, companies, headers):
     print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
 
 
-def load_sbti_by_isin(filepath: str):
-    """Charge la base SBTi (une ligne par entreprise) indexée par ISIN. Les lignes sans ISIN sont ignorées."""
-    sbti_by_isin = {}
-    with open(filepath, mode="r", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            isin = (row.get("isin") or "").strip().upper()
-            if isin and isin not in sbti_by_isin:
-                sbti_by_isin[isin] = row
-    return sbti_by_isin
+def load_sbti_by_isin(filepath: str):  # Modif Mohamed
+    """Charge la base SBTi (une ligne par entreprise) indexée par ISIN. Les lignes sans ISIN sont ignorées."""  # Modif Mohamed
+    sbti_by_isin = {}  # Modif Mohamed
+    with open(filepath, mode="r", encoding="utf-8") as f:  # Modif Mohamed
+        for row in csv.DictReader(f):  # Modif Mohamed
+            isin = (row.get("isin") or "").strip().upper()  # Modif Mohamed
+            if isin and isin not in sbti_by_isin:  # Modif Mohamed
+                sbti_by_isin[isin] = row  # Modif Mohamed
+    return sbti_by_isin  # Modif Mohamed
 
 
-def export_sbti_join(filepath: str, companies, contrib_filter):
-    """Exporte la jointure ISIN entre notre univers et la base SBTi (données complémentaires du rendu)."""
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    fieldnames = ["ticker", "name", "isin", "sbti_company_name", "statut_sbti"] + list(SBTI_STATUS_FIELDS) + [
-        "ca_aligne_taxonomie_pct", "contribution_positive_slide13"]
-    with open(filepath, mode="w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        for c in companies:
-            record = contrib_filter.sbti_by_isin.get(c.isin.upper(), {})
-            row = {
-                "ticker": c.ticker,
-                "name": c.name,
-                "isin": c.isin,
-                "sbti_company_name": record.get("company_name", ""),
-                "statut_sbti": contrib_filter.sbti_status(c),
-                "ca_aligne_taxonomie_pct": c.to_dict().get("EST_EU_TAXONOMY_MAX_REV", ""),
-                "contribution_positive_slide13": "Oui" if contrib_filter.evaluate(c) else "Non",
-            }
-            for field in SBTI_STATUS_FIELDS:
-                row[field] = record.get(field, "")
-            writer.writerow(row)
-    print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
+def export_sbti_join(filepath: str, companies, contrib_filter):  # Modif Mohamed
+    """Exporte la jointure ISIN entre notre univers et la base SBTi (données complémentaires du rendu)."""  # Modif Mohamed
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)  # Modif Mohamed
+    fieldnames = ["ticker", "name", "isin", "sbti_company_name", "statut_sbti"] + list(SBTI_STATUS_FIELDS) + [  # Modif Mohamed
+        "ca_aligne_taxonomie_pct", "contribution_positive_slide13"]  # Modif Mohamed
+    with open(filepath, mode="w", encoding="utf-8", newline="") as f:  # Modif Mohamed
+        writer = csv.DictWriter(f, fieldnames=fieldnames)  # Modif Mohamed
+        writer.writeheader()  # Modif Mohamed
+        for c in companies:  # Modif Mohamed
+            record = contrib_filter.sbti_by_isin.get(c.isin.upper(), {})  # Modif Mohamed
+            row = {  # Modif Mohamed
+                "ticker": c.ticker,  # Modif Mohamed
+                "name": c.name,  # Modif Mohamed
+                "isin": c.isin,  # Modif Mohamed
+                "sbti_company_name": record.get("company_name", ""),  # Modif Mohamed
+                "statut_sbti": contrib_filter.sbti_status(c),  # Modif Mohamed
+                "ca_aligne_taxonomie_pct": c.to_dict().get("EST_EU_TAXONOMY_MAX_REV", ""),  # Modif Mohamed
+                "contribution_positive_slide13": "Oui" if contrib_filter.evaluate(c) else "Non",  # Modif Mohamed
+            }  # Modif Mohamed
+            for field in SBTI_STATUS_FIELDS:  # Modif Mohamed
+                row[field] = record.get(field, "")  # Modif Mohamed
+            writer.writerow(row)  # Modif Mohamed
+    print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")  # Modif Mohamed
 
 
 def run_pipeline(verbose=True):
@@ -138,10 +138,10 @@ def run_pipeline(verbose=True):
         print(f"Erreur : Impossible de trouver all_data.csv dans {possible_inputs}")
         sys.exit(1)
 
-    sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")
-    if not os.path.exists(sbti_csv):
-        print(f"Erreur : Impossible de trouver les données SBTi : {sbti_csv}")
-        sys.exit(1)
+    sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")  # Modif Mohamed
+    if not os.path.exists(sbti_csv):  # Modif Mohamed
+        print(f"Erreur : Impossible de trouver les données SBTi : {sbti_csv}")  # Modif Mohamed
+        sys.exit(1)  # Modif Mohamed
 
     if verbose:
         print("=" * 80)
@@ -154,71 +154,71 @@ def run_pipeline(verbose=True):
     if verbose:
         print(f"\n[Univers Initial] MSCI World Developed Markets : {total_initial} valeurs\n")
 
-    # Données SBTi (jointure par ISIN)
-    sbti_by_isin = load_sbti_by_isin(sbti_csv)
+    # Données SBTi (jointure par ISIN)  # Modif Mohamed
+    sbti_by_isin = load_sbti_by_isin(sbti_csv)  # Modif Mohamed
 
-    # 2. Instanciation des filtres (seuils relatifs calculés sur l'univers complet)
+    # 2. Instanciation des filtres (seuils relatifs calculés sur l'univers complet)  # Modif Mohamed
     pab_filter = PABExclusionFilter()
     dnsh_filter = DNSHControversyFilter()
     gov_filter = GoodGovernanceAndRatingFilter()
-    itr_filter = ParisAlignmentITRFilter(companies, quantile_level=0.80)
-    env_pillar_filter = EnvironmentalPillarFilter(companies, quantile_level=0.05)
-    footprint_filter = SectorCarbonFootprintFilter(companies, percentile=0.90)
+    itr_filter = ParisAlignmentITRFilter(companies, quantile_level=0.80)  # Modif Mohamed
+    env_pillar_filter = EnvironmentalPillarFilter(companies, quantile_level=0.05)  # Modif Mohamed
+    footprint_filter = SectorCarbonFootprintFilter(companies, percentile=0.90)  # Modif Mohamed
     carbon_filter = SectorCarbonIntensityFilter(companies, percentile=0.90)
     climate_sdg_filter = ClimateSDGFilter()
-    pos_contrib_filter = PositiveContributionFilter(sbti_by_isin, min_taxonomy_rev=20.0)
+    pos_contrib_filter = PositiveContributionFilter(sbti_by_isin, min_taxonomy_rev=20.0)  # Modif Mohamed
     thematic_filter = HealthTechAIScopeFilter()
     financial_filter = FinancialQualityFilter()
 
-    if verbose:
-        sbti_counts = Counter(pos_contrib_filter.sbti_status(c) for c in companies)
-        print(f"[Données SBTi] {len(sbti_by_isin)} entreprises avec ISIN dans la base SBTi")
-        print(f"   Jointure ISIN avec notre univers : {total_initial - sbti_counts['Absent de la base SBTi']} valeurs trouvées")
-        for status, n in sbti_counts.most_common():
-            print(f"   - {status:<36} : {n:>4}")
-        print()
+    if verbose:  # Modif Mohamed
+        sbti_counts = Counter(pos_contrib_filter.sbti_status(c) for c in companies)  # Modif Mohamed
+        print(f"[Données SBTi] {len(sbti_by_isin)} entreprises avec ISIN dans la base SBTi")  # Modif Mohamed
+        print(f"   Jointure ISIN avec notre univers : {total_initial - sbti_counts['Absent de la base SBTi']} valeurs trouvées")  # Modif Mohamed
+        for status, n in sbti_counts.most_common():  # Modif Mohamed
+            print(f"   - {status:<36} : {n:>4}")  # Modif Mohamed
+        print()  # Modif Mohamed
 
-    # --- SÉLECTION EXTRA-FINANCIÈRE (Slides 13 & 40 à 50) ---
+    # --- SÉLECTION EXTRA-FINANCIÈRE (Slides 13 & 40 à 50) ---  # Modif Mohamed
     if verbose:
         print("-" * 80)
-        print(" A. FILTRAGE EXTRA-FINANCIER SFDR ARTICLE 2(17) & PAB (SLIDES 13, 40-50)")
+        print(" A. FILTRAGE EXTRA-FINANCIER SFDR ARTICLE 2(17) & PAB (SLIDES 13, 40-50)")  # Modif Mohamed
         print("-" * 80)
 
     step1 = pab_filter.filter(companies)
     if verbose:
-        print(f"[1] {pab_filter.name:<52} ({pab_filter.slide_ref}) : {len(step1):>4} valeurs (-{total_initial - len(step1):>3} exclues)")
+        print(f"[1] {pab_filter.name:<52} ({pab_filter.slide_ref}) : {len(step1):>4} valeurs (-{total_initial - len(step1):>3} exclues)")  # Modif Mohamed
 
     step2 = dnsh_filter.filter(step1)
     if verbose:
-        print(f"[2] {dnsh_filter.name:<52} ({dnsh_filter.slide_ref}) : {len(step2):>4} valeurs (-{len(step1) - len(step2):>3} exclues)")
+        print(f"[2] {dnsh_filter.name:<52} ({dnsh_filter.slide_ref}) : {len(step2):>4} valeurs (-{len(step1) - len(step2):>3} exclues)")  # Modif Mohamed
 
     step3 = gov_filter.filter(step2)
     if verbose:
-        print(f"[3] {gov_filter.name:<52} ({gov_filter.slide_ref}) : {len(step3):>4} valeurs (-{len(step2) - len(step3):>3} exclues)")
+        print(f"[3] {gov_filter.name:<52} ({gov_filter.slide_ref}) : {len(step3):>4} valeurs (-{len(step2) - len(step3):>3} exclues)")  # Modif Mohamed
 
     step4 = itr_filter.filter(step3)
     if verbose:
-        print(f"[4] {itr_filter.name:<52} ({itr_filter.slide_ref}) : {len(step4):>4} valeurs (-{len(step3) - len(step4):>3} exclues)")
+        print(f"[4] {itr_filter.name:<52} ({itr_filter.slide_ref}) : {len(step4):>4} valeurs (-{len(step3) - len(step4):>3} exclues)")  # Modif Mohamed
 
-    step5 = env_pillar_filter.filter(step4)
+    step5 = env_pillar_filter.filter(step4)  # Modif Mohamed
     if verbose:
-        print(f"[5] {env_pillar_filter.name:<52} ({env_pillar_filter.slide_ref}) : {len(step5):>4} valeurs (-{len(step4) - len(step5):>3} exclues)")
+        print(f"[5] {env_pillar_filter.name:<52} ({env_pillar_filter.slide_ref}) : {len(step5):>4} valeurs (-{len(step4) - len(step5):>3} exclues)")  # Modif Mohamed
 
-    step6 = footprint_filter.filter(step5)
+    step6 = footprint_filter.filter(step5)  # Modif Mohamed
     if verbose:
-        print(f"[6] {footprint_filter.name:<52} ({footprint_filter.slide_ref}) : {len(step6):>4} valeurs (-{len(step5) - len(step6):>3} exclues)")
+        print(f"[6] {footprint_filter.name:<52} ({footprint_filter.slide_ref}) : {len(step6):>4} valeurs (-{len(step5) - len(step6):>3} exclues)")  # Modif Mohamed
 
-    step7 = carbon_filter.filter(step6)
+    step7 = carbon_filter.filter(step6)  # Modif Mohamed
     if verbose:
-        print(f"[7] {carbon_filter.name:<52} ({carbon_filter.slide_ref}) : {len(step7):>4} valeurs (-{len(step6) - len(step7):>3} exclues)")
+        print(f"[7] {carbon_filter.name:<52} ({carbon_filter.slide_ref}) : {len(step7):>4} valeurs (-{len(step6) - len(step7):>3} exclues)")  # Modif Mohamed
 
-    step8 = climate_sdg_filter.filter(step7)
-    if verbose:
-        print(f"[8] {climate_sdg_filter.name:<52} ({climate_sdg_filter.slide_ref}) : {len(step8):>4} valeurs (-{len(step7) - len(step8):>3} exclues)")
+    step8 = climate_sdg_filter.filter(step7)  # Modif Mohamed
+    if verbose:  # Modif Mohamed
+        print(f"[8] {climate_sdg_filter.name:<52} ({climate_sdg_filter.slide_ref}) : {len(step8):>4} valeurs (-{len(step7) - len(step8):>3} exclues)")  # Modif Mohamed
 
-    sustainable_companies = pos_contrib_filter.filter(step8)
-    if verbose:
-        print(f"[9] {pos_contrib_filter.name:<52} ({pos_contrib_filter.slide_ref}) : {len(sustainable_companies):>4} valeurs (-{len(step8) - len(sustainable_companies):>3} exclues)")
+    sustainable_companies = pos_contrib_filter.filter(step8)  # Modif Mohamed
+    if verbose:  # Modif Mohamed
+        print(f"[9] {pos_contrib_filter.name:<52} ({pos_contrib_filter.slide_ref}) : {len(sustainable_companies):>4} valeurs (-{len(step8) - len(sustainable_companies):>3} exclues)")  # Modif Mohamed
         print(f"\n=> UNIVERS EXTRA-FINANCIER ÉLIGIBLE ARTICLE 2(17) SFDR : {len(sustainable_companies)} valeurs conservées sur {total_initial}")
         print(f"   Taux de sélectivité extra-financière : {(1 - len(sustainable_companies)/total_initial)*100:.1f}% exclus (conforme AMF > 20% & Slide 50)")
 
@@ -230,20 +230,20 @@ def run_pipeline(verbose=True):
 
     thematic_candidates = thematic_filter.filter(sustainable_companies)
     if verbose:
-        print(f"[10] {thematic_filter.name:<51} ({thematic_filter.slide_ref}) : {len(thematic_candidates):>4} valeurs dans le scope")
+        print(f"[10] {thematic_filter.name:<51} ({thematic_filter.slide_ref}) : {len(thematic_candidates):>4} valeurs dans le scope")  # Modif Mohamed
 
     final_selected_universe = financial_filter.filter(thematic_candidates)
     if verbose:
-        print(f"[11] {financial_filter.name:<51} ({financial_filter.slide_ref}) : {len(final_selected_universe):>4} valeurs hautement qualifiées")
+        print(f"[11] {financial_filter.name:<51} ({financial_filter.slide_ref}) : {len(final_selected_universe):>4} valeurs hautement qualifiées")  # Modif Mohamed
         print(f"\n=> UNIVERS SÉLECTIONNABLE FINAL (Synapse HealthTech & AI Fund) : {len(final_selected_universe)} actifs")
 
     # Export des actifs du fonds dans data/
     file_scope_data = os.path.join(root_dir, "data", "actifs_notre_secteur_healthtech_ai.csv")
     export_to_csv(file_scope_data, final_selected_universe, headers)
 
-    # Export de la jointure SBTi (statut de chaque valeur de l'univers) dans data/sbti/
-    file_sbti_join = os.path.join(root_dir, "data", "sbti", "jointure_sbti_msci.csv")
-    export_sbti_join(file_sbti_join, companies, pos_contrib_filter)
+    # Export de la jointure SBTi (statut de chaque valeur de l'univers) dans data/sbti/  # Modif Mohamed
+    file_sbti_join = os.path.join(root_dir, "data", "sbti", "jointure_sbti_msci.csv")  # Modif Mohamed
+    export_sbti_join(file_sbti_join, companies, pos_contrib_filter)  # Modif Mohamed
 
     legacy_tri = os.path.join(root_dir, "dossier_tri")
     if os.path.exists(legacy_tri):
@@ -253,7 +253,7 @@ def run_pipeline(verbose=True):
         print("\n" + "=" * 80)
         print(" SYNTHÈSE DU LIVRABLE GÉNÉRÉ DANS LE DOSSIER data/")
         print(f" • Actifs sélectionnés pour le fonds : {file_scope_data} ({len(final_selected_universe)} actifs)")
-        print(f" • Jointure SBTi de l'univers         : {file_sbti_join} ({len(companies)} valeurs)")
+        print(f" • Jointure SBTi de l'univers         : {file_sbti_join} ({len(companies)} valeurs)")  # Modif Mohamed
         print("=" * 80)
 
     return final_selected_universe

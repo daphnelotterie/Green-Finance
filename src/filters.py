@@ -18,37 +18,37 @@ règles appliquées telles qu'elles sont en vigueur à la date des données (31/
   - Slide 50 (note 1) : les entreprises sans donnée sont éliminées pour chaque filtre
   - Slide 62 : Intersection des 3 univers (Venn) :
                Univers Financier Quantitatif ∩ Univers Extra-Financier ∩ Univers Thématique Discrétionnaire
-"""
+"""  # Modif Mohamed
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
 
-# Champs utilisés par les filtres extra-financiers
-CONTROVERSY_FIELDS = ("ENVIRONMENT_CONTROVERSY_SCORE", "SOCIAL_CONTROVERSY_SCORE", "GOVERNANCE_CONTROVERSY_SCORE")
-INTENSITY_FIELDS = ("INTENSITY_SCOPE_1", "INTENSITY_SCOPE_2", "INTENSITY_SCOPE_3")
-FOOTPRINT_FIELDS = ("FOOTPRINT_SCOPE_1", "FOOTPRINT_SCOPE_2", "FOOTPRINT_SCOPE_3")
-CLIMATE_SDGS = (7, 12, 13)
+# Champs utilisés par les filtres extra-financiers  # Modif Mohamed
+CONTROVERSY_FIELDS = ("ENVIRONMENT_CONTROVERSY_SCORE", "SOCIAL_CONTROVERSY_SCORE", "GOVERNANCE_CONTROVERSY_SCORE")  # Modif Mohamed
+INTENSITY_FIELDS = ("INTENSITY_SCOPE_1", "INTENSITY_SCOPE_2", "INTENSITY_SCOPE_3")  # Modif Mohamed
+FOOTPRINT_FIELDS = ("FOOTPRINT_SCOPE_1", "FOOTPRINT_SCOPE_2", "FOOTPRINT_SCOPE_3")  # Modif Mohamed
+CLIMATE_SDGS = (7, 12, 13)  # Modif Mohamed
 
-# Statuts officiels de la base SBTi (Target Dashboard, fichier "companies")
-SBTI_STATUS_FIELDS = ("near_term_status", "long_term_status", "net_zero_status")
-SBTI_VALIDATION_FIELDS = ("near_term_status", "long_term_status")  # seuls ces statuts valent validation
-SBTI_VALIDATED = "Validated Targets"           # objectif validé par SBTi
-SBTI_COMMITTED = "Commitment to Set Targets"   # simple engagement, pas encore validé
-SBTI_REMOVED = "Commitment Removed"            # engagement retiré ou expiré
+# Statuts officiels de la base SBTi (Target Dashboard, fichier "companies")  # Modif Mohamed
+SBTI_STATUS_FIELDS = ("near_term_status", "long_term_status", "net_zero_status")  # Modif Mohamed
+SBTI_VALIDATION_FIELDS = ("near_term_status", "long_term_status")  # seuls ces statuts valent validation  # Modif Mohamed
+SBTI_VALIDATED = "Validated Targets"           # objectif validé par SBTi  # Modif Mohamed
+SBTI_COMMITTED = "Commitment to Set Targets"   # simple engagement, pas encore validé  # Modif Mohamed
+SBTI_REMOVED = "Commitment Removed"            # engagement retiré ou expiré  # Modif Mohamed
 
 
-def quantile(values: List[float], q: float) -> float:
-    """Quantile par interpolation linéaire (même convention que numpy / pandas)."""
-    xs = sorted(values)
-    h = (len(xs) - 1) * q
-    lo = int(h)
-    hi = min(lo + 1, len(xs) - 1)
-    t = h - lo
-    if t >= 0.5:
-        return xs[hi] - (xs[hi] - xs[lo]) * (1 - t)
-    return xs[lo] + (xs[hi] - xs[lo]) * t
+def quantile(values: List[float], q: float) -> float:  # Modif Mohamed
+    """Quantile par interpolation linéaire (même convention que numpy / pandas)."""  # Modif Mohamed
+    xs = sorted(values)  # Modif Mohamed
+    h = (len(xs) - 1) * q  # Modif Mohamed
+    lo = int(h)  # Modif Mohamed
+    hi = min(lo + 1, len(xs) - 1)  # Modif Mohamed
+    t = h - lo  # Modif Mohamed
+    if t >= 0.5:  # Modif Mohamed
+        return xs[hi] - (xs[hi] - xs[lo]) * (1 - t)  # Modif Mohamed
+    return xs[lo] + (xs[hi] - xs[lo]) * t  # Modif Mohamed
 
 
 class Company:
@@ -104,11 +104,11 @@ class Company:
         self.intensity_s2 = self._parse_float("INTENSITY_SCOPE_2")
         self.intensity_s3 = self._parse_float("INTENSITY_SCOPE_3")
         self.carbon_intensity_s12 = self.intensity_s1 + self.intensity_s2
-        self.carbon_intensity_s123 = self.carbon_intensity_s12 + self.intensity_s3
-        self.footprint_s1 = self._parse_float("FOOTPRINT_SCOPE_1")
-        self.footprint_s2 = self._parse_float("FOOTPRINT_SCOPE_2")
-        self.footprint_s3 = self._parse_float("FOOTPRINT_SCOPE_3")
-        self.carbon_footprint_s123 = self.footprint_s1 + self.footprint_s2 + self.footprint_s3
+        self.carbon_intensity_s123 = self.carbon_intensity_s12 + self.intensity_s3  # Modif Mohamed
+        self.footprint_s1 = self._parse_float("FOOTPRINT_SCOPE_1")  # Modif Mohamed
+        self.footprint_s2 = self._parse_float("FOOTPRINT_SCOPE_2")  # Modif Mohamed
+        self.footprint_s3 = self._parse_float("FOOTPRINT_SCOPE_3")  # Modif Mohamed
+        self.carbon_footprint_s123 = self.footprint_s1 + self.footprint_s2 + self.footprint_s3  # Modif Mohamed
 
         # Exclusions PAB (Slide 44)
         self.cweap_tie = data.get("CWEAP_TIE", "").strip() == "1"
@@ -129,9 +129,9 @@ class Company:
         except (ValueError, TypeError):
             return default
 
-    def is_missing(self, *fields: str) -> bool:
-        """True si au moins un des champs est vide (donnée manquante => exclusion, slide 50)."""
-        return any(self._raw_data.get(f, "").strip() in ("", "NA", "N/A") for f in fields)
+    def is_missing(self, *fields: str) -> bool:  # Modif Mohamed
+        """True si au moins un des champs est vide (donnée manquante => exclusion, slide 50)."""  # Modif Mohamed
+        return any(self._raw_data.get(f, "").strip() in ("", "NA", "N/A") for f in fields)  # Modif Mohamed
 
     def get_sdg(self, number: int) -> float:
         return self.sdg_scores.get(number, 0.0)
@@ -164,7 +164,7 @@ class PABExclusionFilter(AbstractFilter):
     - Armes controversées (CWEAP_TIE = 1 ; champ renseigné uniquement pour les entreprises impliquées)
     - Tabac (TOB_PRODUCER = 1 ; donnée manquante => exclusion)
     - Pétrole & charbon : le fichier ne donne pas la part du CA fossile, proxy = secteur Energy exclu
-    """
+    """  # Modif Mohamed
 
     def __init__(self):
         super().__init__(
@@ -176,7 +176,7 @@ class PABExclusionFilter(AbstractFilter):
     def evaluate(self, company: Company) -> bool:
         if company.cweap_tie:
             return False
-        if company.tob_producer or company.is_missing("TOB_PRODUCER"):
+        if company.tob_producer or company.is_missing("TOB_PRODUCER"):  # Modif Mohamed
             return False
         if company.sector == "Energy":
             return False
@@ -189,7 +189,7 @@ class DNSHControversyFilter(AbstractFilter):
     Exclusion des controverses sévères sur les 3 piliers Environnement, Social et Gouvernance.
     Critère : note de controverse >= 2.0 (les scores 0 et 1 correspondent aux alertes rouges MSCI).
     Donnée de controverse manquante => exclusion.
-    """
+    """  # Modif Mohamed
 
     def __init__(self):
         super().__init__(
@@ -199,8 +199,8 @@ class DNSHControversyFilter(AbstractFilter):
         )
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing(*CONTROVERSY_FIELDS):
-            return False
+        if company.is_missing(*CONTROVERSY_FIELDS):  # Modif Mohamed
+            return False  # Modif Mohamed
         return (
             company.env_controversy >= 2.0
             and company.soc_controversy >= 2.0
@@ -213,18 +213,18 @@ class GoodGovernanceAndRatingFilter(AbstractFilter):
     Slide 41 & 50 : Article 9 - Bonne Gouvernance (SFDR Art. 2(17)).
     - Exclusion des notes ESG < BB (notes 'B' et 'CCC')
     - Note ESG manquante => exclusion
-    """
+    """  # Modif Mohamed
 
     def __init__(self):
         super().__init__(
-            name="Bonne Gouvernance - Notation ESG >= BB",
-            slide_ref="Slide 41 & 50",
-            description="Exclut les notations ESG inférieures à BB (B, CCC) et les entreprises non notées."
+            name="Bonne Gouvernance - Notation ESG >= BB",  # Modif Mohamed
+            slide_ref="Slide 41 & 50",  # Modif Mohamed
+            description="Exclut les notations ESG inférieures à BB (B, CCC) et les entreprises non notées."  # Modif Mohamed
         )
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing("IVA_COMPANY_RATING"):
-            return False
+        if company.is_missing("IVA_COMPANY_RATING"):  # Modif Mohamed
+            return False  # Modif Mohamed
         if company.rating in ["CCC", "B"]:
             return False
         return True
@@ -236,42 +236,42 @@ class ParisAlignmentITRFilter(AbstractFilter):
     Règle en vigueur depuis février 2024 (donc à la date des données, 31/12/2024) :
     exclusion des 20% d'entreprises les plus chaudes, c'est-à-dire ITR >= Q80% de l'univers.
     (L'ancienne règle « ITR > 2°C » n'est plus appliquée.) ITR manquant => exclusion.
-    """
+    """  # Modif Mohamed
 
-    def __init__(self, companies: List[Company], quantile_level: float = 0.80):
-        self.max_itr = quantile([c.itr for c in companies if not c.is_missing("ITR")], quantile_level)
+    def __init__(self, companies: List[Company], quantile_level: float = 0.80):  # Modif Mohamed
+        self.max_itr = quantile([c.itr for c in companies if not c.is_missing("ITR")], quantile_level)  # Modif Mohamed
         super().__init__(
-            name=f"Accord de Paris - ITR < Q{int(quantile_level * 100)}% ({self.max_itr:.1f}°C)",
+            name=f"Accord de Paris - ITR < Q{int(quantile_level * 100)}% ({self.max_itr:.1f}°C)",  # Modif Mohamed
             slide_ref="Slide 43 & 50",
-            description=f"Exclut les entreprises dont l'ITR est supérieur ou égal à {self.max_itr:.1f}°C (Q{int(quantile_level * 100)}%)."
+            description=f"Exclut les entreprises dont l'ITR est supérieur ou égal à {self.max_itr:.1f}°C (Q{int(quantile_level * 100)}%)."  # Modif Mohamed
         )
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing("ITR"):
-            return False
-        return company.itr < self.max_itr
+        if company.is_missing("ITR"):  # Modif Mohamed
+            return False  # Modif Mohamed
+        return company.itr < self.max_itr  # Modif Mohamed
 
 
-class EnvironmentalPillarFilter(AbstractFilter):
+class EnvironmentalPillarFilter(AbstractFilter):  # Modif Mohamed
     """
     Slide 45 & 50 : Exclusions complémentaires - Pilier E.
     Exclusion des notes du pilier Environnement inférieures ou égales au quantile à 5% (3/10).
     Pilier E manquant => exclusion.
-    """
+    """  # Modif Mohamed
 
-    def __init__(self, companies: List[Company], quantile_level: float = 0.05):
-        self.min_score = quantile([c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")],
-                                  quantile_level)
-        super().__init__(
-            name=f"Pilier E > Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",
-            slide_ref="Slide 45 & 50",
-            description=f"Exclut les notes du pilier E inférieures ou égales à {self.min_score:.1f}/10."
-        )
+    def __init__(self, companies: List[Company], quantile_level: float = 0.05):  # Modif Mohamed
+        self.min_score = quantile([c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")],  # Modif Mohamed
+                                  quantile_level)  # Modif Mohamed
+        super().__init__(  # Modif Mohamed
+            name=f"Pilier E > Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",  # Modif Mohamed
+            slide_ref="Slide 45 & 50",  # Modif Mohamed
+            description=f"Exclut les notes du pilier E inférieures ou égales à {self.min_score:.1f}/10."  # Modif Mohamed
+        )  # Modif Mohamed
 
-    def evaluate(self, company: Company) -> bool:
-        if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):
-            return False
-        return company.env_pillar > self.min_score
+    def evaluate(self, company: Company) -> bool:  # Modif Mohamed
+        if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):  # Modif Mohamed
+            return False  # Modif Mohamed
+        return company.env_pillar > self.min_score  # Modif Mohamed
 
 
 class SectorCarbonIntensityFilter(AbstractFilter):
@@ -279,47 +279,47 @@ class SectorCarbonIntensityFilter(AbstractFilter):
     Slide 46 & 50 : Intensité Carbone Sectorielle (tCO2e / M$ de chiffre d'affaires).
     Exclusion des 10% d'entreprises les plus émettrices (Scope 1+2+3) au sein de chaque secteur GICS.
     Seuils calculés sur l'univers complet. Donnée carbone manquante => exclusion.
-    """
+    """  # Modif Mohamed
 
-    fields = INTENSITY_FIELDS
-    label = "Intensité"
+    fields = INTENSITY_FIELDS  # Modif Mohamed
+    label = "Intensité"  # Modif Mohamed
 
     def __init__(self, companies: List[Company], percentile: float = 0.90):
         super().__init__(
-            name=f"{self.label} Carbone Sectorielle S1+2+3 (Top 10% exclus)",
+            name=f"{self.label} Carbone Sectorielle S1+2+3 (Top 10% exclus)",  # Modif Mohamed
             slide_ref="Slide 46 & 50",
-            description=f"Exclut le décile supérieur (pire 10%) en {self.label.lower()} carbone Scope 1+2+3 au sein de chaque secteur."
+            description=f"Exclut le décile supérieur (pire 10%) en {self.label.lower()} carbone Scope 1+2+3 au sein de chaque secteur."  # Modif Mohamed
         )
         self.sector_thresholds = self._compute_thresholds(companies, percentile)
 
-    def value(self, company: Company) -> float:
-        return company.carbon_intensity_s123
+    def value(self, company: Company) -> float:  # Modif Mohamed
+        return company.carbon_intensity_s123  # Modif Mohamed
 
     def _compute_thresholds(self, companies: List[Company], percentile: float) -> Dict[str, float]:
         by_sec = defaultdict(list)
         for c in companies:
-            if not c.is_missing(*self.fields):
-                by_sec[c.sector].append(self.value(c))
-        return {sec: quantile(vals, percentile) for sec, vals in by_sec.items()}
+            if not c.is_missing(*self.fields):  # Modif Mohamed
+                by_sec[c.sector].append(self.value(c))  # Modif Mohamed
+        return {sec: quantile(vals, percentile) for sec, vals in by_sec.items()}  # Modif Mohamed
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing(*self.fields):
-            return False
+        if company.is_missing(*self.fields):  # Modif Mohamed
+            return False  # Modif Mohamed
         thresh = self.sector_thresholds.get(company.sector, float("inf"))
-        return self.value(company) <= thresh
+        return self.value(company) <= thresh  # Modif Mohamed
 
 
-class SectorCarbonFootprintFilter(SectorCarbonIntensityFilter):
+class SectorCarbonFootprintFilter(SectorCarbonIntensityFilter):  # Modif Mohamed
     """
     Slide 46 & 50 : Empreinte Carbone Sectorielle (tCO2e / M$ investi, rapportée à la valeur d'entreprise).
     Même règle que l'intensité : exclusion du pire décile Scope 1+2+3 de chaque secteur.
-    """
+    """  # Modif Mohamed
 
-    fields = FOOTPRINT_FIELDS
-    label = "Empreinte"
+    fields = FOOTPRINT_FIELDS  # Modif Mohamed
+    label = "Empreinte"  # Modif Mohamed
 
-    def value(self, company: Company) -> float:
-        return company.carbon_footprint_s123
+    def value(self, company: Company) -> float:  # Modif Mohamed
+        return company.carbon_footprint_s123  # Modif Mohamed
 
 
 class ClimateSDGFilter(AbstractFilter):
@@ -328,19 +328,19 @@ class ClimateSDGFilter(AbstractFilter):
     Exclusion des entreprises non alignées aux ODD climatiques 7, 12 ou 13
     (ODD 7: Énergie propre, ODD 12: Consommation responsable, ODD 13: Climat).
     Critère du cours : score net d'alignement = -10 sur l'un des trois ODD. Score manquant => exclusion.
-    """
+    """  # Modif Mohamed
 
     def __init__(self):
         super().__init__(
             name="ODD Environnementaux (ODD 7, 12, 13)",
             slide_ref="Slide 47 & 50",
-            description="Exclut les entreprises non alignées aux ODD climatiques (score = -10) ou sans donnée."
+            description="Exclut les entreprises non alignées aux ODD climatiques (score = -10) ou sans donnée."  # Modif Mohamed
         )
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing(*(f"SDG_{k:02d}_NET_ALIGNMENT_SCORE" for k in CLIMATE_SDGS)):
-            return False
-        return all(company.get_sdg(k) > -10.0 for k in CLIMATE_SDGS)
+        if company.is_missing(*(f"SDG_{k:02d}_NET_ALIGNMENT_SCORE" for k in CLIMATE_SDGS)):  # Modif Mohamed
+            return False  # Modif Mohamed
+        return all(company.get_sdg(k) > -10.0 for k in CLIMATE_SDGS)  # Modif Mohamed
 
 
 class PositiveContributionFilter(AbstractFilter):
@@ -355,43 +355,43 @@ class PositiveContributionFilter(AbstractFilter):
     Règle de validation SBTi : near_term_status == 'Validated Targets' OU long_term_status == 'Validated Targets'.
     Un simple engagement ('Commitment to Set Targets'), un engagement retiré ('Commitment Removed'),
     une absence de la base SBTi ou une donnée manquante ne sont jamais considérés comme une validation.
-    """
+    """  # Modif Mohamed
 
-    def __init__(self, sbti_by_isin: Dict[str, Dict[str, str]], min_taxonomy_rev: float = 20.0):
+    def __init__(self, sbti_by_isin: Dict[str, Dict[str, str]], min_taxonomy_rev: float = 20.0):  # Modif Mohamed
         super().__init__(
-            name="Contribution Positive (Taxo >= 20% ou SBTi validé)",
-            slide_ref="Slide 13",
-            description="Exige >= 20% du CA aligné Taxonomie UE ou un objectif de réduction des émissions validé par SBTi."
+            name="Contribution Positive (Taxo >= 20% ou SBTi validé)",  # Modif Mohamed
+            slide_ref="Slide 13",  # Modif Mohamed
+            description="Exige >= 20% du CA aligné Taxonomie UE ou un objectif de réduction des émissions validé par SBTi."  # Modif Mohamed
         )
-        self.sbti_by_isin = sbti_by_isin
-        self.min_taxonomy_rev = min_taxonomy_rev
+        self.sbti_by_isin = sbti_by_isin  # Modif Mohamed
+        self.min_taxonomy_rev = min_taxonomy_rev  # Modif Mohamed
 
-    def sbti_status(self, company: Company) -> str:
-        """Statut SBTi de l'entreprise, retrouvée par son ISIN."""
-        record = self.sbti_by_isin.get(company.isin.upper())
-        if record is None:
-            return "Absent de la base SBTi"
-        if any(record.get(f, "").strip() == SBTI_VALIDATED for f in SBTI_VALIDATION_FIELDS):
-            return "Objectif validé"
-        statuses = [record.get(f, "").strip() for f in SBTI_STATUS_FIELDS]
-        if SBTI_VALIDATED in statuses:
-            return "Net zéro validé seul (non retenu)"
-        if SBTI_COMMITTED in statuses:
-            return "Engagement seulement (non validé)"
-        if SBTI_REMOVED in statuses:
-            return "Engagement retiré"
-        return "Statut non renseigné"
+    def sbti_status(self, company: Company) -> str:  # Modif Mohamed
+        """Statut SBTi de l'entreprise, retrouvée par son ISIN."""  # Modif Mohamed
+        record = self.sbti_by_isin.get(company.isin.upper())  # Modif Mohamed
+        if record is None:  # Modif Mohamed
+            return "Absent de la base SBTi"  # Modif Mohamed
+        if any(record.get(f, "").strip() == SBTI_VALIDATED for f in SBTI_VALIDATION_FIELDS):  # Modif Mohamed
+            return "Objectif validé"  # Modif Mohamed
+        statuses = [record.get(f, "").strip() for f in SBTI_STATUS_FIELDS]  # Modif Mohamed
+        if SBTI_VALIDATED in statuses:  # Modif Mohamed
+            return "Net zéro validé seul (non retenu)"  # Modif Mohamed
+        if SBTI_COMMITTED in statuses:  # Modif Mohamed
+            return "Engagement seulement (non validé)"  # Modif Mohamed
+        if SBTI_REMOVED in statuses:  # Modif Mohamed
+            return "Engagement retiré"  # Modif Mohamed
+        return "Statut non renseigné"  # Modif Mohamed
 
-    def has_sbti_validated_target(self, company: Company) -> bool:
-        return self.sbti_status(company) == "Objectif validé"
+    def has_sbti_validated_target(self, company: Company) -> bool:  # Modif Mohamed
+        return self.sbti_status(company) == "Objectif validé"  # Modif Mohamed
 
-    def has_sustainable_revenue(self, company: Company) -> bool:
-        if company.is_missing("EST_EU_TAXONOMY_MAX_REV"):
-            return False
-        return company.eu_taxonomy_rev >= self.min_taxonomy_rev
+    def has_sustainable_revenue(self, company: Company) -> bool:  # Modif Mohamed
+        if company.is_missing("EST_EU_TAXONOMY_MAX_REV"):  # Modif Mohamed
+            return False  # Modif Mohamed
+        return company.eu_taxonomy_rev >= self.min_taxonomy_rev  # Modif Mohamed
 
     def evaluate(self, company: Company) -> bool:
-        return self.has_sustainable_revenue(company) or self.has_sbti_validated_target(company)
+        return self.has_sustainable_revenue(company) or self.has_sbti_validated_target(company)  # Modif Mohamed
 
 
 class HealthTechAIScopeFilter(AbstractFilter):
