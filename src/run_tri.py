@@ -10,12 +10,12 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
   - Étape 2 : DNSH - Filtrage des controverses sévères E, S, G (Slide 42 & 50)
   - Étape 3 : Bonne gouvernance - Notes ESG < BB exclues (Slide 41 & 50)
   - Étape 4 : Accord de Paris - Température ITR < Q80% (Slide 43 & 50)
-  - Étape 5 : Pilier E > quantile à 5% (Slide 45 & 50)
+  - Étape 5 : Pilier E >= quantile à 5%, les notes E < Q5% sont exclues (Slide 45 & 50)
   - Étape 6 : Empreinte carbone sectorielle Scope 1+2+3 (Slide 46 & 50)
   - Étape 7 : Intensité carbone sectorielle Scope 1+2+3 (Slide 46 & 50)
   - Étape 8 : ODD climatiques 7, 12, 13 (Slide 47 & 50)
   - Étape 9 : Contribution positive : Taxonomie >= 20% du CA ou objectif SBTi validé (Slide 13)
-              (jointure par ISIN avec les données SBTi de data/sbti/)
+              (jointure par ISIN avec les données SBTi de data/sbti/ + rapprochements par nom vérifiés : SBTI_NAME_MATCHES)
 
   - Étape 10 : Intersection Univers Thématique HealthTech & AI (Slide 62)
   - Étape 11 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
@@ -41,6 +41,8 @@ try:
         ClimateSDGFilter,
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
+        # HealthTechAIScopeFilterV3,  # option thématique à valider par le groupe  # Modif Mohamed
+        # HealthTechAIScopeFilterV6b,  # option thématique à valider par le groupe  # Modif Mohamed
         FinancialQualityFilter,
         SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
@@ -57,6 +59,8 @@ except ImportError:
         ClimateSDGFilter,
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
+        # HealthTechAIScopeFilterV3,  # option thématique à valider par le groupe  # Modif Mohamed
+        # HealthTechAIScopeFilterV6b,  # option thématique à valider par le groupe  # Modif Mohamed
         FinancialQualityFilter,
         SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
@@ -89,14 +93,104 @@ def export_to_csv(filepath: str, companies, headers):
     print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
 
 
+# Rapprochements par nom, vérifiés à la main un par un (nom, pays, secteur) :  # Modif Mohamed
+# fiches SBTi sans ISIN, ou avec un autre ISIN que le nôtre (ancien ISIN avant une division d'actions,  # Modif Mohamed
+# autre classe d'actions, ISIN d'obligation). Clé = ISIN de notre univers, valeur = sbti_id de la base SBTi.  # Modif Mohamed
+# Le statut reste celui de la base SBTi : seul 'Validated Targets' vaut validation.  # Modif Mohamed
+# Rejetés après vérification (autre société ou filiale) : Ferrari Group PLC, PPL Inc. (Japon), Nice Group Holding  # Modif Mohamed
+# (Thaïlande), Mercedes-Benz AG, JAPAN POST Co., Kao (ISIN et secteur incohérents), homonymes "X&Y" de T&D Holdings.  # Modif Mohamed
+SBTI_NAME_MATCHES = {  # Modif Mohamed
+    "US02079K3059": "40009770",  # Alphabet Inc (ISIN SBTi US02079K1079)  # Modif Mohamed
+    "US91324P1021": "40004642",  # UnitedHealth Group Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "DK0062498333": "40011759",  # Novo Nordisk A/S (ISIN SBTi DK0060534915)  # Modif Mohamed
+    "JP3633400001": "40012050",  # Toyota Motor Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "US8825081040": "40016887",  # Texas Instruments Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US0311621009": "40013586",  # Amgen Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US8636671013": "40008600",  # Stryker Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "US0404132054": "40016903",  # Arista Networks Inc (ISIN SBTi US0404131064)  # Modif Mohamed
+    "US5128073062": "40002772",  # Lam Research Corp (ISIN SBTi US5128071082)  # Modif Mohamed
+    "IE00BK9ZQ967": "40005184",  # Trane Technologies PLC (ISIN SBTi US456873AF50)  # Modif Mohamed
+    "US95040Q1040": "40006499",  # Welltower Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "SE0017486889": "40016060",  # Atlas Copco AB (ISIN SBTi SE0000101032)  # Modif Mohamed
+    "US34959E1091": "40015131",  # Fortinet Inc (ISIN SBTi US34959EAB56)  # Modif Mohamed
+    "GB00BD6K4575": "40011990",  # Compass Group PLC (ISIN SBTi GB00BLNN3L44)  # Modif Mohamed
+    "IE000IVNQZ81": "40001391",  # TE Connectivity Ltd (ISIN absent dans SBTi)  # Modif Mohamed
+    "JP3837800006": "40025776",  # Hoya Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "SE0000115420": "40000092",  # Volvo AB (ISIN SBTi NO0003573016)  # Modif Mohamed
+    "DE000A1EWWW0": "40013504",  # adidas AG (ISIN absent dans SBTi)  # Modif Mohamed
+    "US0494681010": "40006398",  # Atlassian Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "US24703L2025": "40003670",  # Dell Technologies Inc (ISIN SBTi US24703L1035)  # Modif Mohamed
+    "GB00BM8PJY71": "40007372",  # NatWest Group PLC (ISIN SBTi GB00B7T77214)  # Modif Mohamed
+    "US49271V1008": "40000587",  # Keurig Dr Pepper Inc (ISIN SBTi US26138E1091)  # Modif Mohamed
+    "US2944291051": "40014347",  # Equifax Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "GB00BLGZ9862": "40010607",  # Tesco PLC (ISIN SBTi GB0008847096)  # Modif Mohamed
+    "CA9628791027": "40008490",  # Wheaton Precious Metals Corp (ISIN SBTi CA8283361076)  # Modif Mohamed
+    "JP3548600000": "40029049",  # Disco Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "JP3188220002": "40003913",  # Otsuka Holdings Co Ltd (ISIN SBTi JP318822BQ90)  # Modif Mohamed
+    "US9553061055": "40003146",  # West Pharmaceutical Services I (ISIN absent dans SBTi)  # Modif Mohamed
+    "DE0006048408": "40004394",  # Henkel AG & Co KGaA (ISIN SBTi DE0006048432)  # Modif Mohamed
+    "FR001400AJ45": "40006897",  # Michelin (ISIN SBTi FR0000121261)  # Modif Mohamed
+    "CA8849038085": "40001574",  # Thomson Reuters Corp (ISIN SBTi CA8849031056)  # Modif Mohamed
+    "DE0007664005": "40008739",  # Volkswagen AG (ISIN SBTi DE0007664039)  # Modif Mohamed
+    "US29084Q1004": "40010518",  # EMCOR Group Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US69370C1009": "40014590",  # PTC Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US30040W1080": "40015961",  # Eversource Energy (ISIN absent dans SBTi)  # Modif Mohamed
+    "CH1216478797": "40014780",  # DSM-Firmenich AG (ISIN SBTi NL0000009827)  # Modif Mohamed
+    "US8962391004": "40013292",  # Trimble Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "CH0024638212": "40012037",  # Schindler Holding AG (ISIN SBTi CH0024638196)  # Modif Mohamed
+    "SE0009922156": "40004069",  # Essity AB (ISIN SBTi SE0009922164)  # Modif Mohamed
+    "SE0015658109": "40002519",  # Epiroc AB (ISIN SBTi SE0011166933)  # Modif Mohamed
+    "GB00BPQY8M80": "40013805",  # Aviva PLC (ISIN SBTi GB0002162385)  # Modif Mohamed
+    "US86800U3023": "40005203",  # Super Micro Computer Inc (ISIN SBTi US86800U1043)  # Modif Mohamed
+    "US29362U1043": "40018443",  # Entegris Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US42250P1030": "40006397",  # Healthpeak Properties Inc (ISIN SBTi US40414L1098)  # Modif Mohamed
+    "JE00BTDN8H13": "40005379",  # Aptiv PLC (ISIN SBTi JE00B783TY65)  # Modif Mohamed
+    "US98954M1018": "40012569",  # Zillow Group Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "CH1175448666": "40015034",  # Straumann Holding AG (ISIN SBTi CH0012280076)  # Modif Mohamed
+    "DK0061539921": "40011359",  # Vestas Wind Systems A/S (ISIN SBTi DK0010268606)  # Modif Mohamed
+    "US4262811015": "40009307",  # Jack Henry & Associates Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US1156371007": "40007741",  # Brown-Forman Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "CH1256740924": "40013913",  # SGS SA (ISIN SBTi CH0002497458)  # Modif Mohamed
+    "US7587501039": "40002488",  # Regal Rexnord Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "NL0015001WM6": "40006193",  # QIAGEN NV (ISIN SBTi NL0000240000)  # Modif Mohamed
+    "JP3190000004": "40012040",  # Obayashi Corp (ISIN absent dans SBTi)  # Modif Mohamed
+    "US79589L1061": "40004091",  # Samsara Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "US8064071025": "40013152",  # Henry Schein Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "JP3429800000": "40003080",  # ANA Holdings Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "JP3137200006": "40002932",  # Isuzu Motors Ltd (ISIN SBTi JP313720AM24)  # Modif Mohamed
+    "SE0020050417": "40016052",  # Boliden AB (ISIN SBTi SE0017768716)  # Modif Mohamed
+    "JP3820000002": "40002633",  # Fuji Electric Co Ltd (ISIN absent dans SBTi)  # Modif Mohamed
+    "SE0000108201": "40006601",  # SKF AB (ISIN SBTi SE0000108227)  # Modif Mohamed
+    "SE0021921269": "40011375",  # Saab AB (ISIN SBTi SE0000112385)  # Modif Mohamed
+    "US29109X1063": "40007819",  # Aspen Technology Inc (ISIN SBTi US0453271035)  # Modif Mohamed
+    "DK0060636678": "40018724",  # Tryg A/S (ISIN absent dans SBTi)  # Modif Mohamed
+    "KYG2177B1014": "40012470",  # CK Asset Holdings Ltd (ISIN absent dans SBTi)  # Modif Mohamed
+    "DE0007165631": "40004286",  # Sartorius AG (ISIN SBTi DE0007165607)  # Modif Mohamed
+    "GB00BMWC6P49": "40010829",  # Mondi PLC (ISIN SBTi GB00B1CRLC47)  # Modif Mohamed
+    "DE000KBX1006": "40004014",  # Knorr-Bremse AG (ISIN absent dans SBTi)  # Modif Mohamed
+    "FI0009007900": "40009216",  # Kesko Oyj (ISIN SBTi FI0009000202)  # Modif Mohamed
+    "CA8029121057": "40011989",  # Saputo Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "SE0004635878": "40013520",  # Sagax AB (ISIN absent dans SBTi)  # Modif Mohamed
+    "GB00BP9LHF23": "40014702",  # Schroders PLC (ISIN SBTi GB0002405495)  # Modif Mohamed
+    "KYG393871085": "40021977",  # GLOBALFOUNDRIES Inc (ISIN absent dans SBTi)  # Modif Mohamed
+    "GB00BM8Q5M07": "40016013",  # JD Sports Fashion PLC (ISIN SBTi GB00BYX91H57)  # Modif Mohamed
+    "SE0021628898": "40015797",  # Volvo Car AB (ISIN SBTi SE0016844831)  # Modif Mohamed
+}  # Modif Mohamed
+
+
 def load_sbti_by_isin(filepath: str):  # Modif Mohamed
-    """Charge la base SBTi (une ligne par entreprise) indexée par ISIN. Les lignes sans ISIN sont ignorées."""  # Modif Mohamed
+    """Charge la base SBTi indexée par ISIN, complétée par les rapprochements par nom vérifiés (SBTI_NAME_MATCHES)."""  # Modif Mohamed
     sbti_by_isin = {}  # Modif Mohamed
+    sbti_by_id = {}  # Modif Mohamed
     with open(filepath, mode="r", encoding="utf-8") as f:  # Modif Mohamed
         for row in csv.DictReader(f):  # Modif Mohamed
+            sbti_by_id[(row.get("sbti_id") or "").strip()] = row  # Modif Mohamed
             isin = (row.get("isin") or "").strip().upper()  # Modif Mohamed
             if isin and isin not in sbti_by_isin:  # Modif Mohamed
                 sbti_by_isin[isin] = row  # Modif Mohamed
+    for our_isin, sbti_id in SBTI_NAME_MATCHES.items():  # Modif Mohamed
+        if sbti_id in sbti_by_id:  # Modif Mohamed
+            sbti_by_isin[our_isin] = sbti_by_id[sbti_id]  # Modif Mohamed
     return sbti_by_isin  # Modif Mohamed
 
 
@@ -154,7 +248,7 @@ def run_pipeline(verbose=True):
     if verbose:
         print(f"\n[Univers Initial] MSCI World Developed Markets : {total_initial} valeurs\n")
 
-    # Données SBTi (jointure par ISIN)  # Modif Mohamed
+    # Données SBTi (jointure par ISIN + rapprochements par nom vérifiés)  # Modif Mohamed
     sbti_by_isin = load_sbti_by_isin(sbti_csv)  # Modif Mohamed
 
     # 2. Instanciation des filtres (seuils relatifs calculés sur l'univers complet)  # Modif Mohamed
@@ -168,12 +262,15 @@ def run_pipeline(verbose=True):
     climate_sdg_filter = ClimateSDGFilter()
     pos_contrib_filter = PositiveContributionFilter(sbti_by_isin, min_taxonomy_rev=20.0)  # Modif Mohamed
     thematic_filter = HealthTechAIScopeFilter()
+    # Options à faire valider par le groupe (décommenter aussi la classe dans src/filters.py et son import) :  # Modif Mohamed
+    # thematic_filter = HealthTechAIScopeFilterV3()   # V3 : Santé + Tech IA  # Modif Mohamed
+    # thematic_filter = HealthTechAIScopeFilterV6b()  # V6b : V3 + industriels choisis  # Modif Mohamed
     financial_filter = FinancialQualityFilter()
 
     if verbose:  # Modif Mohamed
         sbti_counts = Counter(pos_contrib_filter.sbti_status(c) for c in companies)  # Modif Mohamed
-        print(f"[Données SBTi] {len(sbti_by_isin)} entreprises avec ISIN dans la base SBTi")  # Modif Mohamed
-        print(f"   Jointure ISIN avec notre univers : {total_initial - sbti_counts['Absent de la base SBTi']} valeurs trouvées")  # Modif Mohamed
+        print(f"[Données SBTi] {len(sbti_by_isin)} ISIN reliés à une fiche SBTi (dont {len(SBTI_NAME_MATCHES)} rapprochements par nom vérifiés)")  # Modif Mohamed
+        print(f"   Jointure avec notre univers : {total_initial - sbti_counts['Absent de la base SBTi']} valeurs trouvées")  # Modif Mohamed
         for status, n in sbti_counts.most_common():  # Modif Mohamed
             print(f"   - {status:<36} : {n:>4}")  # Modif Mohamed
         print()  # Modif Mohamed

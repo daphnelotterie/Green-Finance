@@ -12,7 +12,7 @@ règles appliquées telles qu'elles sont en vigueur à la date des données (31/
   - Slide 42 : Article 9 - DNSH (Exclusion des notes de controverse E, S ou G < 2/10)
   - Slide 43 & 50 : Accord de Paris - Température (Exclusion ITR >= Q80%, règle en vigueur depuis février 2024)
   - Slide 44 : Dénomination du fonds - Exclusions PAB (Armes controversées, Pétrole, Charbon, Tabac)
-  - Slide 45 : Pilier E - Exclusion des notes inférieures ou égales au quantile à 5% (3/10)
+  - Slide 45 & 50 : Pilier E - Exclusion des notes strictement inférieures au quantile à 5% (E < Q5%, 3/10)
   - Slide 46 : Empreinte ET intensité carbone Scope 1+2+3 (Exclusion du pire décile de chaque secteur)
   - Slide 47 : ODD 7, 12 et 13 (Exclusion des entreprises non alignées : score = -10)
   - Slide 50 (note 1) : les entreprises sans donnée sont éliminées pour chaque filtre
@@ -255,7 +255,8 @@ class ParisAlignmentITRFilter(AbstractFilter):
 class EnvironmentalPillarFilter(AbstractFilter):  # Modif Mohamed
     """
     Slide 45 & 50 : Exclusions complémentaires - Pilier E.
-    Exclusion des notes du pilier Environnement inférieures ou égales au quantile à 5% (3/10).
+    Règle « Note du pilier E < Q5% » (slide 50) : exclusion des notes du pilier Environnement
+    strictement inférieures au quantile à 5% (3/10) ; une note égale au quantile est conservée.
     Pilier E manquant => exclusion.
     """  # Modif Mohamed
 
@@ -263,15 +264,15 @@ class EnvironmentalPillarFilter(AbstractFilter):  # Modif Mohamed
         self.min_score = quantile([c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")],  # Modif Mohamed
                                   quantile_level)  # Modif Mohamed
         super().__init__(  # Modif Mohamed
-            name=f"Pilier E > Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",  # Modif Mohamed
+            name=f"Pilier E >= Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",  # Modif Mohamed
             slide_ref="Slide 45 & 50",  # Modif Mohamed
-            description=f"Exclut les notes du pilier E inférieures ou égales à {self.min_score:.1f}/10."  # Modif Mohamed
+            description=f"Exclut les notes du pilier E strictement inférieures à {self.min_score:.1f}/10."  # Modif Mohamed
         )  # Modif Mohamed
 
     def evaluate(self, company: Company) -> bool:  # Modif Mohamed
         if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):  # Modif Mohamed
             return False  # Modif Mohamed
-        return company.env_pillar > self.min_score  # Modif Mohamed
+        return company.env_pillar >= self.min_score  # Modif Mohamed
 
 
 class SectorCarbonIntensityFilter(AbstractFilter):
@@ -351,7 +352,8 @@ class PositiveContributionFilter(AbstractFilter):
     - Au moins 20% du chiffre d'affaires dans des activités durables
       (proxy : CA aligné Taxonomie UE, EST_EU_TAXONOMY_MAX_REV >= 20)
     - OU un objectif de réduction des émissions validé par SBTi
-      (jointure par ISIN avec data/sbti/companies-excel.csv, source : sciencebasedtargets.org/target-dashboard)
+      (jointure par ISIN avec data/sbti/companies-excel.csv, source : sciencebasedtargets.org/target-dashboard,
+      complétée par les rapprochements par nom vérifiés à la main : SBTI_NAME_MATCHES dans run_tri.py)
     Règle de validation SBTi : near_term_status == 'Validated Targets' OU long_term_status == 'Validated Targets'.
     Un simple engagement ('Commitment to Set Targets'), un engagement retiré ('Commitment Removed'),
     une absence de la base SBTi ou une donnée manquante ne sont jamais considérés comme une validation.
@@ -443,6 +445,71 @@ class HealthTechAIScopeFilter(AbstractFilter):
                 return True
 
         return False
+
+
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+# OPTIONS DE FILTRE THÉMATIQUE À FAIRE CHOISIR PAR LE GROUPE (désactivées)                          # Modif Mohamed
+# Pour activer une option :                                                                         # Modif Mohamed
+#   1. décommenter la classe choisie ci-dessous (pour V6b, décommenter aussi V3 : V6b en hérite),   # Modif Mohamed
+#   2. dans src/run_tri.py, décommenter son import et remplacer thematic_filter = ... (lignes prêtes). # Modif Mohamed
+# Résultats simulés (données au 31/12/2024, même filtre financier et même optimiseur) :            # Modif Mohamed
+#   - V3  : 33 lignes, Santé 68,5% / Tech 31,5%                                                     # Modif Mohamed
+#   - V6b : 39 lignes, Santé 51,5% / Tech 27,5% / Industrie 21,0%                                   # Modif Mohamed
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+
+# class HealthTechAIScopeFilterV3(AbstractFilter):  # Modif Mohamed
+#     """
+#     Slide 62 : Univers Thématique - Option V3 « Santé + Tech IA ».
+#     1. Santé : tout le secteur Health Care.
+#     2. Tech IA : secteur Information Technology, uniquement les semi-conducteurs (calcul IA)
+#        et une liste discrétionnaire de logiciels de conception de puces et de simulation.
+#     Industrie et Consommation de base exclues.
+#     """  # Modif Mohamed
+#
+#     AI_SOFTWARE = ["cadence design", "synopsys", "dassault systemes", "ansys"]  # liste discrétionnaire (Microsoft à discuter)  # Modif Mohamed
+#
+#     def __init__(self):  # Modif Mohamed
+#         super().__init__(  # Modif Mohamed
+#             name="Univers Thématique V3 - Santé + Tech IA",  # Modif Mohamed
+#             slide_ref="Slide 62 (Univers Thématique)",  # Modif Mohamed
+#             description="Santé (secteur Health Care) + semi-conducteurs et logiciels de conception / simulation."  # Modif Mohamed
+#         )  # Modif Mohamed
+#
+#     def evaluate(self, company: Company) -> bool:  # Modif Mohamed
+#         # 1. Santé : tout le secteur Health Care  # Modif Mohamed
+#         if company.sector == "Health Care":  # Modif Mohamed
+#             return True  # Modif Mohamed
+#         # 2. Tech IA : semi-conducteurs + logiciels de conception / simulation  # Modif Mohamed
+#         if company.sector == "Information Technology":  # Modif Mohamed
+#             if company.industry_group == "Semiconductors":  # Modif Mohamed
+#                 return True  # Modif Mohamed
+#             if any(n in company.name.lower() for n in self.AI_SOFTWARE):  # Modif Mohamed
+#                 return True  # Modif Mohamed
+#         return False  # Modif Mohamed
+
+
+# class HealthTechAIScopeFilterV6b(HealthTechAIScopeFilterV3):  # Modif Mohamed
+#     """
+#     Slide 62 : Univers Thématique - Option V6b « V3 + industriels choisis ».
+#     Option V3, plus une liste discrétionnaire d'industriels liés à la santé ou à l'infrastructure de l'IA :
+#     - Santé : Lifco (dentaire), Wolters Kluwer (UpToDate, aide à la décision clinique),
+#       RELX (Elsevier, données médicales et scientifiques)
+#     - Infrastructure IA : Schneider Electric et Legrand (alimentation des data centers),
+#       VAT Group (vannes pour la fabrication de puces)
+#     """  # Modif Mohamed
+#
+#     INDUSTRIALS = ["lifco", "wolters kluwer", "relx", "schneider electric", "legrand", "vat group"]  # liste discrétionnaire  # Modif Mohamed
+#
+#     def __init__(self):  # Modif Mohamed
+#         super().__init__()  # Modif Mohamed
+#         self.name = "Univers Thématique V6b - Santé + Tech IA + Industrie choisie"  # Modif Mohamed
+#         self.description = "Option V3 + industriels liés à la santé ou à l'infrastructure de l'IA (liste discrétionnaire)."  # Modif Mohamed
+#
+#     def evaluate(self, company: Company) -> bool:  # Modif Mohamed
+#         if super().evaluate(company):  # Modif Mohamed
+#             return True  # Modif Mohamed
+#         # 3. Industrie : uniquement la liste choisie  # Modif Mohamed
+#         return company.sector == "Industrials" and any(n in company.name.lower() for n in self.INDUSTRIALS)  # Modif Mohamed
 
 
 class FinancialQualityFilter(AbstractFilter):
