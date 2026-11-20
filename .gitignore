@@ -1,0 +1,11 @@
+# Fichiers de cours volumineux (21 Mo de PDF des professeurs)
+Cours/
+
+# Fichiers Python temporaires et OS
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Dossiers d'archives
+__old/
+dossier_tri/
