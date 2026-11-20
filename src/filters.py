@@ -452,9 +452,9 @@ class HealthTechAIScopeFilter(AbstractFilter):
 # Pour activer une option :                                                                         # Modif Mohamed
 #   1. décommenter la classe choisie ci-dessous (pour V6b, décommenter aussi V3 : V6b en hérite),   # Modif Mohamed
 #   2. dans src/run_tri.py, décommenter son import et remplacer thematic_filter = ... (lignes prêtes). # Modif Mohamed
-# Résultats simulés (données au 31/12/2024, même filtre financier et même optimiseur) :            # Modif Mohamed
-#   - V3  : 33 lignes, Santé 68,5% / Tech 31,5%                                                     # Modif Mohamed
-#   - V6b : 39 lignes, Santé 51,5% / Tech 27,5% / Industrie 21,0%                                   # Modif Mohamed
+# Résultats simulés (données au 31/12/2024, nouveau filtre financier, même optimiseur) :           # Modif Mohamed
+#   - V3  : 38 lignes, Santé 68,5% / Tech 31,5%                                                     # Modif Mohamed
+#   - V6b : 43 lignes, Santé 53,1% / Tech 27,9% / Industrie 19,0%                                   # Modif Mohamed
 # ------------------------------------------------------------------------------------------------  # Modif Mohamed
 
 # class HealthTechAIScopeFilterV3(AbstractFilter):  # Modif Mohamed
@@ -512,7 +512,56 @@ class HealthTechAIScopeFilter(AbstractFilter):
 #         return company.sector == "Industrials" and any(n in company.name.lower() for n in self.INDUSTRIALS)  # Modif Mohamed
 
 
-class FinancialQualityFilter(AbstractFilter):
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+# FILTRE FINANCIER - nouvelle version (la version d'origine est conservée plus bas,                 # Modif Mohamed
+# sous le nom FinancialQualityFilterDaphne). Pourquoi ces changements :                              # Modif Mohamed
+#  - Plus de sélection sur la performance boursière passée (Sharpe et rendement 5 ans) : c'était    # Modif Mohamed
+#    un filtre de momentum (17 exclusions sur 24 dues à la seule performance passée : CSL,           # Modif Mohamed
+#    Coloplast, Zimmer Biomet...), source de biais in-sample avec le backtest sur la même période,    # Modif Mohamed
+#    et un message contraire à la mention AMF « les performances passées ne préjugent pas des        # Modif Mohamed
+#    performances futures ».                                                                         # Modif Mohamed
+#  - Le FCF (annoncé « Jensen FCF » mais jamais utilisé) est réellement appliqué : FCF yield > 0.    # Modif Mohamed
+#    Cummins, Lonza et Elevance avaient un FCF négatif et étaient en portefeuille.                    # Modif Mohamed
+#  - Le ROE est retiré : non fiable dans les données (jusqu'à 22 574 % avec des fonds propres ~ 0).  # Modif Mohamed
+#  - Un critère de risque remplace la performance : exclusion des 10 % de titres les plus volatils.  # Modif Mohamed
+#  - Donnée manquante => exclusion (même règle que les filtres extra-financiers, slide 50).          # Modif Mohamed
+#  - Marketing : « durabilité financière » (slide 5 : double durabilité extra-financière et          # Modif Mohamed
+#    financière) = entreprises rentables, qui génèrent du cash et peu endettées.                     # Modif Mohamed
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+class FinancialQualityFilter(AbstractFilter):  # Modif Mohamed
+    """
+    Slide 59 & 62 : Univers Financier Quantitatif (« durabilité financière », slide 5).
+    - Rentabilité : ROIC > 5% OU marge nette > 5%
+    - Génération de cash : FCF yield > 0
+    - Solvabilité : Debt/Assets < 65%
+    - Risque : exclusion des 10% de titres les plus volatils du MSCI World (volatilité 5 ans)
+    - Donnée manquante => exclusion
+    """  # Modif Mohamed
+
+    fields = ("ROIC", "Net margin", "FCF yield", "Debt assets", "Volatility 5Y")  # Modif Mohamed
+
+    def __init__(self, companies: List[Company], vol_percentile: float = 0.90):  # Modif Mohamed
+        self.max_volatility = quantile([c.volatility_5y for c in companies if not c.is_missing("Volatility 5Y")],  # Modif Mohamed
+                                       vol_percentile)  # Modif Mohamed
+        super().__init__(  # Modif Mohamed
+            name="Univers Financier Quantitatif (Qualité & Cash)",  # Modif Mohamed
+            slide_ref="Slide 59 & 62",  # Modif Mohamed
+            description=f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."  # Modif Mohamed
+        )  # Modif Mohamed
+
+    def evaluate(self, company: Company) -> bool:  # Modif Mohamed
+        if company.is_missing(*self.fields):  # donnée manquante => exclusion  # Modif Mohamed
+            return False  # Modif Mohamed
+        is_profitable = (company.roic > 5.0) or (company.net_margin > 5.0)  # ROE retiré (non fiable)  # Modif Mohamed
+        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué  # Modif Mohamed
+        is_solvent = company.debt_assets < 65.0  # règle inchangée  # Modif Mohamed
+        not_too_volatile = company.volatility_5y <= self.max_volatility  # risque au lieu de la performance passée  # Modif Mohamed
+        return is_profitable and generates_cash and is_solvent and not_too_volatile  # Modif Mohamed
+
+
+# Version d'origine (Daphne), conservée pour mémoire : elle n'est plus utilisée par le pipeline.  # Modif Mohamed
+# Pour la réactiver : dans src/run_tri.py, utiliser la ligne commentée financial_filter = FinancialQualityFilterDaphne().  # Modif Mohamed
+class FinancialQualityFilterDaphne(AbstractFilter):  # ancienne FinancialQualityFilter, renommée  # Modif Mohamed
     """
     Slide 59 & 62 : Univers Financier Quantitatif (Théorie du FCF de Jensen 1986).
     Élimine les entreprises spéculatives non rentables, surendettées ou destructrices de valeur :

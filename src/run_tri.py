@@ -18,7 +18,7 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
               (jointure par ISIN avec les données SBTi de data/sbti/ + rapprochements par nom vérifiés : SBTI_NAME_MATCHES)
 
   - Étape 10 : Intersection Univers Thématique HealthTech & AI (Slide 62)
-  - Étape 11 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
+  - Étape 11 : Intersection Univers Financier Quantitatif (Slide 59 & 62 : rentabilité, FCF > 0, dette, volatilité)
   ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv'
   ==> Exporte 'data/sbti/jointure_sbti_msci.csv' (statut SBTi de chaque valeur de l'univers)
 """  # Modif Mohamed
@@ -44,6 +44,7 @@ try:
         # HealthTechAIScopeFilterV3,  # option thématique à valider par le groupe  # Modif Mohamed
         # HealthTechAIScopeFilterV6b,  # option thématique à valider par le groupe  # Modif Mohamed
         FinancialQualityFilter,
+        FinancialQualityFilterDaphne,  # ancienne version conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
 except ImportError:
@@ -62,6 +63,7 @@ except ImportError:
         # HealthTechAIScopeFilterV3,  # option thématique à valider par le groupe  # Modif Mohamed
         # HealthTechAIScopeFilterV6b,  # option thématique à valider par le groupe  # Modif Mohamed
         FinancialQualityFilter,
+        FinancialQualityFilterDaphne,  # ancienne version conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,  # Modif Mohamed
     )
 
@@ -265,7 +267,8 @@ def run_pipeline(verbose=True):
     # Options à faire valider par le groupe (décommenter aussi la classe dans src/filters.py et son import) :  # Modif Mohamed
     # thematic_filter = HealthTechAIScopeFilterV3()   # V3 : Santé + Tech IA  # Modif Mohamed
     # thematic_filter = HealthTechAIScopeFilterV6b()  # V6b : V3 + industriels choisis  # Modif Mohamed
-    financial_filter = FinancialQualityFilter()
+    financial_filter = FinancialQualityFilter(companies, vol_percentile=0.90)  # Modif Mohamed
+    # financial_filter = FinancialQualityFilterDaphne()  # ancienne version (Sharpe et rendement 5 ans)  # Modif Mohamed
 
     if verbose:  # Modif Mohamed
         sbti_counts = Counter(pos_contrib_filter.sbti_status(c) for c in companies)  # Modif Mohamed
