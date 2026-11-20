@@ -13,7 +13,6 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
   - Étape 5 : Empreinte & intensité carbone sectorielle (Slide 46 & 50)
   - Étape 6 : ODD climatiques et environnementaux (Slide 47 & 50)
   - Étape 7 : Contribution positive substantielle (Slide 24 & SFDR Art. 2(17))
-  ==> Exporte 'data/actifs_tous_article_9.csv' (412 valeurs)
 
   - Étape 8 : Intersection Univers Thématique HealthTech & AI (Slide 62)
   - Étape 9 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
@@ -25,7 +24,6 @@ import os
 import sys
 from collections import Counter
 
-# Support d'importation direct ou en module
 try:
     from src.filters import (
         Company,
@@ -84,7 +82,6 @@ def export_to_csv(filepath: str, companies, headers):
 def run_pipeline(verbose=True):
     root_dir = resolve_project_root()
     
-    # Recherche all_data.csv (dans data/ ou racine)
     possible_inputs = [
         os.path.join(root_dir, "data", "all_data.csv"),
         os.path.join(root_dir, "all_data.csv")
@@ -120,7 +117,7 @@ def run_pipeline(verbose=True):
     # --- SÉLECTION EXTRA-FINANCIÈRE (Slides 40 à 50) ---
     if verbose:
         print("-" * 80)
-        print(" A. CONSTRUCTION DE L'UNIVERS EXTRA-FINANCIER ARTICLE 9 GLOBAL (SLIDES 40-50)")
+        print(" A. FILTRAGE EXTRA-FINANCIER SFDR ARTICLE 2(17) & PAB (SLIDES 40-50)")
         print("-" * 80)
 
     step1 = pab_filter.filter(companies)
@@ -147,20 +144,11 @@ def run_pipeline(verbose=True):
     if verbose:
         print(f"[6] {climate_sdg_filter.name:<45} ({climate_sdg_filter.slide_ref}) : {len(step6):>4} valeurs (-{len(step5) - len(step6):>3} exclues)")
 
-    all_art9_universe = pos_contrib_filter.filter(step6)
+    sustainable_companies = pos_contrib_filter.filter(step6)
     if verbose:
-        print(f"[7] {pos_contrib_filter.name:<45} ({pos_contrib_filter.slide_ref}) : {len(all_art9_universe):>4} valeurs (-{len(step6) - len(all_art9_universe):>3} exclues)")
-        print(f"\n=> TOTAL UNIVERS EXTRA-FINANCIER ARTICLE 9 GLOBAL : {len(all_art9_universe)} valeurs conservées sur {total_initial}")
-        print(f"   Taux de sélectivité extra-financière : {(1 - len(all_art9_universe)/total_initial)*100:.1f}% exclus (conforme AMF > 20% & Slide 50)")
-
-    # Export fichier 1 dans data/
-    file_art9_data = os.path.join(root_dir, "data", "actifs_tous_article_9.csv")
-    export_to_csv(file_art9_data, all_art9_universe, headers)
-
-    # Copie dans dossier_tri si existant pour compatibilité
-    legacy_tri = os.path.join(root_dir, "dossier_tri")
-    if os.path.exists(legacy_tri):
-        export_to_csv(os.path.join(legacy_tri, "actifs_tous_article_9.csv"), all_art9_universe, headers)
+        print(f"[7] {pos_contrib_filter.name:<45} ({pos_contrib_filter.slide_ref}) : {len(sustainable_companies):>4} valeurs (-{len(step6) - len(sustainable_companies):>3} exclues)")
+        print(f"\n=> UNIVERS EXTRA-FINANCIER ÉLIGIBLE ARTICLE 2(17) SFDR : {len(sustainable_companies)} valeurs conservées sur {total_initial}")
+        print(f"   Taux de sélectivité extra-financière : {(1 - len(sustainable_companies)/total_initial)*100:.1f}% exclus (conforme AMF > 20% & Slide 50)")
 
     # --- INTERSECTION THÉMATIQUE & FINANCIÈRE (Slide 62) ---
     if verbose:
@@ -168,7 +156,7 @@ def run_pipeline(verbose=True):
         print(" B. INTERSECTION DES 3 UNIVERS : NOTRE SCOPE HEALTHTECH & AI (SLIDE 62)")
         print("-" * 80)
 
-    thematic_candidates = thematic_filter.filter(all_art9_universe)
+    thematic_candidates = thematic_filter.filter(sustainable_companies)
     if verbose:
         print(f"[8] {thematic_filter.name:<45} ({thematic_filter.slide_ref}) : {len(thematic_candidates):>4} valeurs dans le scope")
 
@@ -177,21 +165,21 @@ def run_pipeline(verbose=True):
         print(f"[9] {financial_filter.name:<45} ({financial_filter.slide_ref}) : {len(final_selected_universe):>4} valeurs hautement qualifiées")
         print(f"\n=> UNIVERS SÉLECTIONNABLE FINAL (Synapse HealthTech & AI Fund) : {len(final_selected_universe)} actifs")
 
-    # Export fichier 2 dans data/
+    # Export des actifs du fonds dans data/
     file_scope_data = os.path.join(root_dir, "data", "actifs_notre_secteur_healthtech_ai.csv")
     export_to_csv(file_scope_data, final_selected_universe, headers)
 
+    legacy_tri = os.path.join(root_dir, "dossier_tri")
     if os.path.exists(legacy_tri):
         export_to_csv(os.path.join(legacy_tri, "actifs_notre_secteur_healthtech_ai.csv"), final_selected_universe, headers)
 
     if verbose:
         print("\n" + "=" * 80)
-        print(" SYNTHÈSE DES LIVRABLES GÉNÉRÉS DANS LE DOSSIER data/")
-        print(f" 1. Fichier Article 9 Global   : {file_art9_data} ({len(all_art9_universe)} actifs)")
-        print(f" 2. Fichier Scope HealthTech&AI: {file_scope_data} ({len(final_selected_universe)} actifs)")
+        print(" SYNTHÈSE DU LIVRABLE GÉNÉRÉ DANS LE DOSSIER data/")
+        print(f" • Actifs sélectionnés pour le fonds : {file_scope_data} ({len(final_selected_universe)} actifs)")
         print("=" * 80)
 
-    return all_art9_universe, final_selected_universe
+    return final_selected_universe
 
 
 if __name__ == "__main__":

@@ -9,16 +9,17 @@
 
 ---
 
-## 1. Vue d'Ensemble & Thèse d'Investissement
+## 1. Vue d'Ensemble & Précision Réglementaire SFDR
 
-Le fonds **Synapse HealthTech & AI** est un fonds actions de conviction internationale labellisé **Article 9 SFDR** (objectif d'investissement durable au sens de l'Article 2(17) SFDR). 
+Une entreprise n'est pas « Article 9 » en soi : **seul le fonds (le produit financier) peut être classifié Article 9**.  
+Les entreprises composant le portefeuille doivent quant à elles satisfaire au statut d'**Investissement Durable** au sens de l'**Article 2(17) SFDR** (contribution positive environnementale ou sociale, respect du principe DNSH et pratiques de bonne gouvernance).
 
-Il capitalise sur la convergence séculaire entre :
+Le fonds **Synapse HealthTech & AI** est un fonds actions de conviction internationale labellisé **Article 9 SFDR**. Il capitalise sur la convergence séculaire entre :
 1. **Les sciences de la vie et la santé** (biotechnologies, thérapies géniques, robotique chirurgicale, diagnostics).
-2. **L'intelligence artificielle computationnelle** (modélisation moléculaire, puissance de calcul accéléré, simulation d'essais cliniques, instrumentation d'imagerie).
+2. **L'intelligence artificielle computationnelle** (modélisation moléculaire, calcul accéléré, simulation d'essais cliniques, instrumentation d'imagerie).
 
 Le portefeuille est construit à l'intersection rigoureuse de **trois univers** selon le modèle méthodologique présenté par **Jean Jardel (Slide 62)** :
-$$\text{Univers Sélectionnable} = \text{Univers Extra-Financier (Art. 9 / PAB)} \cap \text{Univers Thématique Discrétionnaire} \cap \text{Univers Financier Quantitatif}$$
+$$\text{Univers Sélectionnable} = \text{Univers Extra-Financier (Art. 2(17) / PAB)} \cap \text{Univers Thématique Discrétionnaire} \cap \text{Univers Financier Quantitatif}$$
 
 L'allocation est résolue via la théorie de la **Frontière ESG-Efficiente de Pedersen, Fitzgibbons et Pomorski (2021, *Journal of Financial Economics*)** formulée sous contraintes convexes selon la **Slide 63 du cours**.
 
@@ -26,67 +27,50 @@ L'allocation est résolue via la théorie de la **Frontière ESG-Efficiente de P
 
 ## 2. Structure et Organisation du Projet
 
-Le projet a été restructuré pour permettre une auditabilité totale et un partage immédiat entre collègues et avec le jury :
-
 ```text
 Final_project/
-├── run_pipeline.py                 # Script maître : exécute le tri, l'optimisation et le backtest en 1 clic
+├── run_pipeline.py                 # Script maître : exécute tri, optimisation et backtest en 1 clic
 ├── README.md                       # Documentation générale du projet et guide d'exécution
-├── Projet Final.pdf                # Sujet officiel et consignes d'évaluation du cours
+├── Projet Final.pdf                # Sujet officiel et consignes de notation
 │
-├── data/                           # DOSSIER CENTRAL DES DONNÉES ET LIVRABLES CSV
-│   ├── all_data.csv                # Univers initial brut : 1 247 valeurs (MSCI World Developed Markets)
-│   ├── actifs_tous_article_9.csv   # Livrable 1 : 412 entreprises éligibles SFDR Article 9 (tous secteurs)
-│   ├── actifs_notre_secteur_healthtech_ai.csv # Livrable 2 : 50 entreprises qualifiées dans notre scope
-│   ├── portefeuille_final_pondere.csv         # Livrable 3 : Portefeuille final avec pondérations optimisées (Excel)
-│   └── resultats_backtest_comparaison.csv     # Livrable 4 : Tableau comparatif complet de backtest (Excel)
+├── data/                           # DOSSIER DES DONNÉES & FICHIERS CSV (LIVRABLES EXCEL)
+│   ├── all_data.csv                # Données brutes initiales (1 247 valeurs MSCI World)
+│   ├── actifs_notre_secteur_healthtech_ai.csv # 50 valeurs éligibles sélectionnées dans notre scope
+│   ├── portefeuille_final_pondere.csv         # Livrable officiel : Portefeuille final avec poids (Excel)
+│   └── resultats_backtest_comparaison.csv     # Livrable officiel : Tableau de backtest comparatif (Excel)
 │
-├── src/                            # CODE SOURCE PYTHON (ARCHITECTURE ORIENTÉE OBJET)
+├── src/                            # CODE SOURCE PYTHON (ORIENTÉ OBJET & SANS DÉPENDANCES LOURDES)
 │   ├── __init__.py
 │   ├── filters.py                  # Classes de filtres POO (Slides 24, 40-52 de Jean Jardel)
-│   ├── run_tri.py                  # Moteur d'application de l'entonnoir de sélection
+│   ├── run_tri.py                  # Moteur d'application de l'entonnoir de filtrage
 │   ├── optimizer.py                # Optimiseur quadratique de Pedersen (Slide 63, Water-Filling)
-│   └── backtest.py                 # Moteur de calcul multi-horizons (1Y, 5Y, 10Y) et risques de queue
+│   └── backtest.py                 # Moteur de backtest multi-horizons (1Y, 5Y, 10Y)
 │
-├── docs/                           # RAPPORTS ET SUPPORTS POUR LA PRÉSENTATION ORALE
-│   ├── resultats_backtest.md       # Rapport d'analyse financière & extra-financière et plan des 10 slides
+├── docs/                           # DOSSIER DES RAPPORTS ET SUPPORTS DE SOUTENANCE
+│   ├── resultats_backtest.md       # Analyse financière/ESG complète et plan des 10 slides
 │   ├── criteres_article_9_sfdr.md  # Note technique sur la réglementation SFDR Art. 9, DNSH et doctrine AMF
-│   ├── strategie_fonds_healthtech_ai_art9.md # Thèse d'investissement détaillée et 4 piliers du fonds
-│   ├── strategies_quantitatives.md # Synthèse académique des 4 stratégies quantitatives proposées
-│   └── strategies_quantitatives.pdf# Version PDF mise en page des stratégies quantitatives
+│   ├── strategie_fonds_healthtech_ai_art9.md # Thèse d'investissement et piliers du fonds
+│   ├── strategies_quantitatives.md # Comparatif académique des 4 stratégies quantitatives
+│   └── strategies_quantitatives.pdf# Support PDF des stratégies quantitatives
 │
-├── Cours/                          # SUPPORTS DE COURS OFFICIELS DES ENSEIGNANTS
-│   ├── Finance_Durable_Approche_Quantitative.pdf # Cours complet d'approche quantitative (J. Jardel, 65 slides)
-│   ├── Cours_gouvernance_2026-2027_finale.pdf   # Cours sur la théorie de la gouvernance (T. Béchu)
-│   ├── 272 - Finance Durable - 2026-2027 - N°1-1.pdf # Cours 1 : Limites planétaires et climat
-│   ├── 272 - Finance Durable - 2026-2027 - N°2.pdf   # Cours 2 : Cadre SFDR et indices PAB
-│   └── 272 - Finance Durable - 2026-2027 - N°4.pdf   # Cours 4 : Agrégation et notation ESG
+├── Cours/                          # SUPPORTS DE COURS OFFICIELS DES PROFESSEURS
+│   ├── Finance_Durable_Approche_Quantitative.pdf # Cours Jean Jardel (Kanopy AM, 65 slides)
+│   ├── Cours_gouvernance_2026-2027_finale.pdf   # Cours Thierry Béchu (Gouvernance & FCF Jensen)
+│   ├── 272 - Finance Durable - 2026-2027 - N°1-1.pdf
+│   ├── 272 - Finance Durable - 2026-2027 - N°2.pdf
+│   └── 272 - Finance Durable - 2026-2027 - N°4.pdf
 │
-└── dossier_tri/                    # Dossier miroir conservé pour rétro-compatibilité
+└── dossier_tri/                    # Miroir conservé pour rétro-compatibilité
 ```
 
 ---
 
 ## 3. Guide de Démarrage Rapide (Quick Start)
 
-Le projet est conçu en **Python 3 standard pur** : aucune installation complexe de packages (`numpy`, `scipy` ou `pandas`) n'est requise. Il s'exécute directement sur n'importe quel ordinateur en **moins de 2 secondes**.
+Le projet est conçu en **Python 3 standard pur** : aucune installation complexe de packages (`numpy`, `scipy` ou `pandas`) n'est requise. Il s'exécute directement en **moins de 2 secondes**.
 
-### Exécution du Pipeline Complet en 1 Commande :
-Depuis la racine du projet :
 ```bash
 python3 run_pipeline.py
-```
-
-### Exécution Modulaire Étape par Étape :
-```bash
-# 1. Exécuter l'entonnoir de filtrage extra-financier et thématique
-python3 src/run_tri.py
-
-# 2. Exécuter l'optimisation des poids de Pedersen (Frontière ESG-Efficiente)
-python3 src/optimizer.py
-
-# 3. Exécuter le moteur de backtest comparatif
-python3 src/backtest.py
 ```
 
 ---
@@ -105,13 +89,10 @@ L'univers de départ de 1 247 valeurs du MSCI World est filtré pas à pas selon
 | **5** | **Intensité Carbone Sectorielle** (Exclusion du pire décile 10% Scope 1+2 par secteur) | Slide 46 & 50 | **505** | - 31 |
 | **6** | **ODD Climatiques** (Exclusion des atteintes nettes aux ODD 7, 12, 13) | Slide 47 & 50 | **491** | - 14 |
 | **7** | **Contribution Positive Substantielle** (SFDR Art. 2(17) condition 1) | Slide 24 | **412** | - 79 |
-| **📁** | **UNIVERS EXTRA-FINANCIER ARTICLE 9 GLOBAL** | **Slide 50 & 62** | **412 valeurs** | **-67.0% sélectivité** |
+| **📁** | **UNIVERS EXTRA-FINANCIER ÉLIGIBLE SFDR ART. 2(17)** | **Slide 50 & 62** | **412 valeurs** | **-67.0% sélectivité** |
 | **8** | **Univers Thématique Discrétionnaire** (HealthTech & AI Scope) | Slide 62 | **77 valeurs** | - |
 | **9** | **Univers Financier Quantitatif** (FCF Jensen 1986, ROE/ROIC $> 5\%$, Sharpe $> 0.10$) | Slide 59 & 62 | **50 valeurs** | - 27 |
-| **🎯** | **UNIVERS SÉLECTIONNABLE FINAL** | **Slide 62 & 63** | **50 valeurs** | **Portefeuille final** |
-
-> **Validation Slide 52 (Les Exclus Notables) :**  
-> Notre filtre élimine fidèlement les grandes valeurs citées par Jean Jardel : **NVIDIA, AMD, Broadcom, Micron** (exclus par l'ITR $> 2.0^\circ\text{C}$), **Apple, Amazon, Tesla, Meta** (exclus par le DNSH social $< 2.0$) et **Alphabet** (exclu par la gouvernance $\le 3.0$).
+| **🎯** | **UNIVERS SÉLECTIONNABLE FINAL DU FONDS** | **Slide 62 & 63** | **50 valeurs** | **Portefeuille final** |
 
 ---
 
@@ -129,13 +110,6 @@ $$\begin{cases}
 \sum_{i \in \text{Tech IA}} w_i \in [28\%, 40\%] & \text{(Puissance computationnelle \& Enablers)} \\
 \sum_{i \in \text{Industrie}} w_i \le 15\% & \text{(Filtration \& Instruments de précision)}
 \end{cases}$$
-
-* **$\gamma = 3.0$** : Aversion institutionnelle au risque.
-* **$\theta = 0.04$** : Intensité du tilt d'impact extra-financier le long de la frontière de Pedersen.
-* **$\Sigma$** : Matrice de covariance structurée (modèle Elton-Gruber : $\rho_{\text{intra}} = 0.50$, $\rho_{\text{inter}} = 0.28$).
-* **$S_{\text{Impact}}$** : Score composite standardisé en $z$-scores :
-  $$S_{\text{Impact}, i} = 0.40 \cdot z(\text{ODD\_03}_i) + 0.25 \cdot z(\text{ODD\_09}_i) - 0.20 \cdot z(\text{ITR}_i) + 0.15 \cdot z(\text{Gov}_i)$$
-* **Algorithme de Résolution :** Descente de gradient projetée avec projection exacte de *Water-Filling* par bissection.
 
 ---
 
@@ -162,27 +136,13 @@ Les métriques sont issues de [`data/resultats_backtest_comparaison.csv`](file:/
 
 ---
 
-## 7. Principales Valeurs en Portefeuille (Top Convictions)
+## 7. Livrables Officiels pour le Rendu
 
-Le fichier [`data/portefeuille_final_pondere.csv`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/data/portefeuille_final_pondere.csv) détaille l'ensemble des 50 positions. Les premières lignes à la borne maximale de **4.50%** illustrent parfaitement la thèse :
-* **Eli Lilly & Co (`LLY US`, 4.50%)** : Rdt 5Y = 44.9%, ITR = 1.5°C, leader mondial GLP-1 (obésité/diabète) et drug design par IA.
-* **Cadence Design Systems (`CDNS US`, 4.50%)** : Rdt 5Y = 35.3%, ITR = 1.3°C, logiciels de conception de puces accélératrices biomédicales.
-* **Novo Nordisk (`NOVOB DC`, 4.50%)** : Rdt 5Y = 27.2%, ITR = 1.3°C, leader des traitements métaboliques, décarbonation exemplaire.
-* **ASM International (`ASM NA`, 4.50%)** : Rdt 5Y = 41.2%, ITR = 1.4°C, dépôts en couches atomiques pour processeurs d'IA.
-* **Advantest Corp (`6857 JP`, 4.50%)** : Rdt 5Y = 36.5%, ITR = 2.0°C, testeurs de puces graphiques utilisées en imagerie médicale.
-* **Pentair PLC (`PNR US`, 4.50%)** : Rdt 5Y = 19.6%, ITR = 2.0°C, filtration d'eau ultra-pure et fluides critiques pour la biopharmacie.
-* **Regeneron Pharmaceuticals (`REGN US`, 4.50%)** : Rdt 5Y = 15.1%, ODD 3 = +5.0, plateforme d'anticorps optimisés par génétique computationnelle.
-* **Vertex Pharmaceuticals (`VRTX US`, 4.50%)** : Rdt 5Y = 14.4%, ODD 3 = +4.5, thérapies géniques CRISPR (Casgevy).
-
----
-
-## 8. Livrables pour la Remise du Projet Final
-
-Conformément aux consignes du fichier `Projet Final.pdf`, les éléments à transmettre à Thierry Béchu et Jean Jardel sont :
+Conformément aux consignes du fichier `Projet Final.pdf`, les livrables à transmettre à Thierry Béchu et Jean Jardel sont :
 
 1. **Fichier Excel des Actifs et Pondérations :**  
-   Fichier [`data/portefeuille_final_pondere.csv`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/data/portefeuille_final_pondere.csv), directement importable sous Excel (colonnes ticker, nom, isin, secteur, poids en %, rendement 5Y, volatilité, Sharpe, ITR, scores ODD et gouvernance).
+   Fichier [`data/portefeuille_final_pondere.csv`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/data/portefeuille_final_pondere.csv).
 2. **Fichier Excel des Données Complémentaires :**  
-   Fichier [`data/resultats_backtest_comparaison.csv`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/data/resultats_backtest_comparaison.csv), contenant l'ensemble des métriques comparatives et historiques.
+   Fichier [`data/resultats_backtest_comparaison.csv`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/data/resultats_backtest_comparaison.csv).
 3. **Support de Présentation (PowerPoint de 10 Slides) :**  
    La trame complète des 10 diapositives est rédigée dans [`docs/resultats_backtest.md`](file:///Users/daphnelotterie/Desktop/Etudes/M2%20272/Green%20Finance/Final_project/docs/resultats_backtest.md).
