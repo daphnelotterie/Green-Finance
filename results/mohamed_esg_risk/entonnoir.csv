@@ -1,0 +1,13 @@
+etape,filtre,reference,entrees,retenues,exclues,filter_mode
+0,Univers initial MSCI World,,1247,1247,0,mohamed
+1,Exclusions PAB & Combustibles Fossiles,Slide 44 & 50,1247,1178,69,mohamed
+2,DNSH - Filtrage des Controverses Sévères,Slide 42 & 50,1178,1014,164,mohamed
+3,Bonne Gouvernance - Notation ESG >= BB,Slide 41 & 50,1014,1004,10,mohamed
+4,Accord de Paris - ITR < Q80% (3.1°C),Slide 43 & 50,1004,819,185,mohamed
+5,Pilier E >= Q5% (3.0/10),Slide 45 & 50,819,792,27,mohamed
+6,Empreinte Carbone Sectorielle S1+2+3 (Top 10% exclus),Slide 46 & 50,792,724,68,mohamed
+7,Intensité Carbone Sectorielle S1+2+3 (Top 10% exclus),Slide 46 & 50,724,699,25,mohamed
+8,"ODD Environnementaux (ODD 7, 12, 13)",Slide 47 & 50,699,692,7,mohamed
+9,Contribution positive stricte (Taxo >= 20% ou SBTi validé),Slide 13 & SFDR Art. 2(17),692,335,357,mohamed
+10,Univers Thématique HealthTech & AI,Slide 62 (Univers Thématique),335,61,274,mohamed
+11,Univers Financier Quantitatif (Qualité & Cash),Slide 59 & 62,61,47,14,mohamed

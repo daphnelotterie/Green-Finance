@@ -1,25 +1,24 @@
-"""
-MODULE DE FILTRAGE ORIENTÉ OBJET (POO) - SÉLECTION SFDR ARTICLE 9 & PAB
-------------------------------------------------------------------------
-Master 272 - Finance Durable (Université Paris-Dauphine)
-Enseignants : Thierry BÉCHU & Jean JARDEL (Kanopy AM)
+"""Filtres de sélection communs aux modes Daphné et Mohamed.
 
-Basé sur le cours 'Finance Durable - Approche Quantitative' (Jean Jardel, 2026) :
-  - Slide 24 : Définition SFDR Article 2(17) (Contribution positive, DNSH, Bonne gouvernance)
-  - Slide 41 : Notations ESG & Bonne gouvernance (Exclusion notes CCC et B)
-  - Slide 42 : DNSH - Notes de controverses E, S, G (Exclusion controverses sévères < 2.0)
-  - Slide 43 : Accord de Paris - Trajectoire de température (ITR <= 2.0°C)
-  - Slide 44 : Dénomination du fonds - Exclusions PAB (Armes controversées, Tabac, Énergie fossile)
-  - Slide 45 : Pilier Gouvernance - Exclusion du quantile à 5% (Note G <= 3.0 / 10)
-  - Slide 46 : Empreinte & Intensité carbone sectorielle (Exclusion pire décile 10% par secteur)
-  - Slide 47 : ODD Climatiques (Exclusion atteintes ODD 7, 12, 13)
-  - Slide 62 : Intersection des 3 univers (Venn) :
-               Univers Financier Quantitatif ∩ Univers Extra-Financier ∩ Univers Thématique Discrétionnaire
+Les classes et l'ordre de l'entonnoir historique sont conservés. Les trois
+variantes de règles portent sur l'ITR, l'égalité au quantile du pilier E et la
+contribution positive. Les seuils relatifs sont calculés sur l'univers initial.
+Il s'agit de règles pédagogiques/proxys, pas d'une certification réglementaire.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Optional
 from collections import defaultdict
+from math import isfinite
+
+
+FILTER_MODES = ("daphne", "mohamed")
+
+
+def validate_filter_mode(filter_mode: str) -> str:
+    if filter_mode not in FILTER_MODES:
+        raise ValueError(f"Mode de filtrage inconnu : {filter_mode!r}. Choix : {', '.join(FILTER_MODES)}")
+    return filter_mode
 
 
 # Champs utilisés par les filtres extra-financiers
@@ -38,6 +37,8 @@ SBTI_REMOVED = "Commitment Removed"
 
 def quantile(values: List[float], q: float) -> float:
     """Quantile par interpolation linéaire (convention standard numpy / pandas)."""
+    if not values or not 0.0 <= q <= 1.0:
+        raise ValueError("Un quantile exige des données valides et un niveau compris entre 0 et 1.")
     xs = sorted(values)
     h = (len(xs) - 1) * q
     lo = int(h)
@@ -122,7 +123,8 @@ class Company:
         if not val or val.strip() in ("", "NA", "N/A"):
             return default
         try:
-            return float(val.strip())
+            number = float(val.strip())
+            return number if isfinite(number) else default
         except (ValueError, TypeError):
             return default
 
@@ -134,6 +136,13 @@ class Company:
             val = self._raw_data.get(f)
             if val is None or val.strip() in ("", "NA", "N/A"):
                 return True
+            # Les champs numériques illisibles sont aussi des données manquantes.
+            if f != "IVA_COMPANY_RATING":
+                try:
+                    if not isfinite(float(val)):
+                        return True
+                except (ValueError, TypeError):
+                    return True
         return False
 
     def to_dict(self) -> Dict[str, str]:
@@ -228,46 +237,52 @@ class GoodGovernanceAndRatingFilter(AbstractFilter):
 
 
 class ParisAlignmentITRFilter(AbstractFilter):
-    """
-    Slide 43 & 50 : Accord de Paris - Trajectoire de Température.
-    Exclusion des entreprises dont la trajectoire climatique implicite dépasse 2.0°C.
-    Permet au portefeuille d'assurer une trajectoire globale rigoureusement alignée 1.5°C.
-    Donnée ITR manquante => exclusion (Slide 50, note 1).
-    """
+    """Daphné : ITR <= 2°C ; Mohamed : ITR < Q80 de l'univers initial."""
 
-    def __init__(self, max_itr: float = 2.0):
-        super().__init__(
-            name="Accord de Paris - Trajectoire ITR <= 2.0°C",
-            slide_ref="Slide 43 & 50",
-            description=f"Exclut les entreprises dont l'ITR est strictement supérieur à {max_itr}°C ou sans donnée."
-        )
+    def __init__(self, max_itr: float = 2.0, *, companies=None,
+                 filter_mode: str = "daphne", quantile_level: float = 0.80):
+        self.filter_mode = validate_filter_mode(filter_mode)
+        if filter_mode == "mohamed":
+            if companies is None:
+                raise ValueError("Le mode mohamed exige l'univers initial pour calculer le quantile ITR.")
+            max_itr = quantile([c.itr for c in companies if not c.is_missing("ITR")], quantile_level)
         self.max_itr = max_itr
+        rule = (f"ITR < Q{int(quantile_level * 100)}% ({max_itr:.1f}°C)"
+                if filter_mode == "mohamed" else f"ITR <= {max_itr:.1f}°C")
+        super().__init__(
+            name=f"Accord de Paris - {rule}",
+            slide_ref="Slide 43 & 50",
+            description=f"Conserve les entreprises respectant {rule} ; donnée manquante exclue."
+        )
 
     def evaluate(self, company: Company) -> bool:
         if company.is_missing("ITR"):
             return False
+        if self.filter_mode == "mohamed":
+            return company.itr < self.max_itr
         return company.itr <= self.max_itr
 
 
 class EnvironmentalPillarFilter(AbstractFilter):
-    """
-    Slide 45 & 50 : Exclusions complémentaires - Pilier Environnemental.
-    Exclusion des notes du pilier Environnement inférieures ou égales au quantile à 5% (3.0/10).
-    Pilier E manquant => exclusion (Slide 50, note 1).
-    """
+    """Pilier E : > Q5 pour Daphné, >= Q5 pour Mohamed (égalité conservée)."""
 
-    def __init__(self, companies: List[Company], quantile_level: float = 0.05):
+    def __init__(self, companies: List[Company], quantile_level: float = 0.05,
+                 filter_mode: str = "daphne"):
+        self.filter_mode = validate_filter_mode(filter_mode)
         valid_scores = [c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")]
-        self.min_score = quantile(valid_scores, quantile_level) if valid_scores else 3.0
+        self.min_score = quantile(valid_scores, quantile_level)
+        operator = ">=" if filter_mode == "mohamed" else ">"
         super().__init__(
-            name=f"Pilier E > Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",
+            name=f"Pilier E {operator} Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",
             slide_ref="Slide 45 & 50",
-            description=f"Exclut les 5% pires notes du pilier E (note <= {self.min_score:.1f}/10) ou sans donnée."
+            description=f"Exige une note E {operator} {self.min_score:.1f}/10 ; donnée manquante exclue."
         )
 
     def evaluate(self, company: Company) -> bool:
         if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):
             return False
+        if self.filter_mode == "mohamed":
+            return company.env_pillar >= self.min_score
         return company.env_pillar > self.min_score
 
 
@@ -347,7 +362,8 @@ class ClimateSDGFilter(AbstractFilter):
 
 class PositiveContributionFilter(AbstractFilter):
     """
-    Slide 13 & SFDR Article 2(17) : Contribution Positive Substantielle.
+    Contribution positive : hybride (daphne) ou Taxonomie/SBTi uniquement (mohamed).
+    Slide 13 & SFDR Article 2(17), utilisée ici comme proxy pédagogique.
     Pour notre fonds thématique HealthTech & IA, l'entreprise doit obligatoirement contribuer
     de manière positive et mesurable :
     - Voie Sociale / Santé (Thèse HealthTech) : ODD 3 (Santé) >= 1.0 ou ODD 9 (Innovation IA) >= 1.0,
@@ -356,9 +372,12 @@ class PositiveContributionFilter(AbstractFilter):
       ('Validated Targets') OU Clean Tech >= 10% OU trajectoire exemplaire ITR <= 1.5°C.
     """
 
-    def __init__(self, sbti_by_isin: Optional[Dict[str, Dict[str, str]]] = None, min_taxonomy_rev: float = 20.0):
+    def __init__(self, sbti_by_isin: Optional[Dict[str, Dict[str, str]]] = None,
+                 min_taxonomy_rev: float = 20.0, filter_mode: str = "daphne"):
+        self.filter_mode = validate_filter_mode(filter_mode)
         super().__init__(
-            name="Contribution Positive Substantielle (SFDR Art. 2(17) - Santé & Climat)",
+            name=("Contribution positive hybride Santé & Climat" if filter_mode == "daphne"
+                  else "Contribution positive stricte (Taxo >= 20% ou SBTi validé)"),
             slide_ref="Slide 13 & SFDR Art. 2(17)",
             description="Exige une contribution sociale (ODD 3/9 >= 1.0) OU environnementale (Taxo >= 20%, SBTi validé, CleanTech >= 10%, ITR <= 1.5°C)."
         )
@@ -390,6 +409,8 @@ class PositiveContributionFilter(AbstractFilter):
         return company.eu_taxonomy_rev >= self.min_taxonomy_rev
 
     def evaluate(self, company: Company) -> bool:
+        if self.filter_mode == "mohamed":
+            return self.has_sustainable_revenue(company) or self.has_sbti_validated_target(company)
         contrib_env = (
             self.has_sustainable_revenue(company)
             or self.has_sbti_validated_target(company)
@@ -412,8 +433,8 @@ class HealthTechAIScopeFilter(AbstractFilter):
     2. Secteur Information Technology : Fournisseurs de capacités d'IA, semi-conducteurs spécialisés, calcul haute performance,
        logiciels de bio-informatique et simulation moléculaire (alignement ODD 9 >= 1.0 ou ODD 3 >= 1.0).
     3. Secteur Industrials : Équipements de laboratoire, filtration d'eau et fluides critiques pour la biopharmacie.
-    4. Secteur Consumer Staples : Hygiène préventive et nutrition médicale (ODD 3 >= 2.0).
-    Choix discrétionnaire (Modif Mohamed) : Ansys, sous offre de rachat de Synopsys au 31/12/2024, est écartée
+    4. Secteur Consumer Staples : Hygiène et produits médicaux (ODD 3 >= 4.0 ; seuil relevé de 2 à 4).
+    Choix discrétionnaire  : Ansys, sous offre de rachat de Synopsys au 31/12/2024, est écartée
     et remplacée par PTC (logiciels de conception et de simulation, comme Ansys).
     """
 
@@ -431,10 +452,10 @@ class HealthTechAIScopeFilter(AbstractFilter):
         s3 = company.get_sdg(3)
         s9 = company.get_sdg(9)
 
-        # 0. Titre sous offre de rachat définitive au 31/12/2024, écarté car il va quitter la cote :  # Modif Mohamed
-        #    Ansys (rachat par Synopsys annoncé le 16/01/2024, finalisé en juillet 2025 : plus aucun cours ensuite)  # Modif Mohamed
-        if any(t in name for t in ["ansys"]):  # Modif Mohamed
-            return False  # Modif Mohamed
+        # 0. Titre sous offre de rachat définitive au 31/12/2024, écarté car il va quitter la cote :
+        #    Ansys (rachat par Synopsys annoncé le 16/01/2024, finalisé en juillet 2025 : plus aucun cours ensuite)
+        if any(t in name for t in ["ansys"]):
+            return False
 
         # 1. Santé au sens large (Pharma, Biotech, Dispositifs médicaux)
         if sec == "Health Care":
@@ -446,10 +467,10 @@ class HealthTechAIScopeFilter(AbstractFilter):
                 return True
             if s9 >= 1.0 and any(t in ind for t in ["software", "semiconductors", "computers", "electronics"]):
                 return True
-            # Remplaçant d'Ansys : PTC, logiciels de conception (CAO, PLM) et de simulation comme Ansys,  # Modif Mohamed
-            # utilisés par les fabricants de dispositifs médicaux ; passe tous les filtres ESG et financiers  # Modif Mohamed
-            if any(t in name for t in ["ptc inc"]):  # Modif Mohamed
-                return True  # Modif Mohamed
+            # Remplaçant d'Ansys : PTC, logiciels de conception (CAO, PLM) et de simulation comme Ansys,
+            # utilisés par les fabricants de dispositifs médicaux ; passe tous les filtres ESG et financiers
+            if any(t in name for t in ["ptc inc"]):
+                return True
 
         # 3. Équipements de précision industrielle, instrumentation & fluides biopharma
         if sec == "Industrials":
@@ -458,31 +479,17 @@ class HealthTechAIScopeFilter(AbstractFilter):
             if any(t in name for t in ["pentair", "mettler", "halma", "cummins", "siemens"]):
                 return True
 
-        # 4. Nutrition et santé préventive
+        # 4. Hygiène et produits médicaux : on exige une contribution FORTE à la santé (ODD 3 >= 4, et non plus 2).
+        #    Avec 2, entraient aussi la bière (Kirin), la lessive ou l'agroalimentaire, que l'optimiseur à variance
+        #    minimale gonflait car peu volatils. Restent Kimberly-Clark, Essity et Unicharm (ODD 3 = 5).
         if sec == "Consumer Staples":
-            if s3 >= 2.0:
+            if s3 >= 4.0:
                 return True
 
         return False
 
 
-# ------------------------------------------------------------------------------------------------  # Modif Mohamed
-# FILTRE FINANCIER - version qualité (la version d'origine est conservée plus bas,                  # Modif Mohamed
-# sous le nom FinancialQualityFilterDaphne). Pourquoi ces changements :                              # Modif Mohamed
-#  - Plus de sélection sur la performance boursière passée (Sharpe et rendement 5 ans) : c'était    # Modif Mohamed
-#    un filtre de momentum (21 des 26 exclusions du scope thématique venaient de la seule            # Modif Mohamed
-#    performance passée : CSL, Biogen, Humana...), source de biais in-sample avec le backtest        # Modif Mohamed
-#    sur la même période, et un message contraire à la mention AMF « les performances passées       # Modif Mohamed
-#    ne préjugent pas des performances futures ».                                                    # Modif Mohamed
-#  - Le FCF (annoncé « Jensen FCF » mais jamais utilisé) est réellement appliqué : FCF yield > 0.    # Modif Mohamed
-#    Eli Lilly, Vertex et Elevance avaient un FCF négatif au 31/12/2024 et sortent.                  # Modif Mohamed
-#  - Le ROE est retiré : non fiable dans les données (jusqu'à 22 574 % avec des fonds propres ~ 0).  # Modif Mohamed
-#  - Un critère de risque remplace la performance : exclusion des 10 % de titres les plus volatils.  # Modif Mohamed
-#  - Donnée manquante => exclusion (même règle que les filtres extra-financiers, slide 50).          # Modif Mohamed
-#  - Marketing : « durabilité financière » (slide 5 : double durabilité extra-financière et          # Modif Mohamed
-#    financière) = entreprises rentables, qui génèrent du cash et peu endettées.                     # Modif Mohamed
-# ------------------------------------------------------------------------------------------------  # Modif Mohamed
-class FinancialQualityFilter(AbstractFilter):  # Modif Mohamed
+class FinancialQualityFilter(AbstractFilter):
     """
     Slide 59 & 62 : Univers Financier Quantitatif (« durabilité financière », slide 5).
     - Rentabilité : ROIC > 5% OU marge nette > 5%
@@ -490,51 +497,24 @@ class FinancialQualityFilter(AbstractFilter):  # Modif Mohamed
     - Solvabilité : Debt/Assets < 65%
     - Risque : exclusion des 10% de titres les plus volatils du MSCI World (volatilité 5 ans)
     - Donnée manquante => exclusion
-    """  # Modif Mohamed
-
-    fields = ("ROIC", "Net margin", "FCF yield", "Debt assets", "Volatility 5Y")  # Modif Mohamed
-
-    def __init__(self, companies: List[Company], vol_percentile: float = 0.90):  # Modif Mohamed
-        self.max_volatility = quantile([c.volatility_5y for c in companies if not c.is_missing("Volatility 5Y")],  # Modif Mohamed
-                                       vol_percentile)  # Modif Mohamed
-        super().__init__(  # Modif Mohamed
-            name="Univers Financier Quantitatif (Qualité & Cash)",  # Modif Mohamed
-            slide_ref="Slide 59 & 62",  # Modif Mohamed
-            description=f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."  # Modif Mohamed
-        )  # Modif Mohamed
-
-    def evaluate(self, company: Company) -> bool:  # Modif Mohamed
-        if company.is_missing(*self.fields):  # donnée manquante => exclusion  # Modif Mohamed
-            return False  # Modif Mohamed
-        is_profitable = (company.roic > 5.0) or (company.net_margin > 5.0)  # ROE retiré (non fiable)  # Modif Mohamed
-        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué  # Modif Mohamed
-        is_solvent = company.debt_assets < 65.0  # règle inchangée  # Modif Mohamed
-        not_too_volatile = company.volatility_5y <= self.max_volatility  # risque au lieu de la performance passée  # Modif Mohamed
-        return is_profitable and generates_cash and is_solvent and not_too_volatile  # Modif Mohamed
-
-
-# Version d'origine (Daphné), conservée pour mémoire : elle n'est plus utilisée par le pipeline.  # Modif Mohamed
-# Pour la réactiver : dans src/run_tri.py, utiliser la ligne commentée financial_filter = FinancialQualityFilterDaphne().  # Modif Mohamed
-class FinancialQualityFilterDaphne(AbstractFilter):  # ancienne FinancialQualityFilter, renommée  # Modif Mohamed
-    """
-    Slide 59 & 62 : Univers Financier Quantitatif (Théorie du FCF de Jensen 1986).
-    Élimine les entreprises spéculatives non rentables, surendettées ou destructrices de valeur :
-    - Rentabilité économique : ROE > 5% OU ROIC > 5% OU marge nette > 5%
-    - Maîtrise de la solvabilité : Debt/Assets < 65%
-    - Efficience financière : Ratio de Sharpe 5Y >= 0.10 et rendement annualisé 5Y > 0%
     """
 
-    def __init__(self):
+    fields = ("ROIC", "Net margin", "FCF yield", "Debt assets", "Volatility 5Y")
+
+    def __init__(self, companies: List[Company], vol_percentile: float = 0.90):
+        self.max_volatility = quantile([c.volatility_5y for c in companies if not c.is_missing("Volatility 5Y")],
+                                       vol_percentile)
         super().__init__(
-            name="Univers Financier Quantitatif (Jensen FCF & Qualité)",
+            name="Univers Financier Quantitatif (Qualité & Cash)",
             slide_ref="Slide 59 & 62",
-            description="Exclut les entreprises déficitaires, surendettées ou sans création de valeur financière pérenne."
+            description=f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."
         )
 
     def evaluate(self, company: Company) -> bool:
-        is_profitable = (company.roe > 5.0) or (company.roic > 5.0) or (company.net_margin > 5.0)
-        is_solvent = company.debt_assets < 65.0
-        good_sharpe = company.sharpe_5y >= 0.10
-        positive_return = company.return_5y > 0.0
-
-        return is_profitable and is_solvent and good_sharpe and positive_return
+        if company.is_missing(*self.fields):  # donnée manquante => exclusion
+            return False
+        is_profitable = (company.roic > 5.0) or (company.net_margin > 5.0)  # ROE retiré (non fiable)
+        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué
+        is_solvent = company.debt_assets < 65.0  # règle inchangée
+        not_too_volatile = company.volatility_5y <= self.max_volatility  # risque au lieu de la performance passée
+        return is_profitable and generates_cash and is_solvent and not_too_volatile

@@ -1,0 +1,25 @@
+Portefeuille,Indicateur,Valeur,Couverture poids
+fonds,ITR (°C),1.5723407154,1.0000000000
+fonds,Intensité carbone Scope 1+2,31.8849337543,1.0000000000
+fonds,Intensité carbone Scope 1+2+3,322.6135053099,1.0000000000
+fonds,Empreinte carbone Scope 1+2+3,428.3243135715,1.0000000000
+fonds,ODD 3,2.1573740014,1.0000000000
+fonds,ODD 9,0.8903829545,1.0000000000
+fonds,Gouvernance /10,6.6355554547,1.0000000000
+fonds,Revenus Taxonomie UE max (%),2.1032938683,1.0000000000
+equipondere,ITR (°C),1.6702127660,1.0000000000
+equipondere,Intensité carbone Scope 1+2,24.9661688061,1.0000000000
+equipondere,Intensité carbone Scope 1+2+3,311.0514803653,1.0000000000
+equipondere,Empreinte carbone Scope 1+2+3,351.1702103968,1.0000000000
+equipondere,ODD 3,1.4042553191,1.0000000000
+equipondere,ODD 9,0.9468085106,1.0000000000
+equipondere,Gouvernance /10,6.5148936170,1.0000000000
+equipondere,Revenus Taxonomie UE max (%),2.9391489362,1.0000000000
+msci_world,ITR (°C),2.3972877178,0.9962406973
+msci_world,Intensité carbone Scope 1+2,95.8877844903,0.9974032781
+msci_world,Intensité carbone Scope 1+2+3,854.0817453012,0.9974032781
+msci_world,Empreinte carbone Scope 1+2+3,1522.4796514963,0.9974666082
+msci_world,ODD 3,-0.1118138596,0.9972421580
+msci_world,ODD 9,0.1003181360,0.9972421580
+msci_world,Gouvernance /10,5.6638807151,0.9972421580
+msci_world,Revenus Taxonomie UE max (%),8.9011402456,0.9977843384

@@ -1,0 +1,59 @@
+{
+  "execution_utc": "2026-11-21T15:03:12.670379+00:00",
+  "modes": [
+    "daphne_original",
+    "daphne_esg_risk",
+    "mohamed_esg_risk"
+  ],
+  "skip_history": false,
+  "refresh_prices": false,
+  "date_constitution": "2024-12-31",
+  "cache_debut": "2015-01-02",
+  "cache_fin": "2026-11-20",
+  "fenetre_covariance_semaines": 156,
+  "rebalancement_historique": "trimestriel",
+  "frais_sur_montant_echange": 0.001,
+  "taux_sans_risque_annuel": 0.02,
+  "sources": [
+    {
+      "path": "data/raw/all_data.csv",
+      "sha256": "6c3e571d34e51752ed33702518de6181aa3cba758071a6ea6eebcf92e722c941",
+      "bytes": 1044995
+    },
+    {
+      "path": "data/raw/sbti/msci_world_jointure_sbti_2025-01-13.csv",
+      "sha256": "cffe0d88914ae1d2b4a2d23ab1f2d898bb395a528a5abedcbced1f6da8941975",
+      "bytes": 1340044
+    },
+    {
+      "path": "data/cache/prices/prix_eur.csv",
+      "sha256": "27dd5b1d23332ce5c6c74fd807e42e9b3e2d83ae885759d13d521f59b6314f75",
+      "bytes": 2035042
+    },
+    {
+      "path": "data/cache/prices/prix_devise_locale.csv",
+      "sha256": "60282dc6a1d06e3328cc68a48f6e7b55528dbdfdb28c6729f17527883c7627be",
+      "bytes": 2150755
+    },
+    {
+      "path": "data/cache/prices/taux_de_change.csv",
+      "sha256": "17468fafa689f470fe2563d43b98862ef4e267bf611e4fcfe3649eff34beaf0c",
+      "bytes": 296422
+    }
+  ],
+  "versions": {
+    "numpy": "2.1.2",
+    "pandas": "2.2.3",
+    "scipy": "1.14.1",
+    "scikit-learn": "1.5.2",
+    "matplotlib": "3.9.2",
+    "yfinance": "1.7.0"
+  },
+  "limites": [
+    "Univers et scores ESG figés fin 2024 : historique rétrospectif avec biais de sélection/survivance.",
+    "Période post-2024 à poids figés; filtres choisis a posteriori, pas une validation prospective.",
+    "SBTi : photographie du 13/01/2025, validation au cutoff seulement si confirmée par la source.",
+    "Cours ajustés du cache fournis, mouvements atypiques non corrigés arbitrairement.",
+    "Pas de frais de gestion ni de frais de constitution du portefeuille."
+  ]
+}

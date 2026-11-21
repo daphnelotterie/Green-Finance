@@ -4,30 +4,28 @@ TÉLÉCHARGEMENT DES SÉRIES DE PRIX HISTORIQUES (YAHOO FINANCE)
 -------------------------------------------------------------
 Master 272 - Finance Durable (Université Paris-Dauphine)
 Enseignants : Thierry Béchu & Jean Jardel (Kanopy AM)
-Module créé par Mohamed (Modif Mohamed) : toutes les lignes de ce fichier sont nouvelles.
 
 Récupère via yfinance les cours de clôture ajustés (dividendes et divisions) :
-    1. des titres du portefeuille final (data/portefeuille_final_pondere.csv, sortie de l'optimiseur)
+    1. des titres du portefeuille final (results/<mode>/portefeuille_final_pondere.csv, sortie de l'optimiseur)
     2. du benchmark MSCI World (ETF iShares Core MSCI World UCITS, IWDA.AS, coté en EUR)
 puis les convertit en euros (devise de référence d'un fonds de droit français).
-Le portefeuille final ne contient ni ticker Yahoo ni devise : on les retrouve dans data/all_data.csv.
+Le portefeuille final ne contient ni ticker Yahoo ni devise : on les retrouve dans data/raw/all_data.csv.
 Tout autre fichier de titres avec une colonne 'ticker' peut être passé à la place (par exemple l'univers
-sélectionnable data/actifs_notre_secteur_healthtech_ai.csv, pour un optimiseur qui utiliserait la covariance).
+sélectionnable results/<mode>/actifs_selectionnes.csv, pour un optimiseur qui utiliserait la covariance).
 
-Sorties (dossier data/prix/) :
+Sorties (dossier data/cache/prices/) :
     - prix_devise_locale.csv : cours ajustés en devise de cotation (une colonne par titre)
     - taux_de_change.csv     : taux EUR/devise utilisés pour la conversion (unités de devise pour 1 EUR)
     - prix_eur.csv           : cours convertis en EUR + colonne du benchmark MSCI World
 
-Ces séries serviront au backtest historique (période avant 2024 et période de 2024 à aujourd'hui).
+Ces séries alimentent l'historique rétrospectif et la simulation à poids figés depuis fin 2024.
 """
 
 import csv
 import os
-import sys
+from pathlib import Path
 
 import pandas as pd
-import yfinance as yf
 
 # Devises cotées en sous-unités (pence, agorot, cents) : devise réelle et diviseur
 MINOR_UNITS = {"GBp": ("GBP", 100.0), "GBX": ("GBP", 100.0), "ILA": ("ILS", 100.0), "ZAc": ("ZAR", 100.0)}
@@ -36,15 +34,13 @@ BENCHMARK_COLUMN = "BENCHMARK MSCI World (IWDA.AS)"
 
 
 def resolve_project_root():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    if os.path.basename(current_dir) in ["src", "dossier_tri"]:
-        return os.path.dirname(current_dir)
-    return current_dir
+    return str(Path(__file__).resolve().parent.parent)
 
 
 class HistoricalPriceLoader:
     def __init__(self, all_data_csv, weighted_portfolio_csv, start_date="2015-01-01", end_date=None,
-                 base_currency="EUR", benchmark_ticker="IWDA.AS", benchmark_currency="EUR", split_date="2024-01-01"):
+                 base_currency="EUR", benchmark_ticker="IWDA.AS", benchmark_currency="EUR", split_date="2024-12-31",
+                 preserve_tickers=()):
         self.all_data_csv = all_data_csv
         self.weighted_portfolio_csv = weighted_portfolio_csv
         self.start_date = start_date
@@ -53,6 +49,7 @@ class HistoricalPriceLoader:
         self.benchmark_ticker = benchmark_ticker
         self.benchmark_currency = benchmark_currency
         self.split_date = split_date
+        self.preserve_tickers = preserve_tickers
 
         self.assets = []
         self.load_universe()
@@ -65,6 +62,12 @@ class HistoricalPriceLoader:
         with open(self.weighted_portfolio_csv, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             raw_rows = list(reader)
+        present = {row['ticker'] for row in raw_rows}
+        for ticker in self.preserve_tickers:
+            if ticker not in present:
+                if ticker not in reference:
+                    raise ValueError(f'Titre du cache inconnu dans la source : {ticker}')
+                raw_rows.append(reference[ticker])
 
         for r in raw_rows:
             ref = reference.get(r['ticker'], {})
@@ -72,7 +75,7 @@ class HistoricalPriceLoader:
             if asset['ticker_yahoo']:
                 self.assets.append(asset)
             else:
-                print(f"[Prices] Attention : pas de ticker Yahoo pour {r.get('name')}, titre ignoré.")
+                raise ValueError(f"Pas de ticker Yahoo pour {r.get('ticker')}")
 
         self.n = len(self.assets)
         self.yahoo_to_ticker = {r['ticker_yahoo']: r['ticker'] for r in self.assets}
@@ -82,6 +85,10 @@ class HistoricalPriceLoader:
 
     def download_prices(self):
         """Télécharge les cours de clôture ajustés (dividendes et divisions) des titres et du benchmark."""
+        import yfinance as yf
+        cache_dir = Path(resolve_project_root()) / 'data/cache/yfinance'
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        yf.set_tz_cache_location(str(cache_dir))
         yahoo_tickers = list(self.yahoo_to_ticker) + [self.benchmark_ticker]
         data = yf.download(yahoo_tickers, start=self.start_date, end=self.end_date,
                            auto_adjust=True, progress=False, threads=True)
@@ -89,10 +96,7 @@ class HistoricalPriceLoader:
 
         missing = [t for t in yahoo_tickers if t not in closes.columns or closes[t].isna().all()]
         if missing:
-            labels = {r['ticker_yahoo']: f"{r['name']} ({r['ticker_yahoo']}, poids {r.get('weight_percent') or 'n.d.'})"
-                      for r in self.assets}
-            print(f"[Prices] Attention : aucune donnée Yahoo pour {', '.join(labels.get(t, t) for t in missing)} "
-                  f"(titre radié ou ticker inconnu, à traiter dans le backtest)")
+            raise ValueError(f"Téléchargement incomplet, cache conservé : {missing}")
 
         self.benchmark_local = closes[self.benchmark_ticker] if self.benchmark_ticker not in missing else None
         self.prices_local = closes[[t for t in self.yahoo_to_ticker if t not in missing]]
@@ -102,6 +106,7 @@ class HistoricalPriceLoader:
 
     def download_fx_rates(self):
         """Télécharge les taux de change (unités de devise pour 1 EUR) nécessaires à la conversion."""
+        import yfinance as yf
         self.quote_currency = {}
         for r in self.assets:
             cur = r['currency']
@@ -115,6 +120,8 @@ class HistoricalPriceLoader:
             data = yf.download(list(fx_tickers), start=self.start_date, end=self.end_date,
                                auto_adjust=True, progress=False, threads=True)
             fx = data["Close"].rename(columns=fx_tickers)
+            if any(cur not in fx or fx[cur].dropna().empty for cur in fx_tickers.values()):
+                raise ValueError("Taux de change manquants : cache conservé.")
         else:
             fx = pd.DataFrame(index=self.prices_local.index)
         fx[self.base_currency] = 1.0
@@ -156,7 +163,7 @@ class HistoricalPriceLoader:
         return rows, late_starts
 
     def export_prices(self, output_dir):
-        """Exporte les séries de prix (devise locale, taux de change, EUR + benchmark) dans data/prix/."""
+        """Exporte les séries de prix (devise locale, taux de change, EUR + benchmark) dans data/cache/prices/."""
         os.makedirs(output_dir, exist_ok=True)
 
         local = self.prices_local.rename(columns=self.yahoo_to_ticker)
@@ -174,41 +181,24 @@ class HistoricalPriceLoader:
         print(f"[Prices] Fichiers exportés avec succès dans : {output_dir}")
 
 
-def run_prices():
-    root_dir = resolve_project_root()
-    possible_inputs_data = [
-        os.path.join(root_dir, "data", "all_data.csv"),
-        os.path.join(root_dir, "all_data.csv")
-    ]
-    all_data_file = next((p for p in possible_inputs_data if os.path.exists(p)), None)
-
-    possible_inputs_pf = [
-        os.path.join(root_dir, "data", "portefeuille_final_pondere.csv"),
-        os.path.join(root_dir, "dossier_tri", "portefeuille_final_pondere.csv")
-    ]
-    pf_file = next((p for p in possible_inputs_pf if os.path.exists(p)), None)
-
-    if not all_data_file or not pf_file:
-        print("Erreur : Impossible de trouver all_data.csv ou portefeuille_final_pondere.csv (lancer d'abord run_pipeline.py)")
-        sys.exit(1)
-
-    output_dir = os.path.join(root_dir, "data", "prix")
-
-    loader = HistoricalPriceLoader(all_data_file, pf_file, start_date="2015-01-01", base_currency="EUR",
-                                   benchmark_ticker="IWDA.AS", benchmark_currency="EUR", split_date="2024-01-01")
+def run_prices(input_path, universe_path, output_dir=None, end_date=None):
+    """Rafraîchit le cache sans perdre les titres téléchargés pour les autres modes."""
+    output_dir = Path(output_dir or Path(resolve_project_root()) / "data/cache/prices")
+    existing = output_dir / 'prix_eur.csv'
+    preserved = [c for c in pd.read_csv(existing, nrows=0).columns
+                 if c not in ('date', BENCHMARK_COLUMN)] if existing.exists() else []
+    loader = HistoricalPriceLoader(input_path, universe_path, end_date=end_date,
+                                   split_date="2024-12-31", preserve_tickers=preserved)
     loader.download_prices()
     loader.download_fx_rates()
     loader.convert_to_base_currency()
-    loader.export_prices(output_dir)
-
-    rows, late_starts = loader.summarize()
-    print("\n--- COUVERTURE DES SÉRIES DE PRIX (EN EUR) ---")
-    for label, dates, n_days, n_assets in rows:
-        print(f"{label:<20} | {dates:<26} | {n_days:>5} séances | {n_assets:>3} titres avec données")
-    if late_starts:
-        print("Historique plus court (cotation postérieure au début de la période) : "
-              + ", ".join(f"{t} (depuis le {d})" for t, d in late_starts))
-
-
-if __name__ == '__main__':
-    run_prices()
+    if loader.prices_base.empty or (loader.prices_base <= 0).any().any():
+        raise ValueError("Cours téléchargés invalides : cache conservé.")
+    # Tous les téléchargements doivent réussir avant de remplacer le cache existant.
+    staging = output_dir / ".download"
+    loader.export_prices(staging)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    for name in ("prix_devise_locale.csv", "taux_de_change.csv", "prix_eur.csv"):
+        (staging / name).replace(output_dir / name)
+    staging.rmdir()
+    return output_dir / "prix_eur.csv"

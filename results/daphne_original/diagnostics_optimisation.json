@@ -1,0 +1,36 @@
+{
+  "optimizer_mode": "original",
+  "converged": true,
+  "solver_message": "Optimization terminated successfully",
+  "iterations": 6,
+  "objective_value": -0.07970877086618168,
+  "requested_assets": 56,
+  "included_assets": 56,
+  "excluded_assets": [],
+  "weight_min_constraint": 0.01,
+  "weight_max_constraint": 0.045,
+  "constraints": {
+    "health_min": 0.5,
+    "health_max": 0.65,
+    "tech_min": 0.28,
+    "tech_max": 0.4,
+    "other_max": 0.15,
+    "max_itr": 1.8
+  },
+  "report": {
+    "Santé": 0.5249999999999998,
+    "Tech": 0.4000000000000008,
+    "Autres": 0.0750000000000008,
+    "ITR": 1.5175000000000032,
+    "Somme": 1.0000000000000016,
+    "Poids_min": 0.01,
+    "Poids_max": 0.045,
+    "Dépassement": 1.5543122344752192e-15
+  },
+  "model_volatility": 0.20621681093154542,
+  "min_covariance_eigenvalue": 0.017874700335072713,
+  "gamma": 3.0,
+  "theta": 0.04,
+  "covariance_method": "structured_rho_intra_0.50_inter_0.28",
+  "expected_returns": "snapshot_5Y"
+}

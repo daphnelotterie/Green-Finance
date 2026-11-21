@@ -1,10 +1,13 @@
 # Fichiers de cours volumineux (21 Mo de PDF des professeurs)
-Cours/
+cours/
 
 # Fichiers Python temporaires et OS
 __pycache__/
 *.py[cod]
 .DS_Store
+*.log
+data/cache/yfinance/
+data/cache/prices/.download/
 
 # Dossiers d'archives
 __old/
