@@ -1,20 +1,20 @@
-ticker,name,isin,sbti_company_name,statut_sbti,near_term_status,long_term_status,net_zero_status,ca_aligne_taxonomie_pct,contribution_positive_slide13
+ticker,name,isin,sbti_company_name,statut_sbti,near_term_status,long_term_status,net_zero_status,ca_aligne_taxonomie_pct,contribution_positive_sfdr
 AAPL US Equity,Apple Inc,US0378331005,"Apple, Inc.",Objectif validé,Validated Targets,,,0,Oui
 NVDA US Equity,NVIDIA Corp,US67066G1040,NVIDIA,Objectif validé,Validated Targets,,,78.01,Oui
 MSFT US Equity,Microsoft Corp,US5949181045,Microsoft Corporation,Objectif validé,Validated Targets,,Commitment Removed,22.73,Oui
 AMZN US Equity,Amazon.com Inc,US0231351067,Amazon,Engagement retiré,Commitment Removed,,,0,Non
-GOOGL US Equity,Alphabet Inc,US02079K3059,Alphabet Inc.,Objectif validé,Validated Targets,,,2.99,Oui
+GOOGL US Equity,Alphabet Inc,US02079K3059,,Absent de la base SBTi,,,,2.99,Oui
 META US Equity,Meta Platforms Inc,US30303M1027,"Meta Platforms, Inc.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 TSLA US Equity,Tesla Inc,US88160R1014,Tesla Inc.,Engagement retiré,Commitment Removed,,,100,Oui
 AVGO US Equity,Broadcom Inc,US11135F1012,Broadcom Inc.,Engagement retiré,Commitment Removed,,,0.45,Non
-JPM US Equity,JPMorgan Chase & Co,US46625H1005,,Absent de la base SBTi,,,,0,Non
-LLY US Equity,Eli Lilly & Co,US5324571083,,Absent de la base SBTi,,,,0,Non
+JPM US Equity,JPMorgan Chase & Co,US46625H1005,,Absent de la base SBTi,,,,0,Oui
+LLY US Equity,Eli Lilly & Co,US5324571083,,Absent de la base SBTi,,,,0,Oui
 BRK/B US Equity,Berkshire Hathaway Inc,US0846707026,,Absent de la base SBTi,,,,0.75,Non
 V US Equity,Visa Inc,US92826C8394,Visa Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 XOM US Equity,Exxon Mobil Corp,US30231G1022,,Absent de la base SBTi,,,,0,Non
-UNH US Equity,UnitedHealth Group Inc,US91324P1021,UnitedHealth Group,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
+UNH US Equity,UnitedHealth Group Inc,US91324P1021,,Absent de la base SBTi,,,,0,Non
 MA US Equity,Mastercard Inc,US57636Q1040,Mastercard,Objectif validé,Validated Targets,,,0,Oui
-COST US Equity,Costco Wholesale Corp,US22160K1051,,Absent de la base SBTi,,,,0,Non
+COST US Equity,Costco Wholesale Corp,US22160K1051,,Absent de la base SBTi,,,,0,Oui
 PG US Equity,Procter & Gamble Co/The,US7427181091,Procter & Gamble Company,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 WMT US Equity,Walmart Inc,US9311421039,Walmart Inc.,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 HD US Equity,Home Depot Inc,US4370761029,The Home Depot,Objectif validé,Validated Targets,,,0,Oui
@@ -23,9 +23,9 @@ JNJ US Equity,Johnson & Johnson,US4781601046,Johnson & Johnson,Objectif validé,
 ABBV US Equity,AbbVie Inc,US00287Y1091,AbbVie,Objectif validé,Validated Targets,,,0,Oui
 CRM US Equity,Salesforce Inc,US79466L3024,"Salesforce.com, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,18.97,Oui
 BAC US Equity,Bank of America Corp,US0605051046,,Absent de la base SBTi,,,,0,Non
-NOVOB DC Equity,Novo Nordisk A/S,DK0062498333,Novo Nordisk A/S,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+NOVOB DC Equity,Novo Nordisk A/S,DK0062498333,,Absent de la base SBTi,,,,0,Oui
 ASML NA Equity,ASML Holding NV,NL0010273215,ASML Holdings,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ORCL US Equity,Oracle Corp,US68389X1054,,Absent de la base SBTi,,,,18.59,Non
+ORCL US Equity,Oracle Corp,US68389X1054,,Absent de la base SBTi,,,,18.59,Oui
 SAP GY Equity,SAP SE,DE0007164600,SAP SE,Objectif validé,Validated Targets,Validated Targets,Validated Targets,26.05,Oui
 CVX US Equity,Chevron Corp,US1667641005,,Absent de la base SBTi,,,,2.87,Non
 MRK US Equity,Merck & Co Inc,US58933Y1055,"Merck & Co., Inc., Rahway, NJ USA, which is known as MSD outside the U.S. and Canada",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -34,11 +34,11 @@ ACN US Equity,Accenture PLC,IE00B4BNMY34,Accenture,Objectif validé,Validated Ta
 KO US Equity,Coca-Cola Co/The,US1912161007,,Absent de la base SBTi,,,,0,Non
 NOW US Equity,ServiceNow Inc,US81762P1021,ServiceNow Inc.,Objectif validé,Validated Targets,,,24.19,Oui
 CSCO US Equity,Cisco Systems Inc,US17275R1023,"Cisco Systems, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-7203 JP Equity,Toyota Motor Corp,JP3633400001,Toyota Motor Corporation,Objectif validé,Validated Targets,,,27.51,Oui
+7203 JP Equity,Toyota Motor Corp,JP3633400001,,Absent de la base SBTi,,,,27.51,Oui
 NESN SE Equity,Nestle SA,CH0038863350,Nestlé,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 PEP US Equity,PepsiCo Inc,US7134481081,"PepsiCo, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 MCD US Equity,McDonald's Corp,US5801351017,McDonald's Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-RO SE Equity,Roche Holding AG,CH0012032113,,Absent de la base SBTi,,,,0,Non
+RO SE Equity,Roche Holding AG,CH0012032113,,Absent de la base SBTi,,,,0,Oui
 DIS US Equity,Walt Disney Co/The,US2546871060,The Walt Disney Company,Objectif validé,Validated Targets,,,0,Oui
 IBM US Equity,International Business Machine,US4592001014,,Absent de la base SBTi,,,,36.97,Oui
 NOVN SE Equity,Novartis AG,CH0012005267,Novartis AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -51,37 +51,37 @@ ABT US Equity,Abbott Laboratories,US0028241000,Abbott,Objectif validé,Validated
 SHEL LN Equity,Shell PLC,GB00BP6MXD84,,Absent de la base SBTi,,,,6.37,Non
 PM US Equity,Philip Morris International In,US7181721090,Philip Morris International,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ISRG US Equity,Intuitive Surgical Inc,US46120E6023,,Absent de la base SBTi,,,,0,Non
-GS US Equity,Goldman Sachs Group Inc/The,US38141G1040,,Absent de la base SBTi,,,,0,Non
-HSBA LN Equity,HSBC Holdings PLC,GB0005405286,,Absent de la base SBTi,,,,0,Non
+GS US Equity,Goldman Sachs Group Inc/The,US38141G1040,,Absent de la base SBTi,,,,0,Oui
+HSBA LN Equity,HSBC Holdings PLC,GB0005405286,,Absent de la base SBTi,,,,0,Oui
 GE US Equity,General Electric Co,US3696043013,,Absent de la base SBTi,,,,0,Non
-CAT US Equity,Caterpillar Inc,US1491231015,,Absent de la base SBTi,,,,4.71,Non
+CAT US Equity,Caterpillar Inc,US1491231015,,Absent de la base SBTi,,,,4.71,Oui
 INTU US Equity,Intuit Inc,US4612021034,Intuit,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 QCOM US Equity,QUALCOMM Inc,US7475251036,Qualcomm Incorporated,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.74,Oui
-TXN US Equity,Texas Instruments Inc,US8825081040,Texas Instruments,Objectif validé,Validated Targets,,,12.55,Oui
+TXN US Equity,Texas Instruments Inc,US8825081040,,Absent de la base SBTi,,,,12.55,Oui
 MC FP Equity,LVMH,FR0000121014,LVMH,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 BKNG US Equity,Booking Holdings Inc,US09857L1089,Booking Holdings Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 T US Equity,AT&T Inc,US00206R1023,AT&T Inc.,Objectif validé,Validated Targets,,,0.56,Oui
-RY CN Equity,Royal Bank of Canada,CA7800871021,,Absent de la base SBTi,,,,0,Non
+RY CN Equity,Royal Bank of Canada,CA7800871021,,Absent de la base SBTi,,,,0,Oui
 CBA AU Equity,Commonwealth Bank of Australia,AU000000CBA7,,Absent de la base SBTi,,,,0,Non
 SPGI US Equity,S&P Global Inc,US78409V1044,S&P Global Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 PLTR US Equity,Palantir Technologies Inc,US69608A1088,Palantir Technologies Inc.,Engagement retiré,Commitment Removed,,,0,Non
 VZ US Equity,Verizon Communications Inc,US92343V1044,Verizon,Objectif validé,Validated Targets,,Commitment Removed,3.21,Oui
 SIE GY Equity,Siemens AG,DE0007236101,Siemens AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,12.37,Oui
-MS US Equity,Morgan Stanley,US6174464486,,Absent de la base SBTi,,,,0,Non
-RTX US Equity,Raytheon Technologies Corp,US75513E1010,,Absent de la base SBTi,,,,0.01,Non
+MS US Equity,Morgan Stanley,US6174464486,,Absent de la base SBTi,,,,0,Oui
+RTX US Equity,Raytheon Technologies Corp,US75513E1010,,Absent de la base SBTi,,,,0.01,Oui
 DHR US Equity,Danaher Corp,US2358511028,Danaher Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 AXP US Equity,American Express Co,US0258161092,American Express Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 PFE US Equity,Pfizer Inc,US7170811035,Pfizer Inc.,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 NEE US Equity,NextEra Energy Inc,US65339F1012,,Absent de la base SBTi,,,,32.26,Oui
 HON US Equity,Honeywell International Inc,US4385161066,Honeywell International Inc.,Objectif validé,Validated Targets,,,4.9,Oui
 CMCSA US Equity,Comcast Corp,US20030N1019,Comcast,Objectif validé,Validated Targets,,,0,Oui
-BLK US Equity,BlackRock Inc,US09290D1019,,Absent de la base SBTi,,,,0,Non
-PGR US Equity,Progressive Corp,US7433151039,,Absent de la base SBTi,,,,0,Non
-LOW US Equity,Lowe's Cos Inc,US5486611073,"Lowe's Companies, Inc.",Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-AMGN US Equity,Amgen Inc,US0311621009,Amgen Inc.,Objectif validé,Validated Targets,,,0,Oui
+BLK US Equity,BlackRock Inc,US09290D1019,,Absent de la base SBTi,,,,0,Oui
+PGR US Equity,Progressive Corp,US7433151039,,Absent de la base SBTi,,,,0,Oui
+LOW US Equity,Lowe's Cos Inc,US5486611073,"Lowe's Companies, Inc.",Engagement retiré,Commitment Removed,,Commitment Removed,0,Oui
+AMGN US Equity,Amgen Inc,US0311621009,,Absent de la base SBTi,,,,0,Oui
 SU FP Equity,Schneider Electric SE,FR0000121972,Schneider Electric,Objectif validé,Validated Targets,Validated Targets,Validated Targets,20.74,Oui
 ULVR LN Equity,Unilever PLC,GB00B10RZP78,Unilever plc,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-TJX US Equity,TJX Cos Inc/The,US8725401090,,Absent de la base SBTi,,,,0,Non
+TJX US Equity,TJX Cos Inc/The,US8725401090,,Absent de la base SBTi,,,,0,Oui
 UNP US Equity,Union Pacific Corp,US9078181081,Union Pacific Corporation,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 AMAT US Equity,Applied Materials Inc,US0382221051,Applied Materials,Objectif validé,Validated Targets,,,3.6,Oui
 ETN US Equity,Eaton Corp PLC,IE00B8KQN827,Eaton,Objectif validé,Validated Targets,Validated Targets,Validated Targets,6.22,Oui
@@ -89,31 +89,31 @@ BSX US Equity,Boston Scientific Corp,US1011371077,Boston Scientific Corporation,
 C US Equity,Citigroup Inc,US1729674242,,Absent de la base SBTi,,,,0,Non
 BA US Equity,Boeing Co/The,US0970231058,,Absent de la base SBTi,,,,0,Non
 COP US Equity,ConocoPhillips,US20825C1045,,Absent de la base SBTi,,,,0,Non
-TTE FP Equity,TotalEnergies SE,FR0000120271,,Absent de la base SBTi,,,,11,Non
-SHOP CN Equity,Shopify Inc,CA82509L1076,,Absent de la base SBTi,,,,0,Non
-SYK US Equity,Stryker Corp,US8636671013,STRYKER CORPORATION,Engagement retiré,Commitment Removed,,,0.36,Non
+TTE FP Equity,TotalEnergies SE,FR0000120271,,Absent de la base SBTi,,,,11,Oui
+SHOP CN Equity,Shopify Inc,CA82509L1076,,Absent de la base SBTi,,,,0,Oui
+SYK US Equity,Stryker Corp,US8636671013,,Absent de la base SBTi,,,,0.36,Oui
 BX US Equity,Blackstone Inc,US09260D1072,,Absent de la base SBTi,,,,0,Non
 UBER US Equity,Uber Technologies Inc,US90353T1007,"Uber Technologies, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 BHP AU Equity,BHP Group Ltd,AU000000BHP4,,Absent de la base SBTi,,,,0,Non
 6758 JP Equity,Sony Group Corp,JP3435000009,Sony Group Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ADP US Equity,Automatic Data Processing,US0530151036,,Absent de la base SBTi,,,,0,Non
-8306 JP Equity,Mitsubishi UFJ Financial Group,JP3902900004,,Absent de la base SBTi,,,,0,Non
+ADP US Equity,Automatic Data Processing,US0530151036,,Absent de la base SBTi,,,,0,Oui
+8306 JP Equity,Mitsubishi UFJ Financial Group,JP3902900004,,Absent de la base SBTi,,,,0,Oui
 PANW US Equity,Palo Alto Networks Inc,US6974351057,Palo Alto Networks,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ALV GY Equity,Allianz SE,DE0008404005,Allianz Investment Management SE,Engagement retiré,Commitment Removed,,,0,Non
-FI US Equity,Fiserv Inc,US3377381088,,Absent de la base SBTi,,,,0,Non
-LMT US Equity,Lockheed Martin Corp,US5398301094,,Absent de la base SBTi,,,,0,Non
+ALV GY Equity,Allianz SE,DE0008404005,Allianz Investment Management SE,Engagement retiré,Commitment Removed,,,0,Oui
+FI US Equity,Fiserv Inc,US3377381088,,Absent de la base SBTi,,,,0,Oui
+LMT US Equity,Lockheed Martin Corp,US5398301094,,Absent de la base SBTi,,,,0,Oui
 GILD US Equity,Gilead Sciences Inc,US3755581036,"Gilead Sciences, Inc.",Objectif validé,Validated Targets,,,0,Oui
 BMY US Equity,Bristol-Myers Squibb Co,US1101221083,Bristol Myers Squibb,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 SCHW US Equity,Charles Schwab Corp,US8085131055,,Absent de la base SBTi,,,,0,Non
 6501 JP Equity,Hitachi Ltd,JP3788600009,"Hitachi, Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,22.74,Oui
 SAN FP Equity,Sanofi,FR0000120578,SANOFI,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ANET US Equity,Arista Networks Inc,US0404132054,"Arista Networks, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+ANET US Equity,Arista Networks Inc,US0404132054,,Absent de la base SBTi,,,,0,Oui
 DE US Equity,Deere & Co,US2441991054,Deere & Company,Objectif validé,Validated Targets,,,0.43,Oui
 TMUS US Equity,T-Mobile US Inc,US8725901040,"T-Mobile USA, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ADI US Equity,Analog Devices Inc,US0326541051,"Analog Devices, Inc.",Objectif validé,Validated Targets,,Commitment Removed,10.91,Oui
-MMC US Equity,Marsh & McLennan Cos Inc,US5717481023,,Absent de la base SBTi,,,,0,Non
-VRTX US Equity,Vertex Pharmaceuticals Inc,US92532F1003,,Absent de la base SBTi,,,,0,Non
-CB US Equity,Chubb Ltd,CH0044328745,,Absent de la base SBTi,,,,0,Non
+MMC US Equity,Marsh & McLennan Cos Inc,US5717481023,,Absent de la base SBTi,,,,0,Oui
+VRTX US Equity,Vertex Pharmaceuticals Inc,US92532F1003,,Absent de la base SBTi,,,,0,Oui
+CB US Equity,Chubb Ltd,CH0044328745,,Absent de la base SBTi,,,,0,Oui
 MDT US Equity,Medtronic PLC,IE00BTN1Y115,Medtronic PLC,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 SBUX US Equity,Starbucks Corp,US8552441094,Starbucks,Objectif validé,Validated Targets,,,0,Oui
 DTE GY Equity,Deutsche Telekom AG,DE0005557508,Deutsche Telekom AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -124,17 +124,17 @@ PLD US Equity,Prologis Inc,US74340W1036,Prologis Inc.,Objectif validé,Validated
 MRVL US Equity,Marvell Technology Inc,US5738741041,Marvell Technology Inc.,Objectif validé,Validated Targets,,Commitment Removed,40.25,Oui
 AIR FP Equity,Airbus SE,NL0000235190,Airbus,Objectif validé,Validated Targets,,,0,Oui
 AI FP Equity,Air Liquide SA,FR0000120073,Air Liquide Group S.A.,Objectif validé,Validated Targets,,,0.33,Oui
-MU US Equity,Micron Technology Inc,US5951121038,,Absent de la base SBTi,,,,0,Non
-LRCX US Equity,Lam Research Corp,US5128073062,Lam Research Corporation,Objectif validé,Validated Targets,,,0,Oui
-UPS US Equity,United Parcel Service Inc,US9113121068,,Absent de la base SBTi,,,,0,Non
+MU US Equity,Micron Technology Inc,US5951121038,,Absent de la base SBTi,,,,0,Oui
+LRCX US Equity,Lam Research Corp,US5128073062,,Absent de la base SBTi,,,,0,Oui
+UPS US Equity,United Parcel Service Inc,US9113121068,,Absent de la base SBTi,,,,0,Oui
 ENB CN Equity,Enbridge Inc,CA29250N1050,,Absent de la base SBTi,,,,1.07,Non
 EQIX US Equity,Equinix Inc,US29444U7000,"Equinix, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,71.23,Oui
 GEV US Equity,GE Vernova Inc,US36828A1016,,Absent de la base SBTi,,,,30.7,Oui
-TD CN Equity,Toronto-Dominion Bank/The,CA8911605092,,Absent de la base SBTi,,,,0,Non
-SO US Equity,Southern Co/The,US8425871071,,Absent de la base SBTi,,,,6.41,Non
+TD CN Equity,Toronto-Dominion Bank/The,CA8911605092,,Absent de la base SBTi,,,,0,Oui
+SO US Equity,Southern Co/The,US8425871071,,Absent de la base SBTi,,,,6.41,Oui
 MO US Equity,Altria Group Inc,US02209S1033,"Altria Group, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 NKE US Equity,NIKE Inc,US6541061031,"NIKE, Inc.",Objectif validé,Validated Targets,,,0,Oui
-ZURN SE Equity,Zurich Insurance Group AG,CH0011075394,Zurich Insurance Group Ltd,Engagement retiré,Commitment Removed,,,0,Non
+ZURN SE Equity,Zurich Insurance Group AG,CH0011075394,Zurich Insurance Group Ltd,Engagement retiré,Commitment Removed,,,0,Oui
 INTC US Equity,Intel Corp,US4581401001,,Absent de la base SBTi,,,,28.62,Oui
 OR FP Equity,L'Oreal SA,FR0000120321,L'Oréal,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 AMT US Equity,American Tower Corp,US03027X1000,American Tower Corporation,Objectif validé,Validated Targets,,,0,Oui
@@ -142,17 +142,17 @@ ELV US Equity,Elevance Health Inc,US0367521038,Elevance Health,Objectif validé,
 PYPL US Equity,PayPal Holdings Inc,US70450Y1038,PayPal,Objectif validé,Validated Targets,,,0,Oui
 IBE SM Equity,Iberdrola SA,ES0144580Y14,Iberdrola SA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,27.3,Oui
 ABBN SE Equity,ABB Ltd,CH0012221716,ABB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,2.7,Oui
-ICE US Equity,Intercontinental Exchange Inc,US45866F1049,,Absent de la base SBTi,,,,0,Non
+ICE US Equity,Intercontinental Exchange Inc,US45866F1049,,Absent de la base SBTi,,,,0,Oui
 REL LN Equity,RELX PLC,GB00B2B0DG97,RELX,Objectif validé,Validated Targets,,,0,Oui
 KLAC US Equity,KLA Corp,US4824801009,KLA Corporation,Objectif validé,Validated Targets,,,0,Oui
 CSL AU Equity,CSL Ltd,AU000000CSL8,CSL Limited,Objectif validé,Validated Targets,,,0,Oui
-8316 JP Equity,Sumitomo Mitsui Financial Grou,JP3890350006,,Absent de la base SBTi,,,,0,Non
+8316 JP Equity,Sumitomo Mitsui Financial Grou,JP3890350006,,Absent de la base SBTi,,,,0,Oui
 APH US Equity,Amphenol Corp,US0320951017,,Absent de la base SBTi,,,,1.39,Non
 CME US Equity,CME Group Inc,US12572Q1058,,Absent de la base SBTi,,,,0,Non
 SAF FP Equity,Safran SA,FR0000073272,Safran,Objectif validé,Validated Targets,,,0,Oui
 MELI US Equity,MercadoLibre Inc,US58733R1023,Mercado Libre,Engagement retiré,Commitment Removed,,,0,Non
-TT US Equity,Trane Technologies PLC,IE00BK9ZQ967,Trane Technologies Plc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.12,Oui
-DUK US Equity,Duke Energy Corp,US26441C2044,,Absent de la base SBTi,,,,5.73,Non
+TT US Equity,Trane Technologies PLC,IE00BK9ZQ967,,Absent de la base SBTi,,,,3.12,Oui
+DUK US Equity,Duke Energy Corp,US26441C2044,,Absent de la base SBTi,,,,5.73,Oui
 CDNS US Equity,Cadence Design Systems,US1273871087,Cadence Design Systems,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 CMG US Equity,Chipotle Mexican Grill Inc,US1696561059,"Chipotle Mexican Grill, Inc.",Objectif validé,Validated Targets,,,0,Oui
 PH US Equity,Parker-Hannifin Corp,US7010941042,Parker Hannifin Corporation,Objectif validé,Validated Targets,,,1.08,Oui
@@ -162,113 +162,113 @@ BATS LN Equity,British American Tobacco PLC,GB0002875804,British American Tobacc
 BP/ LN Equity,BP PLC,GB0007980591,,Absent de la base SBTi,,,,1.44,Non
 1299 HK Equity,AIA Group Ltd,HK0000069689,AIA Group Limited,Objectif validé,Validated Targets,,,0,Oui
 SHW US Equity,Sherwin-Williams Co/The,US8243481061,,Absent de la base SBTi,,,,46.51,Oui
-WELL US Equity,Welltower Inc,US95040Q1040,Welltower Inc.,Objectif validé,Validated Targets,,,0,Oui
+WELL US Equity,Welltower Inc,US95040Q1040,,Absent de la base SBTi,,,,0,Oui
 CRWD US Equity,Crowdstrike Holdings Inc,US22788C1053,CrowdStrike,Objectif validé,Validated Targets,,Commitment Removed,1.34,Oui
-CI US Equity,Cigna Corp,US1255231003,The Cigna Group,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
-MSI US Equity,Motorola Solutions Inc,US6200763075,,Absent de la base SBTi,,,,0,Non
-6861 JP Equity,Keyence Corp,JP3236200006,,Absent de la base SBTi,,,,0,Non
+CI US Equity,Cigna Corp,US1255231003,The Cigna Group,Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
+MSI US Equity,Motorola Solutions Inc,US6200763075,,Absent de la base SBTi,,,,0,Oui
+6861 JP Equity,Keyence Corp,JP3236200006,,Absent de la base SBTi,,,,0,Oui
 RMS FP Equity,Hermes International,FR0000052292,Hermès International,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-PNC US Equity,PNC Financial Services Group I,US6934751057,,Absent de la base SBTi,,,,0,Non
+PNC US Equity,PNC Financial Services Group I,US6934751057,,Absent de la base SBTi,,,,0,Oui
 EL FP Equity,EssilorLuxottica SA,FR0000121667,EssilorLuxottica S.A.,Objectif validé,Validated Targets,,,0,Oui
-CS FP Equity,AXA SA,FR0000120628,AXA Group,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
-BN CN Equity,Brookfield Corp,CA11271J1075,,Absent de la base SBTi,,,,16.83,Non
-REGN US Equity,Regeneron Pharmaceuticals Inc,US75886F1075,,Absent de la base SBTi,,,,0,Non
+CS FP Equity,AXA SA,FR0000120628,AXA Group,Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
+BN CN Equity,Brookfield Corp,CA11271J1075,,Absent de la base SBTi,,,,16.83,Oui
+REGN US Equity,Regeneron Pharmaceuticals Inc,US75886F1075,,Absent de la base SBTi,,,,0,Oui
 AON US Equity,Aon PLC,IE00BLP1HW54,Aon plc,Objectif validé,Validated Targets,,,0,Oui
 SNPS US Equity,Synopsys Inc,US8716071076,"Synopsys, Inc.",Objectif validé,Validated Targets,,,0,Oui
 CL US Equity,Colgate-Palmolive Co,US1941621039,Colgate Palmolive Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-USB US Equity,US Bancorp,US9029733048,,Absent de la base SBTi,,,,0,Non
+USB US Equity,US Bancorp,US9029733048,,Absent de la base SBTi,,,,0,Oui
 MCK US Equity,McKesson Corp,US58155Q1031,McKesson Corporation,Objectif validé,Validated Targets,,,0,Oui
 MCO US Equity,Moody's Corp,US6153691059,Moody's Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ITW US Equity,Illinois Tool Works Inc,US4523081093,,Absent de la base SBTi,,,,0.09,Non
+ITW US Equity,Illinois Tool Works Inc,US4523081093,,Absent de la base SBTi,,,,0.09,Oui
 CFR SE Equity,Cie Financiere Richemont SA,CH0210483332,Compagnie Financière Richemont SA,Objectif validé,Validated Targets,,,0,Oui
 APP US Equity,AppLovin Corp,US03831W1080,,Absent de la base SBTi,,,,0,Non
 DGE LN Equity,Diageo PLC,GB0002374006,Diageo Plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-8001 JP Equity,ITOCHU Corp,JP3143600009,,Absent de la base SBTi,,,,1.92,Non
+8001 JP Equity,ITOCHU Corp,JP3143600009,,Absent de la base SBTi,,,,1.92,Oui
 EMR US Equity,Emerson Electric Co,US2910111044,Emerson Electric Co.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,6.65,Oui
 LSEG LN Equity,London Stock Exchange Group PL,GB00B0SWJX34,London Stock Exchange Group PLC,Objectif validé,Validated Targets,,,0,Oui
-NAB AU Equity,National Australia Bank Ltd,AU000000NAB4,,Absent de la base SBTi,,,,0,Non
+NAB AU Equity,National Australia Bank Ltd,AU000000NAB4,,Absent de la base SBTi,,,,0,Oui
 CEG US Equity,Constellation Energy Corp,US21037T1097,,Absent de la base SBTi,,,,0.43,Non
 MMM US Equity,3M Co,US88579Y1010,3M,Objectif validé,Validated Targets,,,0.3,Oui
-SAN SM Equity,Banco Santander SA,ES0113900J37,,Absent de la base SBTi,,,,0,Non
-EOG US Equity,EOG Resources Inc,US26875P1012,,Absent de la base SBTi,,,,0,Non
+SAN SM Equity,Banco Santander SA,ES0113900J37,,Absent de la base SBTi,,,,0,Oui
+EOG US Equity,EOG Resources Inc,US26875P1012,,Absent de la base SBTi,,,,0,Oui
 TDG US Equity,TransDigm Group Inc,US8936411003,,Absent de la base SBTi,,,,0,Non
-WBC AU Equity,Westpac Banking Corp,AU000000WBC1,,Absent de la base SBTi,,,,0,Non
+WBC AU Equity,Westpac Banking Corp,AU000000WBC1,,Absent de la base SBTi,,,,0,Oui
 8035 JP Equity,Tokyo Electron Ltd,JP3571400005,Tokyo Electron Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ORLY US Equity,O'Reilly Automotive Inc,US67103H1077,,Absent de la base SBTi,,,,0,Non
 NOC US Equity,Northrop Grumman Corp,US6668071029,,Absent de la base SBTi,,,,0,Non
-7974 JP Equity,Nintendo Co Ltd,JP3756600007,,Absent de la base SBTi,,,,0,Non
-BMO CN Equity,Bank of Montreal,CA0636711016,,Absent de la base SBTi,,,,0,Non
-ZTS US Equity,Zoetis Inc,US98978V1035,,Absent de la base SBTi,,,,0,Non
+7974 JP Equity,Nintendo Co Ltd,JP3756600007,,Absent de la base SBTi,,,,0,Oui
+BMO CN Equity,Bank of Montreal,CA0636711016,,Absent de la base SBTi,,,,0,Oui
+ZTS US Equity,Zoetis Inc,US98978V1035,,Absent de la base SBTi,,,,0,Oui
 CP CN Equity,Canadian Pacific Kansas City L,CA13646K1084,CPKC,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-MUV2 GY Equity,Muenchener Rueckversicherungs-,DE0008430026,,Absent de la base SBTi,,,,0,Non
+MUV2 GY Equity,Muenchener Rueckversicherungs-,DE0008430026,,Absent de la base SBTi,,,,0,Oui
 GSK LN Equity,GSK PLC,GB00BN7SWP63,GSK,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-8766 JP Equity,Tokio Marine Holdings Inc,JP3910660004,"Tokio Marine Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Non
-WMB US Equity,Williams Cos Inc/The,US9694571004,,Absent de la base SBTi,,,,0,Non
-4063 JP Equity,Shin-Etsu Chemical Co Ltd,JP3371200001,,Absent de la base SBTi,,,,0.49,Non
+8766 JP Equity,Tokio Marine Holdings Inc,JP3910660004,"Tokio Marine Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
+WMB US Equity,Williams Cos Inc/The,US9694571004,,Absent de la base SBTi,,,,0,Oui
+4063 JP Equity,Shin-Etsu Chemical Co Ltd,JP3371200001,,Absent de la base SBTi,,,,0.49,Oui
 BDX US Equity,Becton Dickinson and Co,US0758871091,"BD (Becton, Dickinson & Company)",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-COF US Equity,Capital One Financial Corp,US14040H1059,,Absent de la base SBTi,,,,0,Non
-APO US Equity,Apollo Global Management Inc,US03769M1062,,Absent de la base SBTi,,,,0,Non
-APD US Equity,Air Products and Chemicals Inc,US0091581068,,Absent de la base SBTi,,,,6.23,Non
-CNQ CN Equity,Canadian Natural Resources Ltd,CA1363851017,,Absent de la base SBTi,,,,0,Non
-BNS CN Equity,Bank of Nova Scotia/The,CA0641491075,,Absent de la base SBTi,,,,0,Non
+COF US Equity,Capital One Financial Corp,US14040H1059,,Absent de la base SBTi,,,,0,Oui
+APO US Equity,Apollo Global Management Inc,US03769M1062,,Absent de la base SBTi,,,,0,Oui
+APD US Equity,Air Products and Chemicals Inc,US0091581068,,Absent de la base SBTi,,,,6.23,Oui
+CNQ CN Equity,Canadian Natural Resources Ltd,CA1363851017,,Absent de la base SBTi,,,,0,Oui
+BNS CN Equity,Bank of Nova Scotia/The,CA0641491075,,Absent de la base SBTi,,,,0,Oui
 ADSK US Equity,Autodesk Inc,US0527691069,"Autodesk, Inc.",Objectif validé,Validated Targets,,,15.51,Oui
-GD US Equity,General Dynamics Corp,US3695501086,,Absent de la base SBTi,,,,0,Non
+GD US Equity,General Dynamics Corp,US3695501086,,Absent de la base SBTi,,,,0,Oui
 RIO LN Equity,Rio Tinto PLC,GB0007188757,,Absent de la base SBTi,,,,0,Non
 FDX US Equity,FedEx Corp,US31428X1063,FedEx Corporation,Objectif validé,Validated Targets,,,0,Oui
 CRH US Equity,CRH PLC,IE0001827041,CRH plc,Objectif validé,Validated Targets,,,0,Oui
-BNP FP Equity,BNP Paribas SA,FR0000131104,BNP Paribas,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
+BNP FP Equity,BNP Paribas SA,FR0000131104,BNP Paribas,Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
 ISP IM Equity,Intesa Sanpaolo SpA,IT0000072618,Intesa Sanpaolo,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
-UCG IM Equity,UniCredit SpA,IT0005239360,,Absent de la base SBTi,,,,0,Non
-8058 JP Equity,Mitsubishi Corp,JP3898400001,,Absent de la base SBTi,,,,5.63,Non
+UCG IM Equity,UniCredit SpA,IT0005239360,,Absent de la base SBTi,,,,0,Oui
+8058 JP Equity,Mitsubishi Corp,JP3898400001,,Absent de la base SBTi,,,,5.63,Oui
 MAR US Equity,Marriott International Inc/MD,US5719032022,"Marriott International, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 CSX US Equity,CSX Corp,US1264081035,CSX Corporation,Objectif validé,Validated Targets,,,0,Oui
 TGT US Equity,Target Corp,US87612E1064,Target Corporation,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
-DBS SP Equity,DBS Group Holdings Ltd,SG1L01001701,,Absent de la base SBTi,,,,0,Non
-CTAS US Equity,Cintas Corp,US1729081059,,Absent de la base SBTi,,,,0,Non
+DBS SP Equity,DBS Group Holdings Ltd,SG1L01001701,,Absent de la base SBTi,,,,0,Oui
+CTAS US Equity,Cintas Corp,US1729081059,,Absent de la base SBTi,,,,0,Oui
 CNR CN Equity,Canadian National Railway Co,CA1363751027,Canadian National Railway Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 AJG US Equity,Arthur J Gallagher & Co,US3635761097,,Absent de la base SBTi,,,,0,Non
 CSU CN Equity,Constellation Software Inc,CA21037X1006,,Absent de la base SBTi,,,,0,Non
-RR/ LN Equity,Rolls-Royce Holdings PLC,GB00B63H8491,Rolls-Royce plc,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,2.83,Non
+RR/ LN Equity,Rolls-Royce Holdings PLC,GB00B63H8491,Rolls-Royce plc,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,2.83,Oui
 9983 JP Equity,Fast Retailing Co Ltd,JP3802300008,"FAST RETAILING CO., LTD.",Objectif validé,Validated Targets,,,0,Oui
-ATCOA SS Equity,Atlas Copco AB,SE0017486889,Atlas Copco AB,Objectif validé,Validated Targets,,,3.51,Oui
-FTNT US Equity,Fortinet Inc,US34959E1091,Fortinet,Objectif validé,Validated Targets,,Commitment Removed,0.98,Oui
-INVEA SS Equity,Investor AB,SE0015811955,,Absent de la base SBTi,,,,0,Non
+ATCOA SS Equity,Atlas Copco AB,SE0017486889,,Absent de la base SBTi,,,,3.51,Oui
+FTNT US Equity,Fortinet Inc,US34959E1091,,Absent de la base SBTi,,,,0.98,Non
+INVEA SS Equity,Investor AB,SE0015811955,,Absent de la base SBTi,,,,0,Oui
 HLT US Equity,Hilton Worldwide Holdings Inc,US43300A2033,Hilton,Objectif validé,Validated Targets,,,0,Oui
-8411 JP Equity,Mizuho Financial Group Inc,JP3885780001,,Absent de la base SBTi,,,,0,Non
+8411 JP Equity,Mizuho Financial Group Inc,JP3885780001,,Absent de la base SBTi,,,,0,Oui
 ECL US Equity,Ecolab Inc,US2788651006,Ecolab Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,10.4,Oui
-OKE US Equity,ONEOK Inc,US6826801036,,Absent de la base SBTi,,,,0,Non
+OKE US Equity,ONEOK Inc,US6826801036,,Absent de la base SBTi,,,,0,Oui
 DG FP Equity,Vinci SA,FR0000125486,VINCI SA,Objectif validé,Validated Targets,,,16.42,Oui
 DLR US Equity,Digital Realty Trust Inc,US2538681030,Digital Realty,Objectif validé,Validated Targets,,Commitment to Set Targets,91.91,Oui
-8031 JP Equity,Mitsui & Co Ltd,JP3893600001,,Absent de la base SBTi,,,,5.05,Non
+8031 JP Equity,Mitsui & Co Ltd,JP3893600001,,Absent de la base SBTi,,,,5.05,Oui
 GM US Equity,General Motors Co,US37045V1008,General Motors,Objectif validé,Validated Targets,,Commitment Removed,18.82,Oui
-TFC US Equity,Truist Financial Corp,US89832Q1094,,Absent de la base SBTi,,,,0,Non
-CM CN Equity,Canadian Imperial Bank of Comm,CA1360691010,,Absent de la base SBTi,,,,0,Non
-AFL US Equity,Aflac Inc,US0010551028,,Absent de la base SBTi,,,,0,Non
-9984 JP Equity,SoftBank Group Corp,JP3436100006,,Absent de la base SBTi,,,,0.02,Non
+TFC US Equity,Truist Financial Corp,US89832Q1094,,Absent de la base SBTi,,,,0,Oui
+CM CN Equity,Canadian Imperial Bank of Comm,CA1360691010,,Absent de la base SBTi,,,,0,Oui
+AFL US Equity,Aflac Inc,US0010551028,,Absent de la base SBTi,,,,0,Oui
+9984 JP Equity,SoftBank Group Corp,JP3436100006,,Absent de la base SBTi,,,,0.02,Oui
 CARR US Equity,Carrier Global Corp,US14448C1045,Carrier Global Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.88,Oui
 ITX SM Equity,Industria de Diseno Textil SA,ES0148396007,Inditex,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 NG/ LN Equity,National Grid PLC,GB00BDR05C01,National Grid (Group) PLC,Objectif validé,Validated Targets,,Commitment Removed,4.57,Oui
-CPG LN Equity,Compass Group PLC,GB00BD6K4575,Compass Group PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+CPG LN Equity,Compass Group PLC,GB00BD6K4575,Compass Group UK&I,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
 SPOT US Equity,Spotify Technology SA,LU1778762911,,Absent de la base SBTi,,,,,Non
-BK US Equity,Bank of New York Mellon Corp/T,US0640581007,,Absent de la base SBTi,,,,0,Non
-BBVA SM Equity,Banco Bilbao Vizcaya Argentari,ES0113211835,BBVA,Engagement retiré,Commitment Removed,,,0,Non
+BK US Equity,Bank of New York Mellon Corp/T,US0640581007,,Absent de la base SBTi,,,,0,Oui
+BBVA SM Equity,Banco Bilbao Vizcaya Argentari,ES0113211835,BBVA,Engagement retiré,Commitment Removed,,,0,Oui
 HCA US Equity,HCA Healthcare Inc,US40412C1018,,Absent de la base SBTi,,,,0,Non
-SRE US Equity,Sempra Energy,US8168511090,,Absent de la base SBTi,,,,13.9,Non
-ROP US Equity,Roper Technologies Inc,US7766961061,"Roper Technologies, Inc.",Engagement retiré,Commitment Removed,,,2.01,Non
+SRE US Equity,Sempra Energy,US8168511090,,Absent de la base SBTi,,,,13.9,Oui
+ROP US Equity,Roper Technologies Inc,US7766961061,"Roper Technologies, Inc.",Engagement retiré,Commitment Removed,,,2.01,Oui
 CVS US Equity,CVS Health Corp,US1266501006,CVS Health,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ENEL IM Equity,Enel SpA,IT0003128367,Enel SpA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,19.71,Oui
 DASH US Equity,DoorDash Inc,US25809K1051,,Absent de la base SBTi,,,,0,Non
-FCX US Equity,Freeport-McMoRan Inc,US35671D8570,Freeport-McMoRan Inc.,Engagement retiré,Commitment Removed,,,0,Non
-RCL US Equity,Royal Caribbean Cruises Ltd,LR0008862868,,Absent de la base SBTi,,,,0,Non
+FCX US Equity,Freeport-McMoRan Inc,US35671D8570,Freeport-McMoRan Inc.,Engagement retiré,Commitment Removed,,,0,Oui
+RCL US Equity,Royal Caribbean Cruises Ltd,LR0008862868,,Absent de la base SBTi,,,,0,Oui
 WDAY US Equity,Workday Inc,US98138H1014,"Workday, Inc.",Objectif validé,Validated Targets,,,0,Oui
-SLB US Equity,Schlumberger Ltd,AN8068571086,,Absent de la base SBTi,,,,0,Non
-AZO US Equity,AutoZone Inc,US0533321024,,Absent de la base SBTi,,,,0,Non
-TRV US Equity,Travelers Cos Inc,US89417E1091,,Absent de la base SBTi,,,,0,Non
+SLB US Equity,Schlumberger Ltd,AN8068571086,,Absent de la base SBTi,,,,0,Oui
+AZO US Equity,AutoZone Inc,US0533321024,,Absent de la base SBTi,,,,0,Oui
+TRV US Equity,Travelers Cos Inc,US89417E1091,,Absent de la base SBTi,,,,0,Oui
 MFC CN Equity,Manulife Financial Corp,CA56501R1064,Manulife Financial Corporation,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
 PCAR US Equity,PACCAR Inc,US6937181088,PACCAR Inc,Objectif validé,Validated Targets,,,18.23,Oui
 SPG US Equity,Simon Property Group Inc,US8288061091,Simon Property Group,Objectif validé,Validated Targets,,,0.31,Oui
 PRX NA Equity,Prosus NV,NL0013654783,,Absent de la base SBTi,,,,0,Non
-KMI US Equity,Kinder Morgan Inc,US49456B1017,,Absent de la base SBTi,,,,0,Non
+KMI US Equity,Kinder Morgan Inc,US49456B1017,,Absent de la base SBTi,,,,0,Oui
 MSTR US Equity,MicroStrategy Inc,US5949724083,Strategy Inc,Engagement retiré,Commitment Removed,,,0,Non
 NSC US Equity,Norfolk Southern Corp,US6558441084,Norfolk Southern Corporation,Objectif validé,Validated Targets,,,0,Oui
 TTD US Equity,Trade Desk Inc,US88339J1051,,Absent de la base SBTi,,,,0,Non
@@ -276,60 +276,60 @@ JCI US Equity,Johnson Controls International,IE00BY7QL619,Johnson Controls Inter
 ANZ AU Equity,ANZ Group Holding,AU000000ANZ3,,Absent de la base SBTi,,,,0,Non
 AMP US Equity,Ameriprise Financial Inc,US03076C1062,,Absent de la base SBTi,,,,0,Non
 9432 JP Equity,Nippon Telegraph & Telephone C,JP3735400008,NTT Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.2,Oui
-MQG AU Equity,Macquarie Group Ltd,AU000000MQG1,,Absent de la base SBTi,,,,0,Non
+MQG AU Equity,Macquarie Group Ltd,AU000000MQG1,,Absent de la base SBTi,,,,0,Oui
 4568 JP Equity,Daiichi Sankyo Co Ltd,JP3475350009,"Daiichi Sankyo Co., Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ABNB US Equity,Airbnb Inc,US0090661010,"Airbnb, Inc",Objectif validé,Validated Targets,,,0,Oui
 NXPI US Equity,NXP Semiconductors NV,NL0009538784,NXP Semiconductors,Objectif validé,Validated Targets,,,0.48,Oui
 CPRT US Equity,Copart Inc,US2172041061,,Absent de la base SBTi,,,,0,Non
-ALL US Equity,Allstate Corp/The,US0200021014,,Absent de la base SBTi,,,,0,Non
+ALL US Equity,Allstate Corp/The,US0200021014,,Absent de la base SBTi,,,,0,Oui
 INGA NA Equity,ING Groep NV,NL0011821202,ING,Objectif validé,Validated Targets,,,0,Oui
-WES AU Equity,Wesfarmers Ltd,AU000000WES1,,Absent de la base SBTi,,,,0,Non
-ROST US Equity,Ross Stores Inc,US7782961038,,Absent de la base SBTi,,,,0,Non
+WES AU Equity,Wesfarmers Ltd,AU000000WES1,,Absent de la base SBTi,,,,0,Oui
+ROST US Equity,Ross Stores Inc,US7782961038,,Absent de la base SBTi,,,,0,Oui
 COIN US Equity,Coinbase Global Inc,US19260Q1076,,Absent de la base SBTi,,,,0,Non
 AEP US Equity,American Electric Power Co Inc,US0255371017,,Absent de la base SBTi,,,,4.99,Non
 HOLN SE Equity,Holcim AG,CH0012214059,Holcim Ltd.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-BARC LN Equity,Barclays PLC,GB0031348658,,Absent de la base SBTi,,,,0,Non
+BARC LN Equity,Barclays PLC,GB0031348658,,Absent de la base SBTi,,,,0,Oui
 GLEN LN Equity,Glencore PLC,JE00B4T3BW64,,Absent de la base SBTi,,,,0,Non
 TRP CN Equity,TC Energy Corp,CA87807B1076,,Absent de la base SBTi,,,,0,Non
-MBG GY Equity,Mercedes-Benz Group AG,DE0007100000,,Absent de la base SBTi,,,,10.74,Non
-MET US Equity,MetLife Inc,US59156R1086,"MetLife, Inc.",Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
+MBG GY Equity,Mercedes-Benz Group AG,DE0007100000,,Absent de la base SBTi,,,,10.74,Oui
+MET US Equity,MetLife Inc,US59156R1086,"MetLife, Inc.",Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
 CMI US Equity,Cummins Inc,US2310211063,Cummins,Objectif validé,Validated Targets,,,14.62,Oui
 FICO US Equity,Fair Isaac Corp,US3032501047,,Absent de la base SBTi,,,,0,Non
 PSA US Equity,Public Storage,US74460D1090,,Absent de la base SBTi,,,,0,Non
 VST US Equity,Vistra Corp,US92840M1027,Vistra Corp.,Objectif validé,Validated Targets,,,1.16,Oui
-OCBC SP Equity,Oversea-Chinese Banking Corp L,SG1S04926220,,Absent de la base SBTi,,,,0,Non
+OCBC SP Equity,Oversea-Chinese Banking Corp L,SG1S04926220,,Absent de la base SBTi,,,,0,Oui
 SQ US Equity,Block Inc,US8522341036,"Block, Inc.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-AIG US Equity,American International Group I,US0268747849,,Absent de la base SBTi,,,,0,Non
-LNG US Equity,Cheniere Energy Inc,US16411R2085,,Absent de la base SBTi,,,,0,Non
-GWW US Equity,WW Grainger Inc,US3848021040,,Absent de la base SBTi,,,,0,Non
+AIG US Equity,American International Group I,US0268747849,,Absent de la base SBTi,,,,0,Oui
+LNG US Equity,Cheniere Energy Inc,US16411R2085,,Absent de la base SBTi,,,,0,Oui
+GWW US Equity,WW Grainger Inc,US3848021040,,Absent de la base SBTi,,,,0,Oui
 9433 JP Equity,KDDI Corp,JP3496400007,KDDI Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.15,Oui
 PSX US Equity,Phillips 66,US7185461040,,Absent de la base SBTi,,,,0,Non
-O US Equity,Realty Income Corp,US7561091049,,Absent de la base SBTi,,,,0,Non
+O US Equity,Realty Income Corp,US7561091049,,Absent de la base SBTi,,,,0,Oui
 MPC US Equity,Marathon Petroleum Corp,US56585A1025,,Absent de la base SBTi,,,,5.31,Non
-PWR US Equity,Quanta Services Inc,US74762E1029,,Absent de la base SBTi,,,,14.01,Non
-URI US Equity,United Rentals Inc,US9113631090,,Absent de la base SBTi,,,,0,Non
+PWR US Equity,Quanta Services Inc,US74762E1029,,Absent de la base SBTi,,,,14.01,Oui
+URI US Equity,United Rentals Inc,US9113631090,,Absent de la base SBTi,,,,0,Oui
 MSCI US Equity,MSCI Inc,US55354G1004,MSCI Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,,Oui
 FLTR LN Equity,Flutter Entertainment PLC,IE00BWT6H894,Flutter Entertainment plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 SNOW US Equity,Snowflake Inc,US8334451098,Snowflake Inc.,Objectif validé,Validated Targets,,Commitment to Set Targets,11.88,Oui
-7011 JP Equity,Mitsubishi Heavy Industries Lt,JP3900000005,,Absent de la base SBTi,,,,13.01,Non
+7011 JP Equity,Mitsubishi Heavy Industries Lt,JP3900000005,,Absent de la base SBTi,,,,13.01,Oui
 388 HK Equity,Hong Kong Exchanges & Clearing,HK0388045442,Hong Kong Exchanges and Clearing Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ABI BB Equity,Anheuser-Busch InBev SA,BE0974293251,AB InBev,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-D US Equity,Dominion Energy Inc,US25746U1097,,Absent de la base SBTi,,,,8.1,Non
-PAYX US Equity,Paychex Inc,US7043261079,,Absent de la base SBTi,,,,0,Non
-SU CN Equity,Suncor Energy Inc,CA8672241079,,Absent de la base SBTi,,,,7.32,Non
+D US Equity,Dominion Energy Inc,US25746U1097,,Absent de la base SBTi,,,,8.1,Oui
+PAYX US Equity,Paychex Inc,US7043261079,,Absent de la base SBTi,,,,0,Oui
+SU CN Equity,Suncor Energy Inc,CA8672241079,,Absent de la base SBTi,,,,7.32,Oui
 EW US Equity,Edwards Lifesciences Corp,US28176E1082,Edwards Lifesciences,Objectif validé,Validated Targets,,,0,Oui
-HWM US Equity,Howmet Aerospace Inc,US4432011082,,Absent de la base SBTi,,,,0,Non
-WCN CN Equity,Waste Connections Inc,CA94106B1013,Waste Connections,Engagement retiré,Commitment Removed,,,0,Non
-RACE IM Equity,Ferrari NV,NL0011585146,Ferrari N.V.,Engagement retiré,Commitment Removed,,,8.79,Non
+HWM US Equity,Howmet Aerospace Inc,US4432011082,,Absent de la base SBTi,,,,0,Oui
+WCN CN Equity,Waste Connections Inc,CA94106B1013,Waste Connections,Engagement retiré,Commitment Removed,,,0,Oui
+RACE IM Equity,Ferrari NV,NL0011585146,Ferrari N.V.,Engagement retiré,Commitment Removed,,,8.79,Oui
 KMB US Equity,Kimberly-Clark Corp,US4943681035,Kimberly-Clark Corporation,Objectif validé,Validated Targets,,,0,Oui
 FIS US Equity,Fidelity National Information,US31620M1062,,Absent de la base SBTi,,,,0,Non
 ADYEN NA Equity,Adyen NV,NL0012969182,,Absent de la base SBTi,,,,0,Non
 BA/ LN Equity,BAE Systems PLC,GB0002634946,BAE Systems PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,2.39,Oui
 BN FP Equity,Danone SA,FR0000120644,McCain Foods Limited,Objectif validé,Validated Targets,,,0,Oui
-TEL US Equity,TE Connectivity Ltd,IE000IVNQZ81,TE Connectivity Ltd,Objectif validé,Validated Targets,,,2.17,Oui
+TEL US Equity,TE Connectivity Ltd,IE000IVNQZ81,,Absent de la base SBTi,,,,2.17,Oui
 DB1 GY Equity,Deutsche Boerse AG,DE0005810055,Deutsche Börse AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-7741 JP Equity,Hoya Corp,JP3837800006,HOYA,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
-DFS US Equity,Discover Financial Services,US2547091080,,Absent de la base SBTi,,,,0,Non
+7741 JP Equity,Hoya Corp,JP3837800006,,Absent de la base SBTi,,,,0,Non
+DFS US Equity,Discover Financial Services,US2547091080,,Absent de la base SBTi,,,,0,Oui
 PCG US Equity,PG&E Corp,US69331C1080,PG&E Corporation,Engagement retiré,Commitment Removed,,,25.7,Oui
 6857 JP Equity,Advantest Corp,JP3122400009,Advantest Corporation,Objectif validé,Validated Targets,,,1.55,Oui
 7267 JP Equity,Honda Motor Co Ltd,JP3854600008,,Absent de la base SBTi,,,,29.2,Oui
@@ -339,166 +339,166 @@ LONN SE Equity,Lonza Group AG,CH0013841017,Lonza Group Ltd,Objectif validé,Vali
 AXON US Equity,Axon Enterprise Inc,US05464C1018,,Absent de la base SBTi,,,,0,Non
 NEM US Equity,Newmont Corp,US6516391066,Newmont Corporation,Objectif validé,Validated Targets,,,0,Oui
 ALC SE Equity,Alcon Inc,CH0432492467,,Absent de la base SBTi,,,,0,Non
-PRU US Equity,Prudential Financial Inc,US7443201022,,Absent de la base SBTi,,,,0,Non
+PRU US Equity,Prudential Financial Inc,US7443201022,,Absent de la base SBTi,,,,0,Oui
 DDOG US Equity,Datadog Inc,US23804L1035,,Absent de la base SBTi,,,,0,Non
-SREN SE Equity,Swiss Re AG,CH0126881561,Swiss Re,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-PEG US Equity,Public Service Enterprise Grou,US7445731067,Public Service Enterprise Group Inc. (PSEG),Engagement retiré,Commitment Removed,,,1.01,Non
+SREN SE Equity,Swiss Re AG,CH0126881561,Swiss Re,Engagement retiré,Commitment Removed,,Commitment Removed,0,Oui
+PEG US Equity,Public Service Enterprise Grou,US7445731067,Public Service Enterprise Group Inc. (PSEG),Engagement retiré,Commitment Removed,,,1.01,Oui
 LLOY LN Equity,Lloyds Banking Group PLC,GB0008706128,,Absent de la base SBTi,,,,0,Non
 RKT LN Equity,Reckitt Benckiser Group PLC,GB00B24CGK77,Reckitt Benckiser Group plc,Objectif validé,Validated Targets,,,0,Oui
-VRT US Equity,Vertiv Holdings Co,US92537N1081,,Absent de la base SBTi,,,,1.62,Non
+VRT US Equity,Vertiv Holdings Co,US92537N1081,,Absent de la base SBTi,,,,1.62,Oui
 AME US Equity,AMETEK Inc,US0311001004,,Absent de la base SBTi,,,,0,Non
-VOLVA SS Equity,Volvo AB,SE0000115420,AB Volvo,Objectif validé,Validated Targets,,Commitment to Set Targets,0.35,Oui
+VOLVA SS Equity,Volvo AB,SE0000115420,,Absent de la base SBTi,,,,0.35,Oui
 FAST US Equity,Fastenal Co,US3119001044,,Absent de la base SBTi,,,,0,Non
 DSV DC Equity,DSV A/S,DK0060079531,DSV A / S,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 KVUE US Equity,KENVUE INC,US49177J1025,Kenvue Inc.,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 RSG US Equity,Republic Services Inc,US7607591002,Republic Services,Objectif validé,Validated Targets,,,14.99,Oui
-KR US Equity,Kroger Co/The,US5010441013,The Kroger Co.,Engagement retiré,Commitment Removed,,,0,Non
-BKR US Equity,Baker Hughes Co,US05722G1004,,Absent de la base SBTi,,,,0.65,Non
-DHI US Equity,DR Horton Inc,US23331A1097,,Absent de la base SBTi,,,,11.21,Non
+KR US Equity,Kroger Co/The,US5010441013,The Kroger Co.,Engagement retiré,Commitment Removed,,,0,Oui
+BKR US Equity,Baker Hughes Co,US05722G1004,,Absent de la base SBTi,,,,0.65,Oui
+DHI US Equity,DR Horton Inc,US23331A1097,,Absent de la base SBTi,,,,11.21,Oui
 IFX GY Equity,Infineon Technologies AG,DE0006231004,Infineon Technologies AG,Objectif validé,Validated Targets,,,1.53,Oui
-LHX US Equity,L3Harris Technologies Inc,US5024311095,,Absent de la base SBTi,,,,0,Non
+LHX US Equity,L3Harris Technologies Inc,US5024311095,,Absent de la base SBTi,,,,0,Oui
 EXPN LN Equity,Experian PLC,GB00B19NLV48,Experian,Objectif validé,Validated Targets,,,0,Oui
 COR US Equity,Cencora Inc,US03073E1055,Cencora,Objectif validé,Validated Targets,,,0,Oui
 CCI US Equity,Crown Castle Inc,US22822V1017,,Absent de la base SBTi,,,,0.54,Non
 CBRE US Equity,CBRE Group Inc,US12504L1098,CBRE,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3,Oui
-ATD CN Equity,Alimentation Couche-Tard Inc,CA01626P1484,,Absent de la base SBTi,,,,0,Non
+ATD CN Equity,Alimentation Couche-Tard Inc,CA01626P1484,,Absent de la base SBTi,,,,0,Oui
 BAS GY Equity,BASF SE,DE000BASF111,,Absent de la base SBTi,,,,11.22,Non
 WKL NA Equity,Wolters Kluwer NV,NL0000395903,Wolters Kluwer N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-AEM CN Equity,Agnico Eagle Mines Ltd,CA0084741085,,Absent de la base SBTi,,,,0,Non
+AEM CN Equity,Agnico Eagle Mines Ltd,CA0084741085,,Absent de la base SBTi,,,,0,Oui
 4502 JP Equity,Takeda Pharmaceutical Co Ltd,JP3463000004,Takeda Pharmaceutical Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 CTVA US Equity,Corteva Inc,US22052L1044,Corteva Agriscience,Engagement retiré,Commitment Removed,,,0,Non
-ADS GY Equity,adidas AG,DE000A1EWWW0,Adidas AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+ADS GY Equity,adidas AG,DE000A1EWWW0,,Absent de la base SBTi,,,,0,Oui
 VRSK US Equity,Verisk Analytics Inc,US92345Y1064,Verisk Analytics,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-TEAM US Equity,Atlassian Corp,US0494681010,Atlassian Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+TEAM US Equity,Atlassian Corp,US0494681010,,Absent de la base SBTi,,,,0,Non
 F US Equity,Ford Motor Co,US3453708600,Ford Motor Company,Objectif validé,Validated Targets,,Commitment Removed,7.05,Oui
 EA US Equity,Electronic Arts Inc,US2855121099,,Absent de la base SBTi,,,,0,Non
-TRGP US Equity,Targa Resources Corp,US87612G1013,,Absent de la base SBTi,,,,0,Non
+TRGP US Equity,Targa Resources Corp,US87612G1013,,Absent de la base SBTi,,,,0,Oui
 A US Equity,Agilent Technologies Inc,US00846U1016,"Agilent Technologies, Inc",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 HLN LN Equity,Haleon PLC,GB00BMX86B70,Haleon plc,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 SIKA SE Equity,Sika AG,CH0418792922,Sika AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.93,Oui
 CTSH US Equity,Cognizant Technology Solutions,US1924461023,Cognizant Technology Solutions Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.35,Oui
-UOB SP Equity,United Overseas Bank Ltd,SG1M31001969,,Absent de la base SBTi,,,,0,Non
+UOB SP Equity,United Overseas Bank Ltd,SG1M31001969,,Absent de la base SBTi,,,,0,Oui
 YUM US Equity,Yum! Brands Inc,US9884981013,"Yum! Brands, Inc.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 GMG AU Equity,Goodman Group,AU000000GMG2,Goodman Group,Objectif validé,Validated Targets,,Commitment Removed,9.03,Oui
-EXC US Equity,Exelon Corp,US30161N1019,,Absent de la base SBTi,,,,10.64,Non
-VLO US Equity,Valero Energy Corp,US91913Y1001,,Absent de la base SBTi,,,,5.73,Non
+EXC US Equity,Exelon Corp,US30161N1019,,Absent de la base SBTi,,,,10.64,Oui
+VLO US Equity,Valero Energy Corp,US91913Y1001,,Absent de la base SBTi,,,,5.73,Oui
 XEL US Equity,Xcel Energy Inc,US98389B1008,,Absent de la base SBTi,,,,29.47,Oui
 SYY US Equity,Sysco Corp,US8718291078,Sysco Corporation,Objectif validé,Validated Targets,,,0.09,Oui
 OTIS US Equity,Otis Worldwide Corp,US68902V1070,Otis Worldwide Corporation,Objectif validé,Validated Targets,,,0,Oui
-HES US Equity,Hess Corp,US42809H1077,,Absent de la base SBTi,,,,0,Non
-ARGX BB Equity,Argenx SE,NL0010832176,,Absent de la base SBTi,,,,0,Non
+HES US Equity,Hess Corp,US42809H1077,,Absent de la base SBTi,,,,0,Oui
+ARGX BB Equity,Argenx SE,NL0010832176,,Absent de la base SBTi,,,,0,Oui
 GLW US Equity,Corning Inc,US2193501051,Corning Incorporated,Objectif validé,Validated Targets,,,14.03,Oui
-MNST US Equity,Monster Beverage Corp,US61174X1090,Monster Beverage Corporation,Engagement retiré,Commitment Removed,,,0,Non
+MNST US Equity,Monster Beverage Corp,US61174X1090,Monster Beverage Corporation,Engagement retiré,Commitment Removed,,,0,Oui
 IR US Equity,Ingersoll Rand Inc,US45687V1061,Ingersoll Rand Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 IT US Equity,Gartner Inc,US3666511072,"Gartner, Inc.",Objectif validé,Validated Targets,,,0,Oui
 NDAQ US Equity,Nasdaq Inc,US6311031081,"Nasdaq, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-AAL LN Equity,Anglo American PLC,GB00B1XZS820,,Absent de la base SBTi,,,,0,Non
-NDA FH Equity,Nordea Bank Abp,FI4000297767,,Absent de la base SBTi,,,,0,Non
-DELL US Equity,Dell Technologies Inc,US24703L2025,Dell Technologies,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-3382 JP Equity,Seven & i Holdings Co Ltd,JP3422950000,"Seven & i Holdings Co., Ltd.",Engagement retiré,Commitment Removed,,,0,Non
+AAL LN Equity,Anglo American PLC,GB00B1XZS820,,Absent de la base SBTi,,,,0,Oui
+NDA FH Equity,Nordea Bank Abp,FI4000297767,,Absent de la base SBTi,,,,0,Oui
+DELL US Equity,Dell Technologies Inc,US24703L2025,,Absent de la base SBTi,,,,0,Oui
+3382 JP Equity,Seven & i Holdings Co Ltd,JP3422950000,"Seven & i Holdings Co., Ltd.",Engagement retiré,Commitment Removed,,,0,Oui
 STZ US Equity,Constellation Brands Inc,US21036P1084,,Absent de la base SBTi,,,,0,Non
 SGO FP Equity,Cie de Saint-Gobain,FR0000125007,SAINT-GOBAIN,Objectif validé,Validated Targets,Validated Targets,Validated Targets,15.19,Oui
 GIS US Equity,General Mills Inc,US3703341046,General Mills Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.71,Oui
 9434 JP Equity,SoftBank Corp,JP3732000009,SoftBank Corp.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.28,Oui
-NWG LN Equity,NatWest Group PLC,GB00BM8PJY71,NatWest Group plc,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
+NWG LN Equity,NatWest Group PLC,GB00BM8PJY71,,Absent de la base SBTi,,,,0,Oui
 IQV US Equity,IQVIA Holdings Inc,US46266C1053,IQVIA Holdings Inc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 FERG US Equity,Ferguson PLC,US31488V1070,,Absent de la base SBTi,,,,0,Non
 GEHC US Equity,GE HealthCare Technologies Inc,US36266G1076,GE Healthcare,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 HUBS US Equity,HubSpot Inc,US4435731009,HubSpot Inc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ODFL US Equity,Old Dominion Freight Line Inc,US6795801009,,Absent de la base SBTi,,,,0,Non
-SLF CN Equity,Sun Life Financial Inc,CA8667961053,,Absent de la base SBTi,,,,0,Non
-KDP US Equity,Keurig Dr Pepper Inc,US49271V1008,Keurig Dr Pepper,Objectif validé,Validated Targets,,,0,Oui
+ODFL US Equity,Old Dominion Freight Line Inc,US6795801009,,Absent de la base SBTi,,,,0,Oui
+SLF CN Equity,Sun Life Financial Inc,CA8667961053,,Absent de la base SBTi,,,,0,Oui
+KDP US Equity,Keurig Dr Pepper Inc,US49271V1008,,Absent de la base SBTi,,,,0,Oui
 DHL GY Equity,Deutsche Post AG,DE0005552004,DHL Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 IDXX US Equity,IDEXX Laboratories Inc,US45168D1046,,Absent de la base SBTi,,,,0,Non
 6503 JP Equity,Mitsubishi Electric Corp,JP3902400005,Mitsubishi Electric Corporation,Objectif validé,Validated Targets,,,5.85,Oui
-ACGL US Equity,Arch Capital Group Ltd,BMG0450A1053,,Absent de la base SBTi,,,,0,Non
-VMC US Equity,Vulcan Materials Co,US9291601097,,Absent de la base SBTi,,,,0,Non
+ACGL US Equity,Arch Capital Group Ltd,BMG0450A1053,,Absent de la base SBTi,,,,0,Oui
+VMC US Equity,Vulcan Materials Co,US9291601097,,Absent de la base SBTi,,,,0,Oui
 GIVN SE Equity,Givaudan SA,CH0010645932,Givaudan SA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-RMD US Equity,ResMed Inc,US7611521078,ResMed Inc,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-LEN/B US Equity,Lennar Corp,US5260573028,,Absent de la base SBTi,,,,0,Non
-OXY US Equity,Occidental Petroleum Corp,US6745991058,,Absent de la base SBTi,,,,0.03,Non
+RMD US Equity,ResMed Inc,US7611521078,ResMed Inc,Engagement retiré,Commitment Removed,,Commitment Removed,0,Oui
+LEN/B US Equity,Lennar Corp,US5260573028,,Absent de la base SBTi,,,,0,Oui
+OXY US Equity,Occidental Petroleum Corp,US6745991058,,Absent de la base SBTi,,,,0.03,Oui
 ROK US Equity,Rockwell Automation Inc,US7739031091,Rockwell Automation Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.83,Oui
 ETR US Equity,Entergy Corp,US29364G1031,,Absent de la base SBTi,,,,0.38,Non
-IFC CN Equity,Intact Financial Corp,CA45823T1066,,Absent de la base SBTi,,,,0,Non
-WAB US Equity,Westinghouse Air Brake Technol,US9297401088,,Absent de la base SBTi,,,,9.08,Non
+IFC CN Equity,Intact Financial Corp,CA45823T1066,,Absent de la base SBTi,,,,0,Oui
+WAB US Equity,Westinghouse Air Brake Technol,US9297401088,,Absent de la base SBTi,,,,9.08,Oui
 ENR GY Equity,Siemens Energy AG,DE000ENER6Y0,Siemens Energy,Objectif validé,Validated Targets,,,37.32,Oui
 6367 JP Equity,Daikin Industries Ltd,JP3481800005,"DAIKIN INDUSTRIES, LTD",Objectif validé,Validated Targets,Validated Targets,Validated Targets,2.55,Oui
-G IM Equity,Assicurazioni Generali SpA,IT0000062072,,Absent de la base SBTi,,,,0.02,Non
+G IM Equity,Assicurazioni Generali SpA,IT0000062072,,Absent de la base SBTi,,,,0.02,Oui
 GRMN US Equity,Garmin Ltd,CH0114405324,,Absent de la base SBTi,,,,0,Non
 ARES US Equity,Ares Management Corp,US03990B1017,,Absent de la base SBTi,,,,0,Non
 WTW US Equity,Willis Towers Watson PLC,IE00BDB6Q211,WTW,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-HIG US Equity,Hartford Financial Services Gr,US4165151048,,Absent de la base SBTi,,,,0,Non
+HIG US Equity,Hartford Financial Services Gr,US4165151048,,Absent de la base SBTi,,,,0,Oui
 FANG US Equity,Diamondback Energy Inc,US25278X1090,,Absent de la base SBTi,,,,0,Non
-EFX US Equity,Equifax Inc,US2944291051,Equifax Inc.,Objectif validé,Validated Targets,,,0,Oui
-TSCO LN Equity,Tesco PLC,GB00BLGZ9862,Tesco,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-EXR US Equity,Extra Space Storage Inc,US30225T1025,,Absent de la base SBTi,,,,0.42,Non
+EFX US Equity,Equifax Inc,US2944291051,,Absent de la base SBTi,,,,0,Oui
+TSCO LN Equity,Tesco PLC,GB00BLGZ9862,,Absent de la base SBTi,,,,0,Oui
+EXR US Equity,Extra Space Storage Inc,US30225T1025,,Absent de la base SBTi,,,,0.42,Oui
 6702 JP Equity,Fujitsu Ltd,JP3818000006,Fujitsu Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.85,Oui
 MLM US Equity,Martin Marietta Materials,US5732841060,"Martin Marietta Materials, Inc.",Objectif validé,Validated Targets,,,0,Oui
-DBK GY Equity,Deutsche Bank AG,DE0005140008,,Absent de la base SBTi,,,,0,Non
+DBK GY Equity,Deutsche Bank AG,DE0005140008,,Absent de la base SBTi,,,,0,Oui
 AVB US Equity,AvalonBay Communities Inc,US0534841012,"AvalonBay Communities, Inc.",Objectif validé,Validated Targets,,,21.01,Oui
-FFH CN Equity,Fairfax Financial Holdings Ltd,CA3039011026,,Absent de la base SBTi,,,,0,Non
+FFH CN Equity,Fairfax Financial Holdings Ltd,CA3039011026,,Absent de la base SBTi,,,,0,Oui
 TTWO US Equity,Take-Two Interactive Software,US8740541094,"Take-Two Interactive Software, Inc.",Objectif validé,Validated Targets,,,0,Oui
 HPQ US Equity,HP Inc,US40434L1052,HP Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-MTB US Equity,M&T Bank Corp,US55261F1049,,Absent de la base SBTi,,,,0,Non
-NA CN Equity,National Bank of Canada,CA6330671034,,Absent de la base SBTi,,,,0,Non
+MTB US Equity,M&T Bank Corp,US55261F1049,,Absent de la base SBTi,,,,0,Oui
+NA CN Equity,National Bank of Canada,CA6330671034,,Absent de la base SBTi,,,,0,Oui
 EIX US Equity,Edison International,US2810201077,,Absent de la base SBTi,,,,48.32,Oui
 AMS SM Equity,Amadeus IT Group SA,ES0109067019,Amadeus IT Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-ED US Equity,Consolidated Edison Inc,US2091151041,,Absent de la base SBTi,,,,0.88,Non
+ED US Equity,Consolidated Edison Inc,US2091151041,,Absent de la base SBTi,,,,0.88,Oui
 VEEV US Equity,Veeva Systems Inc,US9224751084,Veeva Systems Inc.,Objectif validé,Validated Targets,,,0,Oui
 CHTR US Equity,Charter Communications Inc,US16119P1084,,Absent de la base SBTi,,,,0,Non
 RBLX US Equity,ROBLOX Corp,US7710491033,,Absent de la base SBTi,,,,0,Non
 DECK US Equity,Deckers Outdoor Corp,US2435371073,Deckers Brands,Objectif validé,Validated Targets,,,0,Oui
 IRM US Equity,Iron Mountain Inc,US46284V1017,Iron Mountain,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.52,Oui
 NET US Equity,Cloudflare Inc,US18915M1071,Cloudflare,Engagement retiré,Commitment Removed,,,0,Non
-ENI IM Equity,Eni SpA,IT0003132476,,Absent de la base SBTi,,,,4.05,Non
-VICI US Equity,VICI Properties Inc,US9256521090,,Absent de la base SBTi,,,,0,Non
-STAN LN Equity,Standard Chartered PLC,GB0004082847,Standard Chartered Bank,Engagement retiré,Commitment Removed,,,0,Non
-CNC US Equity,Centene Corp,US15135B1017,,Absent de la base SBTi,,,,0,Non
+ENI IM Equity,Eni SpA,IT0003132476,,Absent de la base SBTi,,,,4.05,Oui
+VICI US Equity,VICI Properties Inc,US9256521090,,Absent de la base SBTi,,,,0,Oui
+STAN LN Equity,Standard Chartered PLC,GB0004082847,Standard Chartered Bank,Engagement retiré,Commitment Removed,,,0,Oui
+CNC US Equity,Centene Corp,US15135B1017,,Absent de la base SBTi,,,,0,Oui
 AD NA Equity,Koninklijke Ahold Delhaize NV,NL0011794037,Koninklijke Ahold Delhaize N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 7751 JP Equity,Canon Inc,JP3242800005,CANON INC.,Objectif validé,Validated Targets,,,0,Oui
-DXCM US Equity,Dexcom Inc,US2521311074,"Dexcom, Inc.",Engagement retiré,Commitment Removed,,,0,Non
+DXCM US Equity,Dexcom Inc,US2521311074,"Dexcom, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
 EBAY US Equity,eBay Inc,US2786421030,eBay Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-PGHN SE Equity,Partners Group Holding AG,CH0024608827,,Absent de la base SBTi,,,,7.26,Non
+PGHN SE Equity,Partners Group Holding AG,CH0024608827,,Absent de la base SBTi,,,,7.26,Oui
 HUM US Equity,Humana Inc,US4448591028,Humana Inc.,Objectif validé,Validated Targets,,,0,Oui
-MCHP US Equity,Microchip Technology Inc,US5950171042,,Absent de la base SBTi,,,,0.88,Non
-ALNY US Equity,Alnylam Pharmaceuticals Inc,US02043Q1076,,Absent de la base SBTi,,,,0,Non
+MCHP US Equity,Microchip Technology Inc,US5950171042,,Absent de la base SBTi,,,,0.88,Oui
+ALNY US Equity,Alnylam Pharmaceuticals Inc,US02043Q1076,,Absent de la base SBTi,,,,0,Oui
 6981 JP Equity,Murata Manufacturing Co Ltd,JP3914400001,"Murata Manufacturing Co., Ltd.",Objectif validé,Validated Targets,,,2.51,Oui
 NU US Equity,NU Holdings Ltd/Cayman Islands,KYG6683N1034,,Absent de la base SBTi,,,,,Non
-WEC US Equity,WEC Energy Group Inc,US92939U1060,,Absent de la base SBTi,,,,4.94,Non
-8725 JP Equity,MS&AD Insurance Group Holdings,JP3890310000,"MS&AD Insurance Group Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Non
-ANSS US Equity,ANSYS Inc,US03662Q1058,,Absent de la base SBTi,,,,0,Non
+WEC US Equity,WEC Energy Group Inc,US92939U1060,,Absent de la base SBTi,,,,4.94,Oui
+8725 JP Equity,MS&AD Insurance Group Holdings,JP3890310000,"MS&AD Insurance Group Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
+ANSS US Equity,ANSYS Inc,US03662Q1058,,Absent de la base SBTi,,,,0,Oui
 CSGP US Equity,CoStar Group Inc,US22160N1090,"CoStar Group, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-WDS AU Equity,Woodside Energy Group Ltd,AU0000224040,,Absent de la base SBTi,,,,0,Non
+WDS AU Equity,Woodside Energy Group Ltd,AU0000224040,,Absent de la base SBTi,,,,0,Oui
 BMW GY Equity,Bayerische Motoren Werke AG,DE0005190003,BMW Group,Objectif validé,Validated Targets,,Commitment Removed,16.86,Oui
-RJF US Equity,Raymond James Financial Inc,US7547301090,,Absent de la base SBTi,,,,0,Non
+RJF US Equity,Raymond James Financial Inc,US7547301090,,Absent de la base SBTi,,,,0,Oui
 ASSAB SS Equity,Assa Abloy AB,SE0007100581,Assa Abloy AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-TSCO US Equity,Tractor Supply Co,US8923561067,Tractor Supply Company,Engagement retiré,Commitment Removed,,,0,Non
+TSCO US Equity,Tractor Supply Co,US8923561067,Tractor Supply Company,Engagement retiré,Commitment Removed,,,0,Oui
 4519 JP Equity,Chugai Pharmaceutical Co Ltd,JP3519400000,"Chugai Pharmaceutical Co., Ltd.",Objectif validé,Validated Targets,,,0,Oui
 CAH US Equity,Cardinal Health Inc,US14149Y1082,"Cardinal Health, Inc.",Objectif validé,Validated Targets,,,0,Oui
 FITB US Equity,Fifth Third Bancorp,US3167731005,,Absent de la base SBTi,,,,0,Non
 2914 JP Equity,Japan Tobacco Inc,JP3726800000,Japan Tobacco Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GPN US Equity,Global Payments Inc,US37940X1028,,Absent de la base SBTi,,,,0,Non
+GPN US Equity,Global Payments Inc,US37940X1028,,Absent de la base SBTi,,,,0,Oui
 DD US Equity,DuPont de Nemours Inc,US26614N1028,"DuPont de Nemours, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,5.82,Oui
 XYL US Equity,Xylem Inc,US98419M1009,Xylem Inc.,Objectif validé,Validated Targets,,Commitment Removed,44.36,Oui
-DOW US Equity,Dow Inc,US2605571031,,Absent de la base SBTi,,,,2.38,Non
-SW US Equity,Smurfit WestRock PLC,IE00028FXN24,,Absent de la base SBTi,,,,6.13,Non
+DOW US Equity,Dow Inc,US2605571031,,Absent de la base SBTi,,,,2.38,Oui
+SW US Equity,Smurfit WestRock PLC,IE00028FXN24,,Absent de la base SBTi,,,,6.13,Oui
 ENGI FP Equity,Engie SA,FR0010208488,ENGIE,Objectif validé,Validated Targets,,,14.05,Oui
 MPWR US Equity,Monolithic Power Systems Inc,US6098391054,,Absent de la base SBTi,,,,1.41,Non
 KEYS US Equity,Keysight Technologies Inc,US49338L1035,"Keysight Technologies, Inc.",Objectif validé,Validated Targets,,,0,Oui
-GDDY US Equity,GoDaddy Inc,US3802371076,,Absent de la base SBTi,,,,0,Non
+GDDY US Equity,GoDaddy Inc,US3802371076,,Absent de la base SBTi,,,,0,Oui
 PPG US Equity,PPG Industries Inc,US6935061076,"PPG Industries, Inc.",Objectif validé,Validated Targets,,,12.93,Oui
-STT US Equity,State Street Corp,US8574771031,,Absent de la base SBTi,,,,0,Non
-RHM GY Equity,RHEINMETALL AG,DE0007030009,,Absent de la base SBTi,,,,4.69,Non
+STT US Equity,State Street Corp,US8574771031,,Absent de la base SBTi,,,,0,Oui
+RHM GY Equity,RHEINMETALL AG,DE0007030009,,Absent de la base SBTi,,,,4.69,Oui
 HPE US Equity,Hewlett Packard Enterprise Co,US42824C1099,Hewlett Packard Enterprise Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 NUE US Equity,Nucor Corp,US6703461052,,Absent de la base SBTi,,,,0,Non
 4543 JP Equity,Terumo Corp,JP3546800008,Terumo Corporation,Objectif validé,Validated Targets,,,0,Oui
-EQT US Equity,EQT Corp,US26884L1098,,Absent de la base SBTi,,,,0,Non
+EQT US Equity,EQT Corp,US26884L1098,,Absent de la base SBTi,,,,0,Oui
 HEIA NA Equity,Heineken NV,NL0000009165,HEINEKEN N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 HOOD US Equity,Robinhood Markets Inc,US7707001027,,Absent de la base SBTi,,,,0,Non
-AHT LN Equity,Ashtead Group PLC,GB0000536739,,Absent de la base SBTi,,,,1.77,Non
+AHT LN Equity,Ashtead Group PLC,GB0000536739,,Absent de la base SBTi,,,,1.77,Oui
 RIO AU Equity,Rio Tinto Ltd,AU000000RIO1,,Absent de la base SBTi,,,,0,Non
 6902 JP Equity,Denso Corp,JP3551500006,DENSO Corporation,Objectif validé,Validated Targets,,,12.08,Oui
-ABX CN Equity,Barrick Gold Corp,CA0679011084,,Absent de la base SBTi,,,,0,Non
+ABX CN Equity,Barrick Gold Corp,CA0679011084,,Absent de la base SBTi,,,,0,Oui
 IMB LN Equity,Imperial Brands PLC,GB0004544929,Imperial Brands,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 DOL CN Equity,Dollarama Inc,CA25675T1075,,Absent de la base SBTi,,,,0,Non
 ON US Equity,ON Semiconductor Corp,US6821891057,onsemi,Objectif validé,Validated Targets,,,0.79,Oui
@@ -506,7 +506,7 @@ CAP FP Equity,Capgemini SE,FR0000125338,Capgemini SE,Objectif validé,Validated 
 KHC US Equity,Kraft Heinz Co/The,US5007541064,The Kraft Heinz Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 EQR US Equity,Equity Residential,US29476L1070,Equity Residential,Objectif validé,Validated Targets,,,15.89,Oui
 ASM NA Equity,ASM International NV,NL0000334118,ASM International N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-FTV US Equity,Fortive Corp,US34959J1088,,Absent de la base SBTi,,,,0.51,Non
+FTV US Equity,Fortive Corp,US34959J1088,,Absent de la base SBTi,,,,0.51,Oui
 BR US Equity,Broadridge Financial Solutions,US11133T1034,"Broadridge Financial Solutions, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,5.25,Oui
 MTD US Equity,Mettler-Toledo International I,US5926881054,Mettler-Toledo International Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 EOAN GY Equity,E.ON SE,DE000ENAG999,E.ON SE,Objectif validé,Validated Targets,,,20.17,Oui
@@ -514,52 +514,52 @@ TCL AU Equity,Transurban Group,AU000000TCL6,Transurban Group,Objectif validé,Va
 DOV US Equity,Dover Corp,US2600031080,Dover Corporation,Objectif validé,Validated Targets,,,4.26,Oui
 CHD US Equity,Church & Dwight Co Inc,US1713401024,Church & Dwight Co. Inc.,Objectif validé,Validated Targets,,,0,Oui
 SE US Equity,Sea Ltd,US81141R1005,,Absent de la base SBTi,,,,0,Non
-WPM CN Equity,Wheaton Precious Metals Corp,CA9628791027,Wheaton Precious Metals Corp.,Objectif validé,Validated Targets,,,0,Oui
-SYF US Equity,Synchrony Financial,US87165B1035,,Absent de la base SBTi,,,,0,Non
+WPM CN Equity,Wheaton Precious Metals Corp,CA9628791027,,Absent de la base SBTi,,,,0,Oui
+SYF US Equity,Synchrony Financial,US87165B1035,,Absent de la base SBTi,,,,0,Oui
 CVNA US Equity,Carvana Co,US1468691027,,Absent de la base SBTi,,,,0,Non
 6301 JP Equity,Komatsu Ltd,JP3304200003,Komatsu Ltd.,Objectif validé,Validated Targets,,,17.43,Oui
 TEVA IT Equity,Teva Pharmaceutical Industries,IL0006290147,Teva Pharmaceutical Industries Ltd.,Objectif validé,Validated Targets,,,0,Oui
 LR FP Equity,Legrand SA,FR0010307819,Legrand,Objectif validé,Validated Targets,Validated Targets,Validated Targets,10.16,Oui
 6762 JP Equity,TDK Corp,JP3538800008,TDK Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-8053 JP Equity,Sumitomo Corp,JP3404600003,,Absent de la base SBTi,,,,1.72,Non
+8053 JP Equity,Sumitomo Corp,JP3404600003,,Absent de la base SBTi,,,,1.72,Oui
 CCL US Equity,Carnival Corp,PA1436583006,,Absent de la base SBTi,,,,0,Non
 6954 JP Equity,FANUC Corp,JP3802400006,Fanuc Corporation,Objectif validé,Validated Targets,,,14.11,Oui
 CPNG US Equity,Coupang Inc,US22266T1097,,Absent de la base SBTi,,,,0,Non
-8002 JP Equity,Marubeni Corp,JP3877600001,,Absent de la base SBTi,,,,0,Non
+8002 JP Equity,Marubeni Corp,JP3877600001,,Absent de la base SBTi,,,,0,Oui
 4901 JP Equity,FUJIFILM Holdings Corp,JP3814000000,FUJIFILM Holdings Corporation,Objectif validé,Validated Targets,,,0,Oui
 HSY US Equity,Hershey Co,US4278661081,The Hershey Company,Objectif validé,Validated Targets,,,0,Oui
-TROW US Equity,T Rowe Price Group Inc,US74144T1088,,Absent de la base SBTi,,,,0,Non
+TROW US Equity,T Rowe Price Group Inc,US74144T1088,,Absent de la base SBTi,,,,0,Oui
 TYL US Equity,Tyler Technologies Inc,US9022521051,,Absent de la base SBTi,,,,0,Non
 PUB FP Equity,Publicis Groupe SA,FR0000130577,Publicis Groupe,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-CVE CN Equity,Cenovus Energy Inc,CA15135U1093,,Absent de la base SBTi,,,,0,Non
-AWK US Equity,American Water Works Co Inc,US0304201033,,Absent de la base SBTi,,,,11.43,Non
+CVE CN Equity,Cenovus Energy Inc,CA15135U1093,,Absent de la base SBTi,,,,0,Oui
+AWK US Equity,American Water Works Co Inc,US0304201033,,Absent de la base SBTi,,,,11.43,Oui
 VTR US Equity,Ventas Inc,US92276F1003,"Ventas, Inc.",Objectif validé,Validated Targets,,,6.8,Oui
 VLTO US Equity,Veralto Corp,US92338C1036,Veralto,Objectif validé,Validated Targets,,,14.37,Oui
-6146 JP Equity,Disco Corp,JP3548600000,DISCO Corporation,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
+6146 JP Equity,Disco Corp,JP3548600000,,Absent de la base SBTi,,,,0,Oui
 ALL AU Equity,Aristocrat Leisure Ltd,AU000000ALL7,Aristocrat Leisure Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 STLAM IM Equity,Stellantis NV,NL00150001Q9,,Absent de la base SBTi,,,,27.17,Oui
 BRO US Equity,Brown & Brown Inc,US1152361010,,Absent de la base SBTi,,,,0,Non
-4578 JP Equity,Otsuka Holdings Co Ltd,JP3188220002,"Otsuka Holdings Co., Ltd.",Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
-LPLA US Equity,LPL Financial Holdings Inc,US50212V1008,,Absent de la base SBTi,,,,0,Non
+4578 JP Equity,Otsuka Holdings Co Ltd,JP3188220002,,Absent de la base SBTi,,,,0,Oui
+LPLA US Equity,LPL Financial Holdings Inc,US50212V1008,,Absent de la base SBTi,,,,0,Oui
 UCB BB Equity,UCB SA,BE0003739530,UCB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NVR US Equity,NVR Inc,US62944T1051,,Absent de la base SBTi,,,,0,Non
-ADM US Equity,Archer-Daniels-Midland Co,US0394831020,Archer Daniels Midland,Engagement retiré,Commitment Removed,,,0,Non
-ERICA SS Equity,Telefonaktiebolaget LM Ericsso,SE0000108649,,Absent de la base SBTi,,,,0,Non
+NVR US Equity,NVR Inc,US62944T1051,,Absent de la base SBTi,,,,0,Oui
+ADM US Equity,Archer-Daniels-Midland Co,US0394831020,Archer Daniels Midland,Engagement retiré,Commitment Removed,,,0,Oui
+ERICA SS Equity,Telefonaktiebolaget LM Ericsso,SE0000108649,,Absent de la base SBTi,,,,0,Oui
 VNA GY Equity,Vonovia SE,DE000A1ML7J1,Vonovia SE,Objectif validé,Validated Targets,,,0.01,Oui
-8750 JP Equity,Dai-ichi Life Holdings Inc,JP3476480003,,Absent de la base SBTi,,,,0,Non
+8750 JP Equity,Dai-ichi Life Holdings Inc,JP3476480003,,Absent de la base SBTi,,,,0,Oui
 HEI US Equity,HEICO Corp,US4228061093,,Absent de la base SBTi,,,,1.53,Non
 6273 JP Equity,SMC Corp,JP3162600005,SMC Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-FCNCA US Equity,First Citizens BancShares Inc/,US31946M1036,,Absent de la base SBTi,,,,0,Non
+FCNCA US Equity,First Citizens BancShares Inc/,US31946M1036,,Absent de la base SBTi,,,,0,Oui
 NTAP US Equity,NetApp Inc,US64110D1046,NetApp Inc.,Objectif validé,Validated Targets,,,0,Oui
-AEE US Equity,Ameren Corp,US0236081024,,Absent de la base SBTi,,,,5.51,Non
-WST US Equity,West Pharmaceutical Services I,US9553061055,"West Pharmaceutical Services, Inc.",Objectif validé,Validated Targets,,,0,Oui
+AEE US Equity,Ameren Corp,US0236081024,,Absent de la base SBTi,,,,5.51,Oui
+WST US Equity,West Pharmaceutical Services I,US9553061055,,Absent de la base SBTi,,,,0,Oui
 WBD US Equity,Warner Bros Discovery Inc,US9344231041,,Absent de la base SBTi,,,,0,Non
-8630 JP Equity,Sompo Holdings Inc,JP3165000005,"Sompo Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Non
+8630 JP Equity,Sompo Holdings Inc,JP3165000005,"Sompo Holdings, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
 DSY FP Equity,Dassault Systemes SE,FR0014003TT8,Dassault Systemes,Objectif validé,Validated Targets,Validated Targets,Validated Targets,35.89,Oui
 8591 JP Equity,ORIX Corp,JP3200450009,,Absent de la base SBTi,,,,2.25,Non
-HBAN US Equity,Huntington Bancshares Inc/OH,US4461501045,,Absent de la base SBTi,,,,0,Non
-PPL US Equity,PPL Corp,US69351T1060,,Absent de la base SBTi,,,,3.87,Non
-HEN GY Equity,Henkel AG & Co KGaA,DE0006048408,Henkel AG & Co. KGaA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.15,Oui
+HBAN US Equity,Huntington Bancshares Inc/OH,US4461501045,,Absent de la base SBTi,,,,0,Oui
+PPL US Equity,PPL Corp,US69351T1060,,Absent de la base SBTi,,,,3.87,Oui
+HEN GY Equity,Henkel AG & Co KGaA,DE0006048408,,Absent de la base SBTi,,,,0.15,Oui
 WSM US Equity,Williams-Sonoma Inc,US9699041011,"Williams-Sonoma, Inc.",Objectif validé,Validated Targets,,,0,Oui
 CDW US Equity,CDW Corp/DE,US12514G1085,CDW Corporation,Objectif validé,Validated Targets,,,4.76,Oui
 EXPE US Equity,Expedia Group Inc,US30212P3038,Expedia Group,Objectif validé,Validated Targets,,,0,Oui
@@ -568,51 +568,51 @@ NSISB DC Equity,Novonesis (Novozymes) B,DK0060336014,Novozymes A/S (part of the 
 6752 JP Equity,Panasonic Holdings Corp,JP3866800000,Panasonic Holdings Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 CPAY US Equity,Corpay Inc,US2199481068,,Absent de la base SBTi,,,,0,Non
 4661 JP Equity,Oriental Land Co Ltd,JP3198900007,Oriental Land,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-FNV CN Equity,Franco-Nevada Corp,CA3518581051,,Absent de la base SBTi,,,,0,Non
-HUBB US Equity,Hubbell Inc,US4435106079,,Absent de la base SBTi,,,,0.63,Non
+FNV CN Equity,Franco-Nevada Corp,CA3518581051,,Absent de la base SBTi,,,,0,Oui
+HUBB US Equity,Hubbell Inc,US4435106079,,Absent de la base SBTi,,,,0.63,Oui
 EXE US Equity,Expand Energy Corp,US1651677353,,Absent de la base SBTi,,,,0,Non
-CCO CN Equity,Cameco Corp,CA13321L1085,,Absent de la base SBTi,,,,0,Non
-BIIB US Equity,Biogen Inc,US09062X1037,Biogen Inc.,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
+CCO CN Equity,Cameco Corp,CA13321L1085,,Absent de la base SBTi,,,,0,Oui
+BIIB US Equity,Biogen Inc,US09062X1037,Biogen Inc.,Engagement retiré,Commitment Removed,,Commitment Removed,0,Oui
 NOKIA FH Equity,Nokia Oyj,FI0009000681,Nokia Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.61,Oui
 PHM US Equity,PulteGroup Inc,US7458671010,,Absent de la base SBTi,,,,0.21,Non
-ML FP Equity,Michelin,FR001400AJ45,Michelin,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+ML FP Equity,Michelin,FR001400AJ45,,Absent de la base SBTi,,,,0,Oui
 SSE LN Equity,SSE PLC,GB0007908733,SSE,Objectif validé,Validated Targets,,Commitment Removed,14.22,Oui
 RI FP Equity,Pernod Ricard SA,FR0000120693,Pernod Ricard,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NTR CN Equity,Nutrien Ltd,CA67077M1086,Nutrien Ltd.,Engagement retiré,Commitment Removed,,,1.48,Non
+NTR CN Equity,Nutrien Ltd,CA67077M1086,Nutrien Ltd.,Engagement retiré,Commitment Removed,,,1.48,Oui
 K US Equity,Kellogg Co,US4878361082,Kellanova,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-SLHN SE Equity,Swiss Life Holding AG,CH0014852781,,Absent de la base SBTi,,,,0,Non
-CINF US Equity,Cincinnati Financial Corp,US1720621010,,Absent de la base SBTi,,,,0,Non
+SLHN SE Equity,Swiss Life Holding AG,CH0014852781,,Absent de la base SBTi,,,,0,Oui
+CINF US Equity,Cincinnati Financial Corp,US1720621010,,Absent de la base SBTi,,,,0,Oui
 WAT US Equity,Waters Corp,US9418481035,Waters Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 BAM CN Equity,Brookfield Asset Management Lt,CA1130041058,,Absent de la base SBTi,,,,0,Non
-DRI US Equity,Darden Restaurants Inc,US2371941053,,Absent de la base SBTi,,,,0,Non
-DTE US Equity,DTE Energy Co,US2333311072,,Absent de la base SBTi,,,,4.6,Non
+DRI US Equity,Darden Restaurants Inc,US2371941053,,Absent de la base SBTi,,,,0,Oui
+DTE US Equity,DTE Energy Co,US2333311072,,Absent de la base SBTi,,,,4.6,Oui
 WSP CN Equity,WSP Global Inc,CA92938W2022,WSP Global Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-TRI CN Equity,Thomson Reuters Corp,CA8849038085,Thomson Reuters,Objectif validé,Validated Targets,,,0,Oui
-FE US Equity,FirstEnergy Corp,US3379321074,,Absent de la base SBTi,,,,0.66,Non
-VOW GY Equity,Volkswagen AG,DE0007664005,Volkswagen AG,Objectif validé,Validated Targets,,,10.06,Oui
+TRI CN Equity,Thomson Reuters Corp,CA8849038085,,Absent de la base SBTi,,,,0,Oui
+FE US Equity,FirstEnergy Corp,US3379321074,,Absent de la base SBTi,,,,0.66,Oui
+VOW GY Equity,Volkswagen AG,DE0007664005,,Absent de la base SBTi,,,,10.06,Oui
 SBAC US Equity,SBA Communications Corp,US78410G1040,SBA Communications Corporation,Objectif validé,Validated Targets,,,0,Oui
 GIB/A CN Equity,CGI Inc,CA12532H1047,CGI Inc,Objectif validé,Validated Targets,,,2.76,Oui
-HAL US Equity,Halliburton Co,US4062161017,,Absent de la base SBTi,,,,0.18,Non
+HAL US Equity,Halliburton Co,US4062161017,,Absent de la base SBTi,,,,0.18,Oui
 IFF US Equity,International Flavors & Fragra,US4595061015,International Flavors & Fragrances Inc.,Objectif validé,Validated Targets,,,0,Oui
 ATO US Equity,Atmos Energy Corp,US0495601058,,Absent de la base SBTi,,,,0,Non
 6701 JP Equity,NEC Corp,JP3733000008,NEC Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.92,Oui
 FWONA US Equity,Liberty Media Corp-Liberty For,US5312297717,,Absent de la base SBTi,,,,0,Non
-SWEDA SS Equity,Swedbank AB,SE0000242455,Swedbank AB,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Non
+SWEDA SS Equity,Swedbank AB,SE0000242455,Swedbank AB,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Oui
 PRU LN Equity,Prudential PLC,GB0007099541,,Absent de la base SBTi,,,,0,Non
-PPL CN Equity,Pembina Pipeline Corp,CA7063271034,,Absent de la base SBTi,,,,0,Non
-RF US Equity,Regions Financial Corp,US7591EP1005,,Absent de la base SBTi,,,,0,Non
-MKL US Equity,Markel Corp,US5705351048,,Absent de la base SBTi,,,,0,Non
-TDY US Equity,Teledyne Technologies Inc,US8793601050,,Absent de la base SBTi,,,,0,Non
+PPL CN Equity,Pembina Pipeline Corp,CA7063271034,,Absent de la base SBTi,,,,0,Oui
+RF US Equity,Regions Financial Corp,US7591EP1005,,Absent de la base SBTi,,,,0,Oui
+MKL US Equity,Markel Corp,US5705351048,,Absent de la base SBTi,,,,0,Oui
+TDY US Equity,Teledyne Technologies Inc,US8793601050,,Absent de la base SBTi,,,,0,Oui
 TPL US Equity,Texas Pacific Land Corp,US88262P1021,,Absent de la base SBTi,,,,0,Non
 ILMN US Equity,Illumina Inc,US4523271090,"Illumina, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ZBH US Equity,Zimmer Biomet Holdings Inc,US98956P1021,Zimmer Biomet,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 6723 JP Equity,Renesas Electronics Corp,JP3164720009,Renesas Electronics Corporation,Objectif validé,Validated Targets,,,0.02,Oui
-EME US Equity,EMCOR Group Inc,US29084Q1004,"EMCOR Group, Inc.",Engagement retiré,Commitment Removed,,,2.87,Non
-PTC US Equity,PTC Inc,US69370C1009,PTC Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.96,Oui
+EME US Equity,EMCOR Group Inc,US29084Q1004,,Absent de la base SBTi,,,,2.87,Non
+PTC US Equity,PTC Inc,US69370C1009,,Absent de la base SBTi,,,,3.96,Oui
 8801 JP Equity,Mitsui Fudosan Co Ltd,JP3893200000,"MITSUI FUDOSAN CO., LTD.",Objectif validé,Validated Targets,,,15.25,Oui
-SEBA SS Equity,Skandinaviska Enskilda Banken,SE0000148884,,Absent de la base SBTi,,,,0,Non
-EBS AV Equity,Erste Group Bank AG,AT0000652011,,Absent de la base SBTi,,,,0,Non
-CNP US Equity,CenterPoint Energy Inc,US15189T1079,,Absent de la base SBTi,,,,8.06,Non
+SEBA SS Equity,Skandinaviska Enskilda Banken,SE0000148884,,Absent de la base SBTi,,,,0,Oui
+EBS AV Equity,Erste Group Bank AG,AT0000652011,,Absent de la base SBTi,,,,0,Oui
+CNP US Equity,CenterPoint Energy Inc,US15189T1079,,Absent de la base SBTi,,,,8.06,Oui
 FER SM Equity,Ferrovial SE,NL0015001FS8,Ferrovial,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 WDC US Equity,Western Digital Corp,US9581021055,Western Digital,Objectif validé,Validated Targets,,,0,Oui
 TER US Equity,Teradyne Inc,US8807701029,"Teradyne, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -620,47 +620,47 @@ ORA FP Equity,Orange SA,FR0000133308,Orange,Objectif validé,Validated Targets,V
 WY US Equity,Weyerhaeuser Co,US9621661043,Weyerhaeuser,Objectif validé,Validated Targets,,Commitment Removed,68.71,Oui
 LYV US Equity,Live Nation Entertainment Inc,US5380341090,,Absent de la base SBTi,,,,0,Non
 2802 JP Equity,Ajinomoto Co Inc,JP3119600009,"Ajinomoto Co., Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-CBOE US Equity,Cboe Global Markets Inc,US12503M1080,,Absent de la base SBTi,,,,0,Non
-DVN US Equity,Devon Energy Corp,US25179M1036,,Absent de la base SBTi,,,,0,Non
+CBOE US Equity,Cboe Global Markets Inc,US12503M1080,,Absent de la base SBTi,,,,0,Oui
+DVN US Equity,Devon Energy Corp,US25179M1036,,Absent de la base SBTi,,,,0,Oui
 TECK/A CN Equity,Teck Resources Ltd,CA8787423034,,Absent de la base SBTi,,,,0,Non
-ES US Equity,Eversource Energy,US30040W1080,Eversource Energy,Engagement retiré,Commitment Removed,,,14.76,Non
-FTS CN Equity,Fortis Inc/Canada,CA3495531079,,Absent de la base SBTi,,,,4.93,Non
+ES US Equity,Eversource Energy,US30040W1080,,Absent de la base SBTi,,,,14.76,Oui
+FTS CN Equity,Fortis Inc/Canada,CA3495531079,,Absent de la base SBTi,,,,4.93,Oui
 STE US Equity,STERIS PLC,IE00BFY8C754,STERIS,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
 ULTA US Equity,Ulta Beauty Inc,US90384S3031,"Ulta Beauty, Inc.",Objectif validé,Validated Targets,,,0,Oui
 CLX US Equity,Clorox Co/The,US1890541097,The Clorox Company,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-5401 JP Equity,Nippon Steel Corp,JP3381000003,,Absent de la base SBTi,,,,0,Non
-PKG US Equity,Packaging Corp of America,US6951561090,,Absent de la base SBTi,,,,0,Non
+5401 JP Equity,Nippon Steel Corp,JP3381000003,,Absent de la base SBTi,,,,0,Oui
+PKG US Equity,Packaging Corp of America,US6951561090,,Absent de la base SBTi,,,,0,Oui
 QSR CN Equity,Restaurant Brands Internationa,CA76131D1033,Restaurant Brands International Inc.,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-GLE FP Equity,Societe Generale SA,FR0000130809,,Absent de la base SBTi,,,,0,Non
-DSFIR NA Equity,DSM-Firmenich AG,CH1216478797,dsm-firmenich,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+GLE FP Equity,Societe Generale SA,FR0000130809,,Absent de la base SBTi,,,,0,Oui
+DSFIR NA Equity,DSM-Firmenich AG,CH1216478797,,Absent de la base SBTi,,,,0,Oui
 ZBRA US Equity,Zebra Technologies Corp,US9892071054,Zebra Technologies Corporation,Objectif validé,Validated Targets,,,0,Oui
-KBC BB Equity,KBC Group NV,BE0003565737,,Absent de la base SBTi,,,,0,Non
+KBC BB Equity,KBC Group NV,BE0003565737,,Absent de la base SBTi,,,,0,Oui
 7269 JP Equity,Suzuki Motor Corp,JP3397200001,,Absent de la base SBTi,,,,39.14,Oui
-CMS US Equity,CMS Energy Corp,US1258961002,,Absent de la base SBTi,,,,13.1,Non
+CMS US Equity,CMS Energy Corp,US1258961002,,Absent de la base SBTi,,,,13.1,Oui
 ZM US Equity,Zoom Video Communications Inc,US98980L1017,"Zoom Communications, Inc.",Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,6,Non
 VIE FP Equity,Veolia Environnement SA,FR0000124141,Veolia Environnement S.A.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,31.53,Oui
 LII US Equity,Lennox International Inc,US5261071071,Lennox International Inc.,Objectif validé,Validated Targets,,,0,Oui
-NTRS US Equity,Northern Trust Corp,US6658591044,Northern Trust,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
+NTRS US Equity,Northern Trust Corp,US6658591044,Northern Trust,Engagement retiré,Commitment Removed,,Commitment Removed,0,Oui
 PHIA NA Equity,Koninklijke Philips NV,NL0000009538,Koninklijke Philips N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-LYB US Equity,LyondellBasell Industries NV,NL0009434992,LyondellBasell Industries N.V.,Engagement retiré,Commitment Removed,,,0,Non
+LYB US Equity,LyondellBasell Industries NV,NL0009434992,LyondellBasell Industries N.V.,Engagement retiré,Commitment Removed,,,0,Oui
 MKC US Equity,McCormick & Co Inc,US5797802064,"McCormick & Company, Incorporated",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 LH US Equity,Laboratory Corp of America Hol,US5049221055,,Absent de la base SBTi,,,,0,Non
 DANSKE DC Equity,Danske Bank A/S,DK0010274414,Danske Bank,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Non
 5108 JP Equity,Bridgestone Corp,JP3830800003,Bridgestone Corporation,Objectif validé,Validated Targets,,,0,Oui
 PSTG US Equity,Pure Storage Inc,US74624M1027,"Pure Storage, Inc.",Objectif validé,Validated Targets,,,0,Oui
 L CN Equity,Loblaw Cos Ltd,CA5394811015,Loblaw Companies Limited,Objectif validé,Validated Targets,,,0,Oui
-LDOS US Equity,Leidos Holdings Inc,US5253271028,,Absent de la base SBTi,,,,0.13,Non
+LDOS US Equity,Leidos Holdings Inc,US5253271028,,Absent de la base SBTi,,,,0.13,Oui
 BAYN GY Equity,Bayer AG,DE000BAY0017,Bayer AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.3,Oui
-GEBN SE Equity,Geberit AG,CH0030170408,,Absent de la base SBTi,,,,0,Non
+GEBN SE Equity,Geberit AG,CH0030170408,,Absent de la base SBTi,,,,0,Oui
 RWE GY Equity,RWE AG,DE0007037129,RWE AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,21.38,Oui
 IHG LN Equity,InterContinental Hotels Group,GB00BHJYC057,InterContinental Hotels Group PLC,Objectif validé,Validated Targets,,,0,Oui
 MRK GY Equity,Merck KGaA,DE0006599905,Merck KGaA,Objectif validé,Validated Targets,,,1.61,Oui
-CABK SM Equity,CaixaBank SA,ES0140609019,,Absent de la base SBTi,,,,0,Non
-4452 JP Equity,Kao Corp,JP3205800000,,Absent de la base SBTi,,,,0,Non
+CABK SM Equity,CaixaBank SA,ES0140609019,,Absent de la base SBTi,,,,0,Oui
+4452 JP Equity,Kao Corp,JP3205800000,,Absent de la base SBTi,,,,0,Oui
 PRY IM Equity,Prysmian SpA,IT0004176001,Prysmian,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.66,Oui
 SAND SS Equity,Sandvik AB,SE0000667891,Sandvik Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.38,Oui
 IP US Equity,International Paper Co,US4601461035,International Paper Company,Objectif validé,Validated Targets,,,18.21,Oui
-CFG US Equity,Citizens Financial Group Inc,US1746101054,,Absent de la base SBTi,,,,0,Non
+CFG US Equity,Citizens Financial Group Inc,US1746101054,,Absent de la base SBTi,,,,0,Oui
 SAMPO FH Equity,Sampo Oyj,FI4000552500,Sampo Group,Objectif validé,Validated Targets,,,0,Oui
 IBKR US Equity,Interactive Brokers Group Inc,US45841N1072,,Absent de la base SBTi,,,,0,Non
 HEXAB SS Equity,Hexagon AB,SE0015961909,Hexagon AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -668,33 +668,33 @@ ST SP Equity,Singapore Telecommunications L,SG1T75931496,Singapore Telecommunica
 NRG US Equity,NRG Energy Inc,US6293775085,NRG Energy Inc,Objectif validé,Validated Targets,,Commitment Removed,5.62,Oui
 CTRA US Equity,Coterra Energy Inc,US1270971039,,Absent de la base SBTi,,,,0,Non
 INVH US Equity,Invitation Homes Inc,US46187W1071,,Absent de la base SBTi,,,,0,Non
-PODD US Equity,Insulet Corp,US45784P1012,,Absent de la base SBTi,,,,0,Non
+PODD US Equity,Insulet Corp,US45784P1012,,Absent de la base SBTi,,,,0,Oui
 FDS US Equity,FactSet Research Systems Inc,US3030751057,FactSet Research Systems Inc,Objectif validé,Validated Targets,,,0,Oui
 ESS US Equity,Essex Property Trust Inc,US2971781057,"Essex Property Trust, Inc.",Objectif validé,Validated Targets,,,0,Oui
 UMG NA Equity,Universal Music Group NV,NL0015000IY2,Universal Music Group N.V.,Objectif validé,Validated Targets,,,0,Oui
 COO US Equity,Cooper Cos Inc/The,US2166485019,,Absent de la base SBTi,,,,0,Non
-STX US Equity,Seagate Technology Holdings PL,IE00BKVD2N49,,Absent de la base SBTi,,,,0,Non
+STX US Equity,Seagate Technology Holdings PL,IE00BKVD2N49,,Absent de la base SBTi,,,,0,Oui
 1925 JP Equity,Daiwa House Industry Co Ltd,JP3505000004,"Daiwa House Industry Co., Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,28.13,Oui
 BURL US Equity,Burlington Stores Inc,US1220171060,,Absent de la base SBTi,,,,0,Non
 DOCU US Equity,DocuSign Inc,US2561631068,DocuSign,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 TRU US Equity,TransUnion,US89400J1079,TransUnion,Engagement retiré,Commitment Removed,,,0,Non
-MAA US Equity,Mid-America Apartment Communit,US59522J1034,,Absent de la base SBTi,,,,0.34,Non
-DTG GY Equity,Daimler Truck Holding AG,DE000DTR0CK8,,Absent de la base SBTi,,,,0.65,Non
-669 HK Equity,Techtronic Industries Co Ltd,HK0669013440,Techtronic Industries Company Limited,Engagement retiré,Commitment Removed,,,1.3,Non
+MAA US Equity,Mid-America Apartment Communit,US59522J1034,,Absent de la base SBTi,,,,0.34,Oui
+DTG GY Equity,Daimler Truck Holding AG,DE000DTR0CK8,,Absent de la base SBTi,,,,0.65,Oui
+669 HK Equity,Techtronic Industries Co Ltd,HK0669013440,Techtronic Industries Company Limited,Engagement retiré,Commitment Removed,,,1.3,Oui
 9020 JP Equity,East Japan Railway Co,JP3783600004,East Japan Railway Company,Engagement retiré,Commitment Removed,,,59.06,Oui
 6594 JP Equity,Nidec Corp,JP3734800000,Nidec Corporation,Objectif validé,Validated Targets,,,7.69,Oui
 FMG AU Equity,Fortescue Metals Group Ltd,AU000000FMG4,Fortescue Ltd,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-QBE AU Equity,QBE Insurance Group Ltd,AU000000QBE9,,Absent de la base SBTi,,,,0,Non
+QBE AU Equity,QBE Insurance Group Ltd,AU000000QBE9,,Absent de la base SBTi,,,,0,Oui
 FSLR US Equity,First Solar Inc,US3364331070,First Solar Inc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,100,Oui
-EQNR NO Equity,Equinor ASA,NO0010096985,,Absent de la base SBTi,,,,0.12,Non
+EQNR NO Equity,Equinor ASA,NO0010096985,,Absent de la base SBTi,,,,0.12,Oui
 VOD LN Equity,Vodafone Group PLC,GB00BH4HKS39,Vodafone Group Plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.42,Oui
 SDZ SE Equity,Sandoz Group AG,CH1243598427,Sandoz Group AG,Objectif validé,Validated Targets,,,0,Oui
 AER US Equity,AerCap Holdings NV,NL0000687663,,Absent de la base SBTi,,,,0,Non
 EQT SS Equity,EQT AB,SE0012853455,EQT AB Group,Objectif validé,Validated Targets,,,0,Oui
-PFG US Equity,Principal Financial Group Inc,US74251V1026,"Principal Financial Group, Inc.",Engagement retiré,Commitment Removed,,,0,Non
+PFG US Equity,Principal Financial Group Inc,US74251V1026,"Principal Financial Group, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
 YUMC US Equity,Yum China Holdings Inc,US98850P1093,"Yum China Holdings, Inc.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-6178 JP Equity,Japan Post Holdings Co Ltd,JP3752900005,,Absent de la base SBTi,,,,0,Non
-SNA US Equity,Snap-on Inc,US8330341012,,Absent de la base SBTi,,,,0,Non
+6178 JP Equity,Japan Post Holdings Co Ltd,JP3752900005,,Absent de la base SBTi,,,,0,Oui
+SNA US Equity,Snap-on Inc,US8330341012,,Absent de la base SBTi,,,,0,Oui
 4503 JP Equity,Astellas Pharma Inc,JP3942400007,Astellas Pharma Inc.,Objectif validé,Validated Targets,,,0,Oui
 LVS US Equity,Las Vegas Sands Corp,US5178341070,Las Vegas Sands Corp,Objectif validé,Validated Targets,,,0,Oui
 MTX GY Equity,MTU Aero Engines AG,DE000A0D9PT0,,Absent de la base SBTi,,,,0,Non
@@ -702,180 +702,180 @@ PINS US Equity,Pinterest Inc,US72352L1061,"Pinterest, Inc.",Objectif validé,Val
 8267 JP Equity,Aeon Co Ltd,JP3388200002,"Aeon Co., Ltd.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 DKNG US Equity,DraftKings Inc,US26142V1052,,Absent de la base SBTi,,,,0,Non
 ICLR US Equity,ICON PLC,IE0005711209,ICON Plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-TRMB US Equity,Trimble Inc,US8962391004,Trimble Inc,Objectif validé,Validated Targets,,,0,Oui
+TRMB US Equity,Trimble Inc,US8962391004,,Absent de la base SBTi,,,,0,Non
 KER FP Equity,Kering SA,FR0000121485,Kering,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NI US Equity,NiSource Inc,US65473P1057,,Absent de la base SBTi,,,,10.32,Non
+NI US Equity,NiSource Inc,US65473P1057,,Absent de la base SBTi,,,,10.32,Oui
 7733 JP Equity,Olympus Corp,JP3201200007,Olympus Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 KNEBV FH Equity,Kone Oyj,FI0009013403,KONE Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 VRSN US Equity,VeriSign Inc,US92343E1029,,Absent de la base SBTi,,,,0,Non
-ZS US Equity,Zscaler Inc,US98980G1022,"Zscaler, Inc",Engagement retiré,Commitment Removed,,,0,Non
+ZS US Equity,Zscaler Inc,US98980G1022,"Zscaler, Inc",Engagement retiré,Commitment Removed,,,0,Oui
 LGEN LN Equity,Legal & General Group PLC,GB0005603997,,Absent de la base SBTi,,,,0,Non
 BBY US Equity,Best Buy Co Inc,US0865161014,"Best Buy Co., Inc.",Objectif validé,Validated Targets,,,0,Oui
-KEY US Equity,KeyCorp,US4932671088,,Absent de la base SBTi,,,,0,Non
+KEY US Equity,KeyCorp,US4932671088,,Absent de la base SBTi,,,,0,Oui
 ARE US Equity,Alexandria Real Estate Equitie,US0152711091,,Absent de la base SBTi,,,,55.72,Oui
-DGX US Equity,Quest Diagnostics Inc,US74834L1008,,Absent de la base SBTi,,,,0,Non
-WRB US Equity,W R Berkley Corp,US0844231029,,Absent de la base SBTi,,,,0,Non
-ACA FP Equity,Credit Agricole SA,FR0000045072,Credit Agricole,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
+DGX US Equity,Quest Diagnostics Inc,US74834L1008,,Absent de la base SBTi,,,,0,Oui
+WRB US Equity,W R Berkley Corp,US0844231029,,Absent de la base SBTi,,,,0,Oui
+ACA FP Equity,Credit Agricole SA,FR0000045072,Credit Agricole,Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
 BALL US Equity,Ball Corp,US0584981064,Ball Corporation,Objectif validé,Validated Targets,,,0,Oui
-DG US Equity,Dollar General Corp,US2566771059,,Absent de la base SBTi,,,,0,Non
+DG US Equity,Dollar General Corp,US2566771059,,Absent de la base SBTi,,,,0,Oui
 MDB US Equity,MongoDB Inc,US60937P1066,,Absent de la base SBTi,,,,0,Non
 BXB AU Equity,Brambles Ltd,AU000000BXB1,Brambles,Objectif validé,Validated Targets,,,0,Oui
 OMC US Equity,Omnicom Group Inc,US6819191064,Omnicom Group,Objectif validé,Validated Targets,,,0,Oui
-SCHN SE Equity,Schindler Holding AG,CH0024638212,Schindler Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.67,Oui
+SCHN SE Equity,Schindler Holding AG,CH0024638212,,Absent de la base SBTi,,,,1.67,Oui
 CSL US Equity,Carlisle Cos Inc,US1423391002,Carlisle Companies Incorporated,Objectif validé,Validated Targets,Validated Targets,Validated Targets,18.28,Oui
-PNR US Equity,Pentair PLC,IE00BLS09M33,,Absent de la base SBTi,,,,5.48,Non
+PNR US Equity,Pentair PLC,IE00BLS09M33,,Absent de la base SBTi,,,,5.48,Oui
 HOLX US Equity,Hologic Inc,US4364401012,"Hologic, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-MOH US Equity,Molina Healthcare Inc,US60855R1005,,Absent de la base SBTi,,,,0,Non
-8308 JP Equity,Resona Holdings Inc,JP3500610005,,Absent de la base SBTi,,,,0,Non
+MOH US Equity,Molina Healthcare Inc,US60855R1005,,Absent de la base SBTi,,,,0,Oui
+8308 JP Equity,Resona Holdings Inc,JP3500610005,,Absent de la base SBTi,,,,0,Oui
 HEI GY Equity,HeidelbergCement AG,DE0006047004,Heidelberg Materials,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.01,Oui
 RBA CN Equity,RB Global Inc,CA74935Q1072,,Absent de la base SBTi,,,,0.08,Non
-J US Equity,Jacobs Solutions Inc,US46982L1089,,Absent de la base SBTi,,,,0,Non
-WSO US Equity,Watsco Inc,US9426222009,,Absent de la base SBTi,,,,0.05,Non
+J US Equity,Jacobs Solutions Inc,US46982L1089,,Absent de la base SBTi,,,,0,Oui
+WSO US Equity,Watsco Inc,US9426222009,,Absent de la base SBTi,,,,0.05,Oui
 STLD US Equity,Steel Dynamics Inc,US8581191009,,Absent de la base SBTi,,,,23.2,Oui
 CBK GY Equity,Commerzbank AG,DE000CBK1001,Commerzbank AG,Objectif validé,Validated Targets,,,0,Oui
 MANH US Equity,Manhattan Associates Inc,US5627501092,,Absent de la base SBTi,,,,0,Non
 SSNC US Equity,SS&C Technologies Holdings Inc,US78467J1007,,Absent de la base SBTi,,,,0,Non
 EL US Equity,Estee Lauder Cos Inc,US5184391044,The Estée Lauder Companies,Objectif validé,Validated Targets,,,0,Oui
-BLDR US Equity,Builders FirstSource Inc,US12008R1077,,Absent de la base SBTi,,,,2.12,Non
+BLDR US Equity,Builders FirstSource Inc,US12008R1077,,Absent de la base SBTi,,,,2.12,Oui
 FOX US Equity,Fox Corp,US35137L2043,,Absent de la base SBTi,,,,0,Non
-TOU CN Equity,Tourmaline Oil Corp,CA89156V1067,,Absent de la base SBTi,,,,0,Non
-DNB NO Equity,DNB Bank ASA,NO0010161896,,Absent de la base SBTi,,,,0,Non
+TOU CN Equity,Tourmaline Oil Corp,CA89156V1067,,Absent de la base SBTi,,,,0,Oui
+DNB NO Equity,DNB Bank ASA,NO0010161896,,Absent de la base SBTi,,,,0,Oui
 TSN US Equity,Tyson Foods Inc,US9024941034,"Tyson Foods, Inc.",Objectif validé,Validated Targets,,,0,Oui
-GPC US Equity,Genuine Parts Co,US3724601055,,Absent de la base SBTi,,,,0,Non
+GPC US Equity,Genuine Parts Co,US3724601055,,Absent de la base SBTi,,,,0,Oui
 TEF SM Equity,Telefonica SA,ES0178430E18,TELEFÓNICA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.28,Oui
 BAH US Equity,Booz Allen Hamilton Holding Co,US0995021062,Booz Allen Hamilton Holding Corporation,Objectif validé,Validated Targets,,Commitment Removed,3.33,Oui
 8604 JP Equity,Nomura Holdings Inc,JP3762600009,,Absent de la base SBTi,,,,0,Non
-ESSITYA SS Equity,Essity AB,SE0009922156,Essity AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-9022 JP Equity,Central Japan Railway Co,JP3566800003,,Absent de la base SBTi,,,,0,Non
-POLI IT Equity,Bank Hapoalim BM,IL0006625771,,Absent de la base SBTi,,,,0,Non
+ESSITYA SS Equity,Essity AB,SE0009922156,,Absent de la base SBTi,,,,0,Oui
+9022 JP Equity,Central Japan Railway Co,JP3566800003,,Absent de la base SBTi,,,,0,Oui
+POLI IT Equity,Bank Hapoalim BM,IL0006625771,,Absent de la base SBTi,,,,0,Oui
 STMMI IM Equity,STMICROELECTRONICS NV,NL0000226223,STMicroelectronics NV,Objectif validé,Validated Targets,,,8.56,Oui
-EPIA SS Equity,Epiroc AB,SE0015658109,Epiroc AB,Objectif validé,Validated Targets,,,4.92,Oui
-POW CN Equity,Power Corp of Canada,CA7392391016,,Absent de la base SBTi,,,,0,Non
+EPIA SS Equity,Epiroc AB,SE0015658109,,Absent de la base SBTi,,,,4.92,Oui
+POW CN Equity,Power Corp of Canada,CA7392391016,,Absent de la base SBTi,,,,0,Oui
 SOON SE Equity,Sonova Holding AG,CH0012549785,Sonova Holding AG,Objectif validé,Validated Targets,,,0,Oui
 SGE LN Equity,Sage Group PLC,GB00B8C3BL03,The Sage Group PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-LUMI IT Equity,Bank Leumi Le-Israel BM,IL0006046119,,Absent de la base SBTi,,,,0,Non
+LUMI IT Equity,Bank Leumi Le-Israel BM,IL0006046119,,Absent de la base SBTi,,,,0,Oui
 2 HK Equity,CLP Holdings Ltd,HK0002007356,CLP Holdings Limited,Objectif validé,Validated Targets,,,15.65,Oui
 CHKP US Equity,Check Point Software Technolog,IL0010824113,,Absent de la base SBTi,,,,0,Non
-IEX US Equity,IDEX Corp,US45167R1041,,Absent de la base SBTi,,,,3.52,Non
+IEX US Equity,IDEX Corp,US45167R1041,,Absent de la base SBTi,,,,3.52,Oui
 TWLO US Equity,Twilio Inc,US90138F1021,Twilio,Objectif validé,Validated Targets,,,0,Oui
 TOST US Equity,Toast Inc,US8887871080,,Absent de la base SBTi,,,,0,Non
 8802 JP Equity,Mitsubishi Estate Co Ltd,JP3899600005,"MITSUBISHI ESTATE CO., LTD.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,13.53,Oui
-AV/ LN Equity,Aviva PLC,GB00BPQY8M80,Aviva PLC,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
+AV/ LN Equity,Aviva PLC,GB00BPQY8M80,,Absent de la base SBTi,,,,0,Oui
 COL AU Equity,Coles Group Ltd,AU0000030678,Coles Group Limited,Objectif validé,Validated Targets,,,0.02,Oui
-RPM US Equity,RPM International Inc,US7496851038,,Absent de la base SBTi,,,,12.69,Non
+RPM US Equity,RPM International Inc,US7496851038,,Absent de la base SBTi,,,,12.69,Oui
 DT US Equity,Dynatrace Inc,US2681501092,,Absent de la base SBTi,,,,0,Non
 2502 JP Equity,Asahi Group Holdings Ltd,JP3116000005,Asahi Group Holdings Ltd.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-MAS US Equity,Masco Corp,US5745991068,,Absent de la base SBTi,,,,1.93,Non
+MAS US Equity,Masco Corp,US5745991068,,Absent de la base SBTi,,,,1.93,Oui
 CLNX SM Equity,Cellnex Telecom SA,ES0105066007,CELLNEX TELECOM S.A.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.5,Oui
 EXPD US Equity,Expeditors International of Wa,US3021301094,,Absent de la base SBTi,,,,0,Non
-JBL US Equity,Jabil Inc,US4663131039,Jabil Inc.,Engagement retiré,Commitment Removed,,Commitment Removed,12.45,Non
-SHBA SS Equity,Svenska Handelsbanken AB,SE0007100599,Svenska Handelsbanken (publ),Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Non
-UTHR US Equity,United Therapeutics Corp,US91307C1027,,Absent de la base SBTi,,,,0,Non
-EG US Equity,Everest Group Ltd,BMG3223R1088,,Absent de la base SBTi,,,,0,Non
+JBL US Equity,Jabil Inc,US4663131039,Jabil Inc.,Engagement retiré,Commitment Removed,,Commitment Removed,12.45,Oui
+SHBA SS Equity,Svenska Handelsbanken AB,SE0007100599,Svenska Handelsbanken (publ),Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Oui
+UTHR US Equity,United Therapeutics Corp,US91307C1027,,Absent de la base SBTi,,,,0,Oui
+EG US Equity,Everest Group Ltd,BMG3223R1088,,Absent de la base SBTi,,,,0,Oui
 KIM US Equity,Kimco Realty Corp,US49446R1095,Kimco Realty Corporation,Objectif validé,Validated Targets,,,1.89,Oui
 L US Equity,Loews Corp,US5404241086,,Absent de la base SBTi,,,,0,Non
-SMCI US Equity,Super Micro Computer Inc,US86800U3023,"Super Micro Computer, Inc.",Objectif validé,Validated Targets,,,0,Oui
-CF US Equity,CF Industries Holdings Inc,US1252691001,,Absent de la base SBTi,,,,1.76,Non
+SMCI US Equity,Super Micro Computer Inc,US86800U3023,,Absent de la base SBTi,,,,0,Oui
+CF US Equity,CF Industries Holdings Inc,US1252691001,,Absent de la base SBTi,,,,1.76,Oui
 NTNX US Equity,Nutanix Inc,US67059N1081,,Absent de la base SBTi,,,,0,Non
 DLTR US Equity,Dollar Tree Inc,US2567461080,,Absent de la base SBTi,,,,0,Non
 TPR US Equity,Tapestry Inc,US8760301072,"Tapestry, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 LNT US Equity,Alliant Energy Corp,US0188021085,,Absent de la base SBTi,,,,29.41,Oui
 FLEX US Equity,Flex Ltd,SG9999000020,Flex Ltd.,Objectif validé,Validated Targets,,,14.43,Oui
 TW US Equity,Tradeweb Markets Inc,US8926721064,,Absent de la base SBTi,,,,0,Non
-SUI US Equity,Sun Communities Inc,US8666741041,,Absent de la base SBTi,,,,0,Non
-HNR1 GY Equity,Hannover Rueck SE,DE0008402215,,Absent de la base SBTi,,,,0,Non
-SUN AU Equity,Suncorp Group Ltd,AU000000SUN6,,Absent de la base SBTi,,,,0,Non
+SUI US Equity,Sun Communities Inc,US8666741041,,Absent de la base SBTi,,,,0,Oui
+HNR1 GY Equity,Hannover Rueck SE,DE0008402215,,Absent de la base SBTi,,,,0,Oui
+SUN AU Equity,Suncorp Group Ltd,AU000000SUN6,,Absent de la base SBTi,,,,0,Oui
 AVY US Equity,Avery Dennison Corp,US0536111091,Avery Dennison Corporation,Objectif validé,Validated Targets,,,0,Oui
-ENTG US Equity,Entegris Inc,US29362U1043,"Entegris, Inc",Engagement seulement (non validé),Commitment to Set Targets,,,1.92,Non
+ENTG US Equity,Entegris Inc,US29362U1043,,Absent de la base SBTi,,,,1.92,Oui
 EQH US Equity,Equitable Holdings Inc,US29452E1010,,Absent de la base SBTi,,,,0,Non
-BAX US Equity,Baxter International Inc,US0718131099,,Absent de la base SBTi,,,,0,Non
+BAX US Equity,Baxter International Inc,US0718131099,,Absent de la base SBTi,,,,0,Oui
 VTRS US Equity,Viatris Inc,US92556V1061,Viatris Inc.,Objectif validé,Validated Targets,,,0,Oui
 RS US Equity,Reliance Steel & Aluminum Co,US7595091023,,Absent de la base SBTi,,,,0,Non
-8309 JP Equity,Sumitomo Mitsui Trust Holdings,JP3892100003,,Absent de la base SBTi,,,,0,Non
+8309 JP Equity,Sumitomo Mitsui Trust Holdings,JP3892100003,,Absent de la base SBTi,,,,0,Oui
 NXT LN Equity,Next PLC,GB0032089863,Next plc,Objectif validé,Validated Targets,,,0.01,Oui
 OC US Equity,Owens Corning,US6907421019,Owens Corning,Objectif validé,Validated Targets,,,37.9,Oui
-GEN US Equity,Gen Digital Inc,US6687711084,,Absent de la base SBTi,,,,0,Non
+GEN US Equity,Gen Digital Inc,US6687711084,,Absent de la base SBTi,,,,0,Oui
 9101 JP Equity,Nippon Yusen KK,JP3753000003,Nippon Yusen Kabushiki Kaisha,Objectif validé,Validated Targets,,,0,Oui
-FNF US Equity,Fidelity National Financial In,US31620R3030,,Absent de la base SBTi,,,,0,Non
+FNF US Equity,Fidelity National Financial In,US31620R3030,,Absent de la base SBTi,,,,0,Oui
 FFIV US Equity,F5 Inc,US3156161024,"F5, Inc.",Objectif validé,Validated Targets,,,5.96,Oui
 COLOB DC Equity,Coloplast A/S,DK0060448595,Coloplast A/S,Objectif validé,Validated Targets,,,0,Oui
 ALGN US Equity,Align Technology Inc,US0162551016,,Absent de la base SBTi,,,,0,Non
 UPM FH Equity,UPM-Kymmene Oyj,FI0009005987,UPM-Kymmene Corporation,Objectif validé,Validated Targets,,Commitment to Set Targets,29.2,Oui
 XRO AU Equity,Xero Ltd,NZXROE0001S2,Xero,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
-5020 JP Equity,ENEOS Holdings Inc,JP3386450005,,Absent de la base SBTi,,,,18.43,Non
+5020 JP Equity,ENEOS Holdings Inc,JP3386450005,,Absent de la base SBTi,,,,18.43,Oui
 KYGA ID Equity,Kerry Group PLC,IE0004906560,Kerry Group PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 WTC AU Equity,WiseTech Global Ltd,AU000000WTC3,,Absent de la base SBTi,,,,0,Non
-FRE GY Equity,Fresenius SE & Co KGaA,DE0005785604,,Absent de la base SBTi,,,,0,Non
+FRE GY Equity,Fresenius SE & Co KGaA,DE0005785604,,Absent de la base SBTi,,,,0,Oui
 SHL GY Equity,Siemens Healthineers AG,DE000SHL1006,Siemens Healthineers AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 MRNA US Equity,Moderna Inc,US60770K1079,"Moderna, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ACM US Equity,AECOM,US00766T1007,AECOM,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-UDR US Equity,UDR Inc,US9026531049,UDR,Engagement retiré,Commitment Removed,,,16.21,Non
+UDR US Equity,UDR Inc,US9026531049,UDR,Engagement retiré,Commitment Removed,,,16.21,Oui
 AKAM US Equity,Akamai Technologies Inc,US00971T1016,Akamai Technologies INC,Engagement retiré,Commitment Removed,,Commitment Removed,6.61,Non
 1928 JP Equity,Sekisui House Ltd,JP3420600003,"Sekisui House, LTD",Objectif validé,Validated Targets,Validated Targets,Validated Targets,19.34,Oui
-1 HK Equity,CK Hutchison Holdings Ltd,KYG217651051,,Absent de la base SBTi,,,,1.18,Non
+1 HK Equity,CK Hutchison Holdings Ltd,KYG217651051,,Absent de la base SBTi,,,,1.18,Oui
 AENA SM Equity,Aena SME SA,ES0105046009,AENA S.M.E. S.A.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-DOC US Equity,Healthpeak Properties Inc,US42250P1030,"Healthpeak Properties, Inc.",Objectif validé,Validated Targets,,,19.02,Oui
-SWKS US Equity,Skyworks Solutions Inc,US83088M1027,,Absent de la base SBTi,,,,1.11,Non
+DOC US Equity,Healthpeak Properties Inc,US42250P1030,,Absent de la base SBTi,,,,19.02,Oui
+SWKS US Equity,Skyworks Solutions Inc,US83088M1027,,Absent de la base SBTi,,,,1.11,Oui
 SCMN SE Equity,Swisscom AG,CH0008742519,Swisscom AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.08,Oui
 CYBR US Equity,CyberArk Software Ltd,IL0011334468,,Absent de la base SBTi,,,,0,Non
 SY1 GY Equity,Symrise AG,DE000SYM9999,Symrise AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GGG US Equity,Graco Inc,US3841091040,,Absent de la base SBTi,,,,0,Non
+GGG US Equity,Graco Inc,US3841091040,,Absent de la base SBTi,,,,0,Oui
 HO FP Equity,Thales SA,FR0000121329,Thales SA,Objectif validé,Validated Targets,,,0,Oui
-REP SM Equity,Repsol SA,ES0173516115,,Absent de la base SBTi,,,,9.24,Non
-APTV US Equity,Aptiv PLC,JE00BTDN8H13,Aptiv PLC,Objectif validé,Validated Targets,,,21,Oui
-TXT US Equity,Textron Inc,US8832031012,,Absent de la base SBTi,,,,6.16,Non
+REP SM Equity,Repsol SA,ES0173516115,,Absent de la base SBTi,,,,9.24,Oui
+APTV US Equity,Aptiv PLC,JE00BTDN8H13,,Absent de la base SBTi,,,,21,Oui
+TXT US Equity,Textron Inc,US8832031012,,Absent de la base SBTi,,,,6.16,Oui
 AVTR US Equity,Avantor Inc,US05352A1007,"Avantor, Inc.",Objectif validé,Validated Targets,,,0,Oui
-MRU CN Equity,Metro Inc/CN,CA59162N1096,METRO,Engagement retiré,Commitment Removed,,,0,Non
+MRU CN Equity,Metro Inc/CN,CA59162N1096,METRO,Engagement retiré,Commitment Removed,,,0,Oui
 9735 JP Equity,Secom Co Ltd,JP3421800008,"SECOM CO., LTD.",Objectif validé,Validated Targets,,Commitment Removed,0.61,Oui
-RGA US Equity,Reinsurance Group of America I,US7593516047,,Absent de la base SBTi,,,,0,Non
-ZG US Equity,Zillow Group Inc,US98954M1018,"Zillow Group, Inc.",Objectif validé,Validated Targets,,,0,Oui
+RGA US Equity,Reinsurance Group of America I,US7593516047,,Absent de la base SBTi,,,,0,Oui
+ZG US Equity,Zillow Group Inc,US98954M1018,,Absent de la base SBTi,,,,0,Oui
 NWS US Equity,News Corp,US65249B2088,News Corp,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 BNZL LN Equity,Bunzl PLC,GB00B0744B38,Bunzl plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 EVRG US Equity,Evergy Inc,US30034W1062,,Absent de la base SBTi,,,,29.27,Oui
-7832 JP Equity,Bandai Namco Holdings Inc,JP3778630008,,Absent de la base SBTi,,,,0,Non
+7832 JP Equity,Bandai Namco Holdings Inc,JP3778630008,,Absent de la base SBTi,,,,0,Oui
 KPN NA Equity,Koninklijke KPN NV,NL0000009082,Koninklijke KPN NV (Royal KPN),Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-RVTY US Equity,REVVITY INC,US7140461093,"Revvity, Inc.",Engagement retiré,Commitment Removed,,,0,Non
+RVTY US Equity,REVVITY INC,US7140461093,"Revvity, Inc.",Engagement retiré,Commitment Removed,,,0,Oui
 7936 JP Equity,Asics Corp,JP3118000003,ASICS Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NBIX US Equity,Neurocrine Biosciences Inc,US64125C1099,,Absent de la base SBTi,,,,0,Non
+NBIX US Equity,Neurocrine Biosciences Inc,US64125C1099,,Absent de la base SBTi,,,,0,Oui
 ROL US Equity,Rollins Inc,US7757111049,,Absent de la base SBTi,,,,0,Non
 5802 JP Equity,Sumitomo Electric Industries L,JP3407400005,Sumitomo Electric,Objectif validé,Validated Targets,,,8.95,Oui
 AMCR US Equity,Amcor PLC,JE00BJ1F3079,Amcor plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-JBHT US Equity,JB Hunt Transport Services Inc,US4456581077,,Absent de la base SBTi,,,,0,Non
-STMN SE Equity,Straumann Holding AG,CH1175448666,Straumann Holding AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GRAB US Equity,Grab Holdings Ltd,KYG4124C1096,,Absent de la base SBTi,,,,4.39,Non
+JBHT US Equity,JB Hunt Transport Services Inc,US4456581077,,Absent de la base SBTi,,,,0,Oui
+STMN SE Equity,Straumann Holding AG,CH1175448666,,Absent de la base SBTi,,,,0,Non
+GRAB US Equity,Grab Holdings Ltd,KYG4124C1096,,Absent de la base SBTi,,,,4.39,Oui
 16 HK Equity,Sun Hung Kai Properties Ltd,HK0016000132,,Absent de la base SBTi,,,,34.84,Oui
 STO AU Equity,Santos Ltd,AU000000STO6,,Absent de la base SBTi,,,,0,Non
-VWS DC Equity,Vestas Wind Systems A/S,DK0061539921,Vestas Wind Systems,Objectif validé,Validated Targets,,Commitment Removed,100,Oui
+VWS DC Equity,Vestas Wind Systems A/S,DK0061539921,,Absent de la base SBTi,,,,100,Oui
 6971 JP Equity,Kyocera Corp,JP3249600002,KYOCERA Corporation,Objectif validé,Validated Targets,,,0.2,Oui
 6201 JP Equity,Toyota Industries Corp,JP3634600005,Toyota Industries Corporation,Objectif validé,Validated Targets,,,11.16,Oui
 REG US Equity,Regency Centers Corp,US7588491032,Regency Centers Corporation,Objectif validé,Validated Targets,,,2.32,Oui
 INF LN Equity,Informa PLC,GB00BMJ6DW54,Informa plc,Objectif validé,Validated Targets,,,0,Oui
 6326 JP Equity,Kubota Corp,JP3266400005,,Absent de la base SBTi,,,,32.63,Oui
 CAG US Equity,Conagra Brands Inc,US2058871029,"Conagra Brands, Inc.",Objectif validé,Validated Targets,,,0,Oui
-EWBC US Equity,East West Bancorp Inc,US27579R1041,,Absent de la base SBTi,,,,0,Non
+EWBC US Equity,East West Bancorp Inc,US27579R1041,,Absent de la base SBTi,,,,0,Oui
 BAER SE Equity,Julius Baer Group Ltd,CH0102484968,Julius Bär Group Ltd.,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
 LOGN SE Equity,Logitech International SA,CH0025751329,Logitech International S.A,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GMAB DC Equity,Genmab A/S,DK0010272202,,Absent de la base SBTi,,,,0,Non
+GMAB DC Equity,Genmab A/S,DK0010272202,,Absent de la base SBTi,,,,0,Oui
 7182 JP Equity,Japan Post Bank Co Ltd,JP3946750001,,Absent de la base SBTi,,,,0,Non
 EPAM US Equity,EPAM Systems Inc,US29414B1044,"EPAM Systems, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.42,Oui
-EVO SS Equity,Evolution AB,SE0012673267,,Absent de la base SBTi,,,,0,Non
-DKS US Equity,Dick's Sporting Goods Inc,US2533931026,,Absent de la base SBTi,,,,0,Non
-HLMA LN Equity,Halma PLC,GB0004052071,,Absent de la base SBTi,,,,1.55,Non
-JKHY US Equity,Jack Henry & Associates Inc,US4262811015,"Jack Henry and Associates, Inc.",Engagement retiré,Commitment Removed,,,0,Non
+EVO SS Equity,Evolution AB,SE0012673267,,Absent de la base SBTi,,,,0,Oui
+DKS US Equity,Dick's Sporting Goods Inc,US2533931026,,Absent de la base SBTi,,,,0,Oui
+HLMA LN Equity,Halma PLC,GB0004052071,,Absent de la base SBTi,,,,1.55,Oui
+JKHY US Equity,Jack Henry & Associates Inc,US4262811015,,Absent de la base SBTi,,,,0,Oui
 RTO LN Equity,Rentokil Initial PLC,GB00B082RF11,,Absent de la base SBTi,,,,0,Non
 GLPI US Equity,Gaming and Leisure Properties,US36467J1088,,Absent de la base SBTi,,,,0,Non
 KNIN SE Equity,Kuehne + Nagel International A,CH0025238863,Kuehne + Nagel International AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 OKTA US Equity,Okta Inc,US6792951054,"Okta, Inc",Objectif validé,Validated Targets,,,0,Oui
 KMX US Equity,CarMax Inc,US1431301027,,Absent de la base SBTi,,,,1.61,Non
 POOL US Equity,Pool Corp,US73278L1052,,Absent de la base SBTi,,,,0,Non
-BF/A US Equity,Brown-Forman Corp,US1156371007,Brown-Forman Corporation,Objectif validé,Validated Targets,,,0,Oui
-FPH NZ Equity,Fisher & Paykel Healthcare Cor,NZFAPE0001S2,,Absent de la base SBTi,,,,0,Non
-9104 JP Equity,Mitsui OSK Lines Ltd,JP3362700001,,Absent de la base SBTi,,,,0.5,Non
-BMRN US Equity,BioMarin Pharmaceutical Inc,US09061G1013,,Absent de la base SBTi,,,,0,Non
+BF/A US Equity,Brown-Forman Corp,US1156371007,,Absent de la base SBTi,,,,0,Oui
+FPH NZ Equity,Fisher & Paykel Healthcare Cor,NZFAPE0001S2,,Absent de la base SBTi,,,,0,Oui
+9104 JP Equity,Mitsui OSK Lines Ltd,JP3362700001,,Absent de la base SBTi,,,,0.5,Oui
+BMRN US Equity,BioMarin Pharmaceutical Inc,US09061G1013,,Absent de la base SBTi,,,,0,Oui
 BT/A LN Equity,BT Group PLC,GB0030913577,BT Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,7.07,Oui
-IAG AU Equity,Insurance Australia Group Ltd,AU000000IAG3,,Absent de la base SBTi,,,,0,Non
+IAG AU Equity,Insurance Australia Group Ltd,AU000000IAG3,,Absent de la base SBTi,,,,0,Oui
 SWK US Equity,Stanley Black & Decker Inc,US8545021011,Stanley Black & Decker,Objectif validé,Validated Targets,,,0.09,Oui
-CPT US Equity,Camden Property Trust,US1331311027,,Absent de la base SBTi,,,,0,Non
+CPT US Equity,Camden Property Trust,US1331311027,,Absent de la base SBTi,,,,0,Oui
 MONC IM Equity,Moncler SpA,IT0004965148,Moncler Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 8015 JP Equity,Toyota Tsusho Corp,JP3635000007,TOYOTA TSUSHO CORPORATION,Objectif validé,Validated Targets,Validated Targets,Validated Targets,10.7,Oui
 JNPR US Equity,Juniper Networks Inc,US48203R1041,"Juniper Networks, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -883,7 +883,7 @@ HST US Equity,Host Hotels & Resorts Inc,US44107P1049,"Host Hotels & Resorts, Inc
 4307 JP Equity,Nomura Research Institute Ltd,JP3762800005,"Nomura Research Institute, Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.78,Oui
 CG US Equity,Carlyle Group Inc/The,US14316J1088,,Absent de la base SBTi,,,,0,Non
 BEI GY Equity,Beiersdorf AG,DE0005200000,Beiersdorf AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NN NA Equity,NN Group NV,NL0010773842,,Absent de la base SBTi,,,,0,Non
+NN NA Equity,NN Group NV,NL0010773842,,Absent de la base SBTi,,,,0,Oui
 ALFA SS Equity,Alfa Laval AB,SE0000695876,Alfa Laval AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,10.13,Oui
 OWL US Equity,Blue Owl Capital Inc,US09581B1035,,Absent de la base SBTi,,,,0,Non
 CCEP US Equity,Coca-Cola Europacific Partners,GB00BDCPN049,Coca-Cola Europacific Partners,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
@@ -892,19 +892,19 @@ MG CN Equity,Magna International Inc,CA5592224011,Magna International Inc.,Objec
 AMH US Equity,American Homes 4 Rent,US02665T3068,,Absent de la base SBTi,,,,0,Non
 6988 JP Equity,Nitto Denko Corp,JP3684000007,Nitto Denko Corporation,Objectif validé,Validated Targets,,,1.15,Oui
 JLL US Equity,Jones Lang LaSalle Inc,US48020Q1076,JLL,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-CHRW US Equity,CH Robinson Worldwide Inc,US12541W2098,,Absent de la base SBTi,,,,0,Non
-SGSN SE Equity,SGS SA,CH1256740924,SGS SA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.05,Oui
+CHRW US Equity,CH Robinson Worldwide Inc,US12541W2098,,Absent de la base SBTi,,,,0,Oui
+SGSN SE Equity,SGS SA,CH1256740924,,Absent de la base SBTi,,,,0.05,Oui
 CPU AU Equity,Computershare Ltd,AU000000CPU5,Computershare Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 SGRO LN Equity,Segro PLC,GB00B5ZN1N88,"SEGRO plc,",Objectif validé,Validated Targets,Validated Targets,Validated Targets,38.98,Oui
 WPC US Equity,WP Carey Inc,US92936U1097,,Absent de la base SBTi,,,,3.13,Non
 COH AU Equity,Cochlear Ltd,AU000000COH5,,Absent de la base SBTi,,,,0,Non
 ORG AU Equity,Origin Energy Ltd,AU000000ORG5,Origin Energy,Objectif validé,Validated Targets,,,3.56,Oui
-2388 HK Equity,BOC Hong Kong Holdings Ltd,HK2388011192,,Absent de la base SBTi,,,,0,Non
-ELS US Equity,Equity LifeStyle Properties In,US29472R1086,,Absent de la base SBTi,,,,0,Non
+2388 HK Equity,BOC Hong Kong Holdings Ltd,HK2388011192,,Absent de la base SBTi,,,,0,Oui
+ELS US Equity,Equity LifeStyle Properties In,US29472R1086,,Absent de la base SBTi,,,,0,Oui
 SNAP US Equity,Snap Inc,US83304A1060,Snap Inc.,Objectif validé,Validated Targets,,,0,Oui
 8697 JP Equity,Japan Exchange Group Inc,JP3183200009,,Absent de la base SBTi,,,,0,Non
 TECH US Equity,Bio-Techne Corp,US09073M1045,Bio-Techne,Objectif validé,Validated Targets,,,0,Oui
-ALLE US Equity,Allegion plc,IE00BFRT3W74,,Absent de la base SBTi,,,,0,Non
+ALLE US Equity,Allegion plc,IE00BFRT3W74,,Absent de la base SBTi,,,,0,Oui
 SJM US Equity,J M Smucker Co,US8326964058,The J.M. Smucker Company,Objectif validé,Validated Targets,,,0,Oui
 WPP LN Equity,WPP PLC,JE00B8KF9B49,WPP Plc,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 KSP ID Equity,Kingspan Group PLC,IE0004927939,Kingspan Group Plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,77.66,Oui
@@ -912,321 +912,321 @@ DAY US Equity,Dayforce Inc,US15677J1088,Dayforce,Objectif validé,Validated Targ
 SCI US Equity,Service Corp International,US8175651046,,Absent de la base SBTi,,,,0,Non
 9613 JP Equity,NTT Data Corp,JP3165700000,NTT DATA Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.34,Oui
 TRN IM Equity,Terna - Rete Elettrica Naziona,IT0003242622,Terna S.p.A.,Objectif validé,Validated Targets,,Commitment to Set Targets,17,Oui
-SRPT US Equity,Sarepta Therapeutics Inc,US8036071004,,Absent de la base SBTi,,,,0,Non
-INCY US Equity,Incyte Corp,US45337C1027,,Absent de la base SBTi,,,,0,Non
-NST AU Equity,Northern Star Resources Ltd,AU000000NST8,,Absent de la base SBTi,,,,0,Non
+SRPT US Equity,Sarepta Therapeutics Inc,US8036071004,,Absent de la base SBTi,,,,0,Oui
+INCY US Equity,Incyte Corp,US45337C1027,,Absent de la base SBTi,,,,0,Oui
+NST AU Equity,Northern Star Resources Ltd,AU000000NST8,,Absent de la base SBTi,,,,0,Oui
 823 HK Equity,Link REIT,HK0823032773,Link Real Estate Investment Trust,Objectif validé,Validated Targets,Validated Targets,Validated Targets,14.2,Oui
-1605 JP Equity,Inpex Corp,JP3294460005,,Absent de la base SBTi,,,,0.41,Non
-EMA CN Equity,Emera Inc,CA2908761018,,Absent de la base SBTi,,,,16.22,Non
-SN/ LN Equity,Smith & Nephew PLC,GB0009223206,,Absent de la base SBTi,,,,0,Non
+1605 JP Equity,Inpex Corp,JP3294460005,,Absent de la base SBTi,,,,0.41,Oui
+EMA CN Equity,Emera Inc,CA2908761018,,Absent de la base SBTi,,,,16.22,Oui
+SN/ LN Equity,Smith & Nephew PLC,GB0009223206,,Absent de la base SBTi,,,,0,Oui
 RYA ID Equity,Ryanair Holdings PLC,IE00BYTBXV33,Ryanair Holdings plc,Objectif validé,Validated Targets,,,0,Oui
-BG US Equity,Bunge Global SA,CH1300646267,,Absent de la base SBTi,,,,0,Non
+BG US Equity,Bunge Global SA,CH1300646267,,Absent de la base SBTi,,,,0,Oui
 BXP US Equity,Boston Properties Inc,US1011211018,BXP,Objectif validé,Validated Targets,,Commitment Removed,58.45,Oui
-NICE IT Equity,Nice Ltd,IL0002730112,,Absent de la base SBTi,,,,19.96,Non
+NICE IT Equity,Nice Ltd,IL0002730112,,Absent de la base SBTi,,,,19.96,Oui
 NDSN US Equity,Nordson Corp,US6556631025,,Absent de la base SBTi,,,,0,Non
 PSON LN Equity,Pearson PLC,GB0006776081,Pearson PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ACS SM Equity,ACS Actividades de Construccio,ES0167050915,,Absent de la base SBTi,,,,47.09,Oui
 LAMR US Equity,Lamar Advertising Co,US5128161099,,Absent de la base SBTi,,,,0,Non
-7309 JP Equity,Shimano Inc,JP3358000002,,Absent de la base SBTi,,,,0,Non
-FBK IM Equity,FinecoBank Banca Fineco SpA,IT0000072170,,Absent de la base SBTi,,,,0,Non
+7309 JP Equity,Shimano Inc,JP3358000002,,Absent de la base SBTi,,,,0,Oui
+FBK IM Equity,FinecoBank Banca Fineco SpA,IT0000072170,,Absent de la base SBTi,,,,0,Oui
 LDO IM Equity,Leonardo SpA,IT0003856405,Leonardo S.p.A.,Objectif validé,Validated Targets,,,0,Oui
-EMN US Equity,Eastman Chemical Co,US2774321002,,Absent de la base SBTi,,,,0,Non
-LISP SE Equity,Chocoladefabriken Lindt & Spru,CH0010570767,,Absent de la base SBTi,,,,0,Non
-OVV US Equity,Ovintiv Inc,US69047Q1022,,Absent de la base SBTi,,,,0,Non
-MT NA Equity,ArcelorMittal SA,LU1598757687,Arcelor Mittal,Engagement retiré,Commitment Removed,,,0,Non
-7532 JP Equity,Pan Pacific International Hold,JP3639650005,,Absent de la base SBTi,,,,0,Non
+EMN US Equity,Eastman Chemical Co,US2774321002,,Absent de la base SBTi,,,,0,Oui
+LISP SE Equity,Chocoladefabriken Lindt & Spru,CH0010570767,,Absent de la base SBTi,,,,0,Oui
+OVV US Equity,Ovintiv Inc,US69047Q1022,,Absent de la base SBTi,,,,0,Oui
+MT NA Equity,ArcelorMittal SA,LU1598757687,Arcelor Mittal,Engagement retiré,Commitment Removed,,,0,Oui
+7532 JP Equity,Pan Pacific International Hold,JP3639650005,,Absent de la base SBTi,,,,0,Oui
 2503 JP Equity,Kirin Holdings Co Ltd,JP3258000003,Kirin Holdings Co Ltd,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ATR US Equity,AptarGroup Inc,US0383361039,AptarGroup Inc.,Objectif validé,Validated Targets,,,0,Oui
-ERIE US Equity,Erie Indemnity Co,US29530P1021,,Absent de la base SBTi,,,,0,Non
-PAYC US Equity,Paycom Software Inc,US70432V1026,,Absent de la base SBTi,,,,0,Non
+ERIE US Equity,Erie Indemnity Co,US29530P1021,,Absent de la base SBTi,,,,0,Oui
+PAYC US Equity,Paycom Software Inc,US70432V1026,,Absent de la base SBTi,,,,0,Oui
 IPG US Equity,Interpublic Group of Cos Inc/T,US4606901001,"Interpublic Group of Companies, Inc.",Objectif validé,Validated Targets,,,0,Oui
-IMO CN Equity,Imperial Oil Ltd,CA4530384086,,Absent de la base SBTi,,,,0,Non
-7270 JP Equity,Subaru Corp,JP3814800003,,Absent de la base SBTi,,,,4.22,Non
-RRX US Equity,Regal Rexnord Corp,US7587501039,Regal Rexnord Corporation,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-9531 JP Equity,Tokyo Gas Co Ltd,JP3573000001,,Absent de la base SBTi,,,,0.07,Non
+IMO CN Equity,Imperial Oil Ltd,CA4530384086,,Absent de la base SBTi,,,,0,Oui
+7270 JP Equity,Subaru Corp,JP3814800003,,Absent de la base SBTi,,,,4.22,Oui
+RRX US Equity,Regal Rexnord Corp,US7587501039,,Absent de la base SBTi,,,,0,Non
+9531 JP Equity,Tokyo Gas Co Ltd,JP3573000001,,Absent de la base SBTi,,,,0.07,Oui
 AKZA NA Equity,Akzo Nobel NV,NL0013267909,,Absent de la base SBTi,,,,20.8,Oui
 VACN SE Equity,VAT Group AG,CH0311864901,VAT Group AG,Objectif validé,Validated Targets,,,0,Oui
 BVI FP Equity,Bureau Veritas SA,FR0006174348,BUREAU VERITAS,Objectif validé,Validated Targets,,,0,Oui
-FND US Equity,Floor & Decor Holdings Inc,US3397501012,,Absent de la base SBTi,,,,0,Non
+FND US Equity,Floor & Decor Holdings Inc,US3397501012,,Absent de la base SBTi,,,,0,Oui
 UHS US Equity,Universal Health Services Inc,US9139031002,,Absent de la base SBTi,,,,0,Non
-AFG US Equity,American Financial Group Inc/O,US0259321042,,Absent de la base SBTi,,,,0,Non
-ALB US Equity,Albemarle Corp,US0126531013,,Absent de la base SBTi,,,,7.47,Non
+AFG US Equity,American Financial Group Inc/O,US0259321042,,Absent de la base SBTi,,,,0,Oui
+ALB US Equity,Albemarle Corp,US0126531013,,Absent de la base SBTi,,,,7.47,Oui
 TLS AU Equity,Telstra Group Ltd,AU000000TLS2,Telstra Group Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.28,Oui
 TFII CN Equity,TFI International Inc,CA87241L1094,,Absent de la base SBTi,,,,0,Non
 SGX SP Equity,Singapore Exchange Ltd,SG1J26887955,Singapore Exchange Limited,Objectif validé,Validated Targets,,,0,Oui
-QGEN US Equity,QIAGEN NV,NL0015001WM6,QIAGEN N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-SCG AU Equity,Scentre Group,AU000000SCG8,,Absent de la base SBTi,,,,7.91,Non
+QGEN US Equity,QIAGEN NV,NL0015001WM6,,Absent de la base SBTi,,,,0,Oui
+SCG AU Equity,Scentre Group,AU000000SCG8,,Absent de la base SBTi,,,,7.91,Oui
 8830 JP Equity,Sumitomo Realty & Development,JP3409000001,,Absent de la base SBTi,,,,28.44,Oui
 RIVN US Equity,Rivian Automotive Inc,US76954A1034,,Absent de la base SBTi,,,,100,Oui
 CCK US Equity,Crown Holdings Inc,US2283681060,"Crown Holdings, Inc",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 TAP US Equity,Molson Coors Beverage Co,US60871R2094,Molson Coors Brewing Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 DOX US Equity,Amdocs Ltd,GB0022569080,Amdocs Ltd.,Objectif validé,Validated Targets,,,0,Oui
-RPRX US Equity,Royalty Pharma PLC,GB00BMVP7Y09,,Absent de la base SBTi,,,,0,Non
+RPRX US Equity,Royalty Pharma PLC,GB00BMVP7Y09,,Absent de la base SBTi,,,,0,Oui
 RNO FP Equity,Renault SA,FR0000131906,RENAULT GROUP,Objectif validé,Validated Targets,Validated Targets,Validated Targets,6.69,Oui
 LBRDA US Equity,Liberty Broadband Corp,US5303071071,,Absent de la base SBTi,,,,0,Non
 TKO US Equity,TKO Group Holdings Inc,US87256C1018,,Absent de la base SBTi,,,,0,Non
-WRT1V FH Equity,Wartsila OYJ Abp,FI0009003727,,Absent de la base SBTi,,,,18.87,Non
+WRT1V FH Equity,Wartsila OYJ Abp,FI0009003727,,Absent de la base SBTi,,,,18.87,Oui
 DAL US Equity,Delta Air Lines Inc,US2473617023,Delta Air Lines,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 ALLY US Equity,Ally Financial Inc,US02005N1000,,Absent de la base SBTi,,,,0,Non
 EDP PL Equity,EDP - Energias de Portugal SA,PTEDP0AM0009,"EDP, S.A.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,25.48,Oui
 JM SP Equity,Jardine Matheson Holdings Ltd,BMG507361001,,Absent de la base SBTi,,,,2.87,Non
 8113 JP Equity,Unicharm Corp,JP3951600000,Unicharm Corporation,Objectif validé,Validated Targets,,,0,Oui
-H CN Equity,Hydro One Ltd,CA4488112083,,Absent de la base SBTi,,,,11.45,Non
+H CN Equity,Hydro One Ltd,CA4488112083,,Absent de la base SBTi,,,,11.45,Oui
 CUBE US Equity,CubeSmart,US2296631094,,Absent de la base SBTi,,,,0.29,Non
-3402 JP Equity,Toray Industries Inc,JP3621000003,,Absent de la base SBTi,,,,0.42,Non
+3402 JP Equity,Toray Industries Inc,JP3621000003,,Absent de la base SBTi,,,,0.42,Oui
 ITRK LN Equity,Intertek Group PLC,GB0031638363,Intertek Group plc,Objectif validé,Validated Targets,,,0,Oui
-6 HK Equity,Power Assets Holdings Ltd,HK0006000050,,Absent de la base SBTi,,,,5.45,Non
+6 HK Equity,Power Assets Holdings Ltd,HK0006000050,,Absent de la base SBTi,,,,5.45,Oui
 LKQ US Equity,LKQ Corp,US5018892084,LKQ Corporation,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-FRT US Equity,Federal Realty Investment Trus,US3137451015,,Absent de la base SBTi,,,,6.29,Non
+FRT US Equity,Federal Realty Investment Trus,US3137451015,,Absent de la base SBTi,,,,6.29,Oui
 CRL US Equity,Charles River Laboratories Int,US1598641074,"Charles River Laboratories, Inc.",Objectif validé,Validated Targets,,,0,Oui
 CICT SP Equity,CapitaLand Integrated Commerci,SG1M51904654,,Absent de la base SBTi,,,,89.97,Oui
 SVT LN Equity,Severn Trent PLC,GB00B1FH8J72,Severn Trent,Objectif validé,Validated Targets,,,28.41,Oui
 BLD US Equity,TopBuild Corp,US89055F1030,,Absent de la base SBTi,,,,48.49,Oui
 IAG LN Equity,International Consolidated Air,ES0177542018,International Consolidated Airlines Group (IAG),Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-3407 JP Equity,Asahi Kasei Corp,JP3111200006,,Absent de la base SBTi,,,,5.82,Non
+3407 JP Equity,Asahi Kasei Corp,JP3111200006,,Absent de la base SBTi,,,,5.82,Oui
 9843 JP Equity,Nitori Holdings Co Ltd,JP3756100008,,Absent de la base SBTi,,,,0,Non
-GFL CN Equity,GFL Environmental Inc,CA36168Q1046,,Absent de la base SBTi,,,,0,Non
-27 HK Equity,Galaxy Entertainment Group Ltd,HK0027032686,,Absent de la base SBTi,,,,0,Non
+GFL CN Equity,GFL Environmental Inc,CA36168Q1046,,Absent de la base SBTi,,,,0,Oui
+27 HK Equity,Galaxy Entertainment Group Ltd,HK0027032686,,Absent de la base SBTi,,,,0,Oui
 MORN US Equity,Morningstar Inc,US6177001095,,Absent de la base SBTi,,,,0,Non
-NLY US Equity,Annaly Capital Management Inc,US0357108390,,Absent de la base SBTi,,,,0,Non
-CNH US Equity,CNH Industrial NV,NL0010545661,CNH Industrial N.V.,Engagement retiré,Commitment Removed,,,0,Non
-WTRG US Equity,Essential Utilities Inc,US29670G1022,,Absent de la base SBTi,,,,9.12,Non
+NLY US Equity,Annaly Capital Management Inc,US0357108390,,Absent de la base SBTi,,,,0,Oui
+CNH US Equity,CNH Industrial NV,NL0010545661,CNH Industrial N.V.,Engagement retiré,Commitment Removed,,,0,Oui
+WTRG US Equity,Essential Utilities Inc,US29670G1022,,Absent de la base SBTi,,,,9.12,Oui
 HRL US Equity,Hormel Foods Corp,US4404521001,Hormel Foods Corporation,Objectif validé,Validated Targets,,,0,Oui
 4684 JP Equity,Obic Co Ltd,JP3173400007,,Absent de la base SBTi,,,,0,Non
-SRG IM Equity,Snam SpA,IT0003153415,,Absent de la base SBTi,,,,8.59,Non
-AES US Equity,AES Corp/The,US00130H1059,,Absent de la base SBTi,,,,14.87,Non
-8795 JP Equity,T&D Holdings Inc,JP3539220008,,Absent de la base SBTi,,,,0,Non
+SRG IM Equity,Snam SpA,IT0003153415,,Absent de la base SBTi,,,,8.59,Oui
+AES US Equity,AES Corp/The,US00130H1059,,Absent de la base SBTi,,,,14.87,Oui
+8795 JP Equity,T&D Holdings Inc,JP3539220008,,Absent de la base SBTi,,,,0,Oui
 KEP SP Equity,Keppel Corp Ltd,SG1U68934629,,Absent de la base SBTi,,,,45.18,Oui
 UU/ LN Equity,United Utilities Group PLC,GB00B39J2M42,United Utilities Group PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,50.82,Oui
 ENPH US Equity,Enphase Energy Inc,US29355A1079,,Absent de la base SBTi,,,,100,Oui
 9766 JP Equity,Konami Group Corp,JP3300200007,,Absent de la base SBTi,,,,0,Non
 RL US Equity,Ralph Lauren Corp,US7512121010,Ralph Lauren Corporation,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 AUTO LN Equity,Auto Trader Group PLC,GB00BVYVFW23,Auto Trader Group plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-MRO LN Equity,Melrose Industries PLC,GB00BNGDN821,,Absent de la base SBTi,,,,0,Non
+MRO LN Equity,Melrose Industries PLC,GB00BNGDN821,,Absent de la base SBTi,,,,0,Oui
 CHDN US Equity,Churchill Downs Inc,US1714841087,,Absent de la base SBTi,,,,0,Non
 CARLB DC Equity,Carlsberg AS,DK0010181759,Carlsberg Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GWO CN Equity,Great-West Lifeco Inc,CA39138C1068,,Absent de la base SBTi,,,,0,Non
-INDUA SS Equity,Industrivarden AB,SE0000190126,,Absent de la base SBTi,,,,0,Non
+GWO CN Equity,Great-West Lifeco Inc,CA39138C1068,,Absent de la base SBTi,,,,0,Oui
+INDUA SS Equity,Industrivarden AB,SE0000190126,,Absent de la base SBTi,,,,0,Oui
 8601 JP Equity,Daiwa Securities Group Inc,JP3502200003,,Absent de la base SBTi,,,,0,Non
-S32 AU Equity,South32 Ltd,AU000000S320,,Absent de la base SBTi,,,,0,Non
-1802 JP Equity,Obayashi Corp,JP3190000004,Obayashi Corporation,Objectif validé,Validated Targets,,,0,Oui
-3 HK Equity,Hong Kong & China Gas Co Ltd,HK0003000038,,Absent de la base SBTi,,,,4.48,Non
-IOT US Equity,Samsara Inc,US79589L1061,Samsara,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+S32 AU Equity,South32 Ltd,AU000000S320,,Absent de la base SBTi,,,,0,Oui
+1802 JP Equity,Obayashi Corp,JP3190000004,,Absent de la base SBTi,,,,0,Oui
+3 HK Equity,Hong Kong & China Gas Co Ltd,HK0003000038,,Absent de la base SBTi,,,,4.48,Oui
+IOT US Equity,Samsara Inc,US79589L1061,,Absent de la base SBTi,,,,0,Non
 6869 JP Equity,Sysmex Corp,JP3351100007,SYSMEX CORPORATION,Objectif validé,Validated Targets,,,0,Oui
-ABF LN Equity,Associated British Foods PLC,GB0006731235,,Absent de la base SBTi,,,,0,Non
-HSIC US Equity,Henry Schein Inc,US8064071025,"Henry Schein, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+ABF LN Equity,Associated British Foods PLC,GB0006731235,,Absent de la base SBTi,,,,0,Oui
+HSIC US Equity,Henry Schein Inc,US8064071025,,Absent de la base SBTi,,,,0,Non
 HMB SS Equity,H & M Hennes & Mauritz AB,SE0000106270,H&M Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-9532 JP Equity,Osaka Gas Co Ltd,JP3180400008,,Absent de la base SBTi,,,,4.46,Non
+9532 JP Equity,Osaka Gas Co Ltd,JP3180400008,,Absent de la base SBTi,,,,4.46,Oui
 REXR US Equity,Rexford Industrial Realty Inc,US76169C1009,"Rexford Industrial Realty, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,3.3,Oui
-MB IM Equity,Mediobanca Banca di Credito Fi,IT0000062957,,Absent de la base SBTi,,,,0,Non
+MB IM Equity,Mediobanca Banca di Credito Fi,IT0000062957,,Absent de la base SBTi,,,,0,Oui
 KOG NO Equity,Kongsberg Gruppen ASA,NO0003043309,Kongsberg Gruppen ASA,Objectif validé,Validated Targets,,,0,Oui
-APA US Equity,APA Corp,US03743Q1085,,Absent de la base SBTi,,,,0,Non
-IVN CN Equity,Ivanhoe Mines Ltd,CA46579R1047,,Absent de la base SBTi,,,,0,Non
-11 HK Equity,Hang Seng Bank Ltd,HK0011000095,Hang Seng Bank Limited,Engagement retiré,Commitment Removed,,,0,Non
+APA US Equity,APA Corp,US03743Q1085,,Absent de la base SBTi,,,,0,Oui
+IVN CN Equity,Ivanhoe Mines Ltd,CA46579R1047,,Absent de la base SBTi,,,,0,Oui
+11 HK Equity,Hang Seng Bank Ltd,HK0011000095,Hang Seng Bank Limited,Engagement retiré,Commitment Removed,,,0,Oui
 MAERSKA DC Equity,AP Moller - Maersk A/S,DK0010244425,A.P. Moller - Maersk A/S,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-WN CN Equity,George Weston Ltd,CA9611485090,,Absent de la base SBTi,,,,0,Non
-FBIN US Equity,Fortune Brands Innovations Inc,US34964C1062,,Absent de la base SBTi,,,,0,Non
+WN CN Equity,George Weston Ltd,CA9611485090,,Absent de la base SBTi,,,,0,Oui
+FBIN US Equity,Fortune Brands Innovations Inc,US34964C1062,,Absent de la base SBTi,,,,0,Oui
 MTCH US Equity,Match Group Inc,US57667L1070,Match Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 TFX US Equity,Teleflex Inc,US8793691069,Teleflex Incorporated,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-AGS BB Equity,Ageas SA/NV,BE0974264930,,Absent de la base SBTi,,,,0,Non
-9503 JP Equity,Kansai Electric Power Co Inc/T,JP3228600007,,Absent de la base SBTi,,,,4.48,Non
+AGS BB Equity,Ageas SA/NV,BE0974264930,,Absent de la base SBTi,,,,0,Oui
+9503 JP Equity,Kansai Electric Power Co Inc/T,JP3228600007,,Absent de la base SBTi,,,,4.48,Oui
 CPB US Equity,Campbell Soup Co,US1344291091,Campbell Soup Company,Objectif validé,Validated Targets,,,0,Oui
 TTC US Equity,Toro Co,US8910921084,,Absent de la base SBTi,,,,4.43,Non
-EN FP Equity,Bouygues SA,FR0000120503,,Absent de la base SBTi,,,,17.24,Non
-AOS US Equity,A O Smith Corp,US8318652091,,Absent de la base SBTi,,,,3.49,Non
+EN FP Equity,Bouygues SA,FR0000120503,,Absent de la base SBTi,,,,17.24,Oui
+AOS US Equity,A O Smith Corp,US8318652091,,Absent de la base SBTi,,,,3.49,Oui
 WYNN US Equity,Wynn Resorts Ltd,US9831341071,,Absent de la base SBTi,,,,0,Non
-EXO NA Equity,EXOR NV,NL0012059018,,Absent de la base SBTi,,,,0,Non
-9202 JP Equity,ANA Holdings Inc,JP3429800000,ANA HOLDINGS INC.,Objectif validé,Validated Targets,,,0,Oui
+EXO NA Equity,EXOR NV,NL0012059018,,Absent de la base SBTi,,,,0,Oui
+9202 JP Equity,ANA Holdings Inc,JP3429800000,,Absent de la base SBTi,,,,0,Non
 UAL US Equity,United Airlines Holdings Inc,US9100471096,"United Airlines, Inc.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 EDEN FP Equity,Edenred,FR0010908533,Edenred SE,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-7272 JP Equity,Yamaha Motor Co Ltd,JP3942800008,,Absent de la base SBTi,,,,2.43,Non
+7272 JP Equity,Yamaha Motor Co Ltd,JP3942800008,,Absent de la base SBTi,,,,2.43,Oui
 FGR FP Equity,Eiffage SA,FR0000130452,Eiffage,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.58,Oui
 ADM LN Equity,Admiral Group PLC,GB00B02J6398,Admiral Group Plc,Objectif validé,Validated Targets,,,0,Oui
-AKRBP NO Equity,Aker BP ASA,NO0010345853,,Absent de la base SBTi,,,,0,Non
+AKRBP NO Equity,Aker BP ASA,NO0010345853,,Absent de la base SBTi,,,,0,Oui
 SHL AU Equity,Sonic Healthcare Ltd,AU000000SHL7,,Absent de la base SBTi,,,,0,Non
 2801 JP Equity,Kikkoman Corp,JP3240400006,Kikkoman Corporation,Objectif validé,Validated Targets,,,0,Oui
-MOS US Equity,Mosaic Co/The,US61945C1036,,Absent de la base SBTi,,,,0,Non
+MOS US Equity,Mosaic Co/The,US61945C1036,,Absent de la base SBTi,,,,0,Oui
 ASX AU Equity,ASX Ltd,AU000000ASX7,ASX Limited,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
-9021 JP Equity,West Japan Railway Co,JP3659000008,,Absent de la base SBTi,,,,0,Non
+9021 JP Equity,West Japan Railway Co,JP3659000008,,Absent de la base SBTi,,,,0,Oui
 4755 JP Equity,Rakuten Group Inc,JP3967200001,"Rakuten Group, Inc.",Objectif validé,Validated Targets,,,0,Oui
-7202 JP Equity,Isuzu Motors Ltd,JP3137200006,Isuzu Motors Limited,Engagement retiré,Commitment Removed,,,4.78,Non
-TEN IM Equity,Tenaris SA,LU2598331598,,Absent de la base SBTi,,,,0,Non
-9502 JP Equity,Chubu Electric Power Co Inc,JP3526600006,,Absent de la base SBTi,,,,0.28,Non
+7202 JP Equity,Isuzu Motors Ltd,JP3137200006,,Absent de la base SBTi,,,,4.78,Oui
+TEN IM Equity,Tenaris SA,LU2598331598,,Absent de la base SBTi,,,,0,Oui
+9502 JP Equity,Chubu Electric Power Co Inc,JP3526600006,,Absent de la base SBTi,,,,0.28,Oui
 SNX US Equity,TD SYNNEX Corp,US87162W1009,TD SYNNEX,Objectif validé,Validated Targets,Validated Targets,Validated Targets,9.52,Oui
-ABN NA Equity,ABN AMRO Bank NV,NL0011540547,,Absent de la base SBTi,,,,0,Non
+ABN NA Equity,ABN AMRO Bank NV,NL0011540547,,Absent de la base SBTi,,,,0,Oui
 RGEN US Equity,Repligen Corp,US7599161095,Repligen Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-6920 JP Equity,Lasertec Corp,JP3979200007,,Absent de la base SBTi,,,,0,Non
+6920 JP Equity,Lasertec Corp,JP3979200007,,Absent de la base SBTi,,,,0,Oui
 CCL/B CN Equity,CCL Industries Inc,CA1249003098,"CCL Industries, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-CE US Equity,Celanese Corp,US1508701034,,Absent de la base SBTi,,,,0,Non
+CE US Equity,Celanese Corp,US1508701034,,Absent de la base SBTi,,,,0,Oui
 MGM US Equity,MGM Resorts International,US5529531015,MGM Resorts International,Objectif validé,Validated Targets,,,0,Oui
-6586 JP Equity,Makita Corp,JP3862400003,,Absent de la base SBTi,,,,0.08,Non
+6586 JP Equity,Makita Corp,JP3862400003,,Absent de la base SBTi,,,,0.08,Oui
 7701 JP Equity,Shimadzu Corp,JP3357200009,SHIMADZU CORPORATION,Objectif validé,Validated Targets,,,0,Oui
 CRBG US Equity,Corebridge Financial Inc,US21871X1090,,Absent de la base SBTi,,,,,Non
-BOL SS Equity,Boliden AB,SE0020050417,Boliden AB (publ),Objectif validé,Validated Targets,,,0,Oui
+BOL SS Equity,Boliden AB,SE0020050417,,Absent de la base SBTi,,,,0,Oui
 4523 JP Equity,Eisai Co Ltd,JP3160400002,"Eisai Co., Ltd.",Objectif validé,Validated Targets,,,0,Oui
 SMIN LN Equity,Smiths Group PLC,GB00B1WY2338,Smiths Group PLC,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.81,Oui
-AIA NZ Equity,Auckland International Airport,NZAIAE0002S6,,Absent de la base SBTi,,,,0,Non
+AIA NZ Equity,Auckland International Airport,NZAIAE0002S6,,Absent de la base SBTi,,,,0,Oui
 1812 JP Equity,Kajima Corp,JP3210200006,Kajima Corporation,Objectif validé,Validated Targets,,,0,Oui
 RED SM Equity,Red Electrica Corp SA,ES0173093024,,Absent de la base SBTi,,,,35.84,Oui
-6504 JP Equity,Fuji Electric Co Ltd,JP3820000002,"FUJI ELECTRIC CO., LTD.",Objectif validé,Validated Targets,,,16.62,Oui
+6504 JP Equity,Fuji Electric Co Ltd,JP3820000002,,Absent de la base SBTi,,,,16.62,Oui
 SCAA SS Equity,Svenska Cellulosa AB SCA,SE0000171886,,Absent de la base SBTi,,,,69.48,Oui
 BSY US Equity,Bentley Systems Inc,US08265T2087,"Bentley Systems, Incorporated",Objectif validé,Validated Targets,,,0,Oui
 GALD SE Equity,Galderma Group AG,CH1335392721,,Absent de la base SBTi,,,,0,Non
-HII US Equity,Huntington Ingalls Industries,US4464131063,,Absent de la base SBTi,,,,0.74,Non
+HII US Equity,Huntington Ingalls Industries,US4464131063,,Absent de la base SBTi,,,,0.74,Oui
 SBRY LN Equity,J Sainsbury PLC,GB00B019KW72,J Sainsbury plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.02,Oui
-OTEX CN Equity,Open Text Corp,CA6837151068,Open Text Corporation,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,7.89,Non
-REA AU Equity,REA Group Ltd,AU000000REA9,,Absent de la base SBTi,,,,0,Non
+OTEX CN Equity,Open Text Corp,CA6837151068,Open Text Corporation,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,7.89,Oui
+REA AU Equity,REA Group Ltd,AU000000REA9,,Absent de la base SBTi,,,,0,Oui
 CON GY Equity,Continental AG,DE0005439004,Continental,Objectif validé,Validated Targets,,,0.1,Oui
 MOWI NO Equity,Mowi ASA,NO0003054108,Mowi ASA,Objectif validé,Validated Targets,,,34.32,Oui
 9697 JP Equity,Capcom Co Ltd,JP3218900003,,Absent de la base SBTi,,,,0,Non
 CVC NA Equity,CVC Capital Partners PLC,JE00BRX98089,,Absent de la base SBTi,,,,,Non
 7201 JP Equity,Nissan Motor Co Ltd,JP3672400003,"Nissan Motor Co., Ltd.",Objectif validé,Validated Targets,,Commitment Removed,16.87,Oui
 TRELB SS Equity,Trelleborg AB,SE0000114837,Trelleborg AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.07,Oui
-4188 JP Equity,Mitsubishi Chemical Group Corp,JP3897700005,,Absent de la base SBTi,,,,1.83,Non
+4188 JP Equity,Mitsubishi Chemical Group Corp,JP3897700005,,Absent de la base SBTi,,,,1.83,Oui
 CA FP Equity,Carrefour SA,FR0000120172,Carrefour,Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 WISE LN Equity,Wise PLC,GB00BL9YR756,,Absent de la base SBTi,,,,0,Non
-NHY NO Equity,Norsk Hydro ASA,NO0005052605,,Absent de la base SBTi,,,,6.98,Non
+NHY NO Equity,Norsk Hydro ASA,NO0005052605,,Absent de la base SBTi,,,,6.98,Oui
 H US Equity,Hyatt Hotels Corp,US4485791028,Hyatt,Objectif validé,Validated Targets,,,0,Oui
-GALP PL Equity,Galp Energia SGPS SA,PTGAL0AM0009,,Absent de la base SBTi,,,,9.5,Non
+GALP PL Equity,Galp Energia SGPS SA,PTGAL0AM0009,,Absent de la base SBTi,,,,9.5,Oui
 SKAB SS Equity,Skanska AB,SE0000113250,Skanska AB,Objectif validé,Validated Targets,,,0,Oui
 BCE CN Equity,BCE Inc,CA05534B7604,BCE Inc.,Objectif validé,Validated Targets,,,0,Oui
 4911 JP Equity,Shiseido Co Ltd,JP3351600006,Shiseido Company Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 UHAL US Equity,U-Haul Holding Co,US0235861004,,Absent de la base SBTi,,,,0,Non
-SIA SP Equity,Singapore Airlines Ltd,SG1V61937297,,Absent de la base SBTi,,,,0,Non
-4689 JP Equity,Z Holdings Corp,JP3933800009,,Absent de la base SBTi,,,,0,Non
-AGN NA Equity,Aegon Ltd,BMG0112X1056,,Absent de la base SBTi,,,,0,Non
+SIA SP Equity,Singapore Airlines Ltd,SG1V61937297,,Absent de la base SBTi,,,,0,Oui
+4689 JP Equity,Z Holdings Corp,JP3933800009,,Absent de la base SBTi,,,,0,Oui
+AGN NA Equity,Aegon Ltd,BMG0112X1056,,Absent de la base SBTi,,,,0,Oui
 UHRN SE Equity,Swatch Group AG/The,CH0012255144,,Absent de la base SBTi,,,,0,Non
-ANTO LN Equity,Antofagasta PLC,GB0000456144,,Absent de la base SBTi,,,,0,Non
+ANTO LN Equity,Antofagasta PLC,GB0000456144,,Absent de la base SBTi,,,,0,Oui
 1801 JP Equity,Taisei Corp,JP3443600006,TAISEI CORPORATION,Objectif validé,Validated Targets,Validated Targets,Validated Targets,8.68,Oui
 SW FP Equity,Sodexo SA,FR0000121220,Sodexo S.A.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-SKFA SS Equity,SKF AB,SE0000108201,AB SKF,Objectif validé,Validated Targets,Validated Targets,Validated Targets,5.86,Oui
+SKFA SS Equity,SKF AB,SE0000108201,,Absent de la base SBTi,,,,5.86,Oui
 CLAR SP Equity,CapitaLand Ascendas REIT,SG1M77906915,,Absent de la base SBTi,,,,62.47,Oui
-ELE SM Equity,Endesa SA,ES0130670112,,Absent de la base SBTi,,,,18.88,Non
+ELE SM Equity,Endesa SA,ES0130670112,,Absent de la base SBTi,,,,18.88,Oui
 CCH LN Equity,Coca-Cola HBC AG,CH0198251305,Coca-Cola HBC (Hellenic Bottling Company) AG,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 T CN Equity,TELUS Corp,CA87971M1032,TELUS Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-5411 JP Equity,JFE Holdings Inc,JP3386030005,,Absent de la base SBTi,,,,2.35,Non
+5411 JP Equity,JFE Holdings Inc,JP3386030005,,Absent de la base SBTi,,,,2.35,Oui
 TLC AU Equity,Lottery Corp Ltd/The,AU0000219529,,Absent de la base SBTi,,,,0,Non
-SAABB SS Equity,Saab AB,SE0021921269,Saab AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-AZPN US Equity,Aspen Technology Inc,US29109X1063,"Aspen Technology, Inc",Engagement retiré,Commitment Removed,,Commitment Removed,5.81,Non
-ERF FP Equity,Eurofins Scientific SE,FR0014000MR3,Eurofins Scientific SE,Engagement retiré,Commitment Removed,,,0,Non
-WBA US Equity,Walgreens Boots Alliance Inc,US9314271084,,Absent de la base SBTi,,,,0,Non
+SAABB SS Equity,Saab AB,SE0021921269,,Absent de la base SBTi,,,,0,Non
+AZPN US Equity,Aspen Technology Inc,US29109X1063,,Absent de la base SBTi,,,,5.81,Non
+ERF FP Equity,Eurofins Scientific SE,FR0014000MR3,Eurofins Scientific SE,Engagement retiré,Commitment Removed,,,0,Oui
+WBA US Equity,Walgreens Boots Alliance Inc,US9314271084,,Absent de la base SBTi,,,,0,Oui
 ORSTED DC Equity,Orsted AS,DK0060094928,Ørsted,Objectif validé,Validated Targets,Validated Targets,Validated Targets,72.13,Oui
-MZTF IT Equity,Mizrahi Tefahot Bank Ltd,IL0006954379,,Absent de la base SBTi,,,,0,Non
-QRVO US Equity,Qorvo Inc,US74736K1016,,Absent de la base SBTi,,,,0,Non
+MZTF IT Equity,Mizrahi Tefahot Bank Ltd,IL0006954379,,Absent de la base SBTi,,,,0,Oui
+QRVO US Equity,Qorvo Inc,US74736K1016,,Absent de la base SBTi,,,,0,Oui
 ACI US Equity,Albertsons Cos Inc,US0130911037,"Albertsons Companies, Inc",Objectif validé,Validated Targets,,,1.43,Oui
 ESLT IT Equity,Elbit Systems Ltd,IL0010811243,,Absent de la base SBTi,,,,0,Non
 7911 JP Equity,TOPPAN INC,JP3629000005,TOPPAN Holdings INC.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-PST IM Equity,Poste Italiane SpA,IT0003796171,,Absent de la base SBTi,,,,0,Non
+PST IM Equity,Poste Italiane SpA,IT0003796171,,Absent de la base SBTi,,,,0,Oui
 METSO FH Equity,Metso Oyj,FI0009014575,Metso,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ELISA FH Equity,Elisa Oyj,FI0009007884,Elisa Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,4.11,Oui
-TRYG DC Equity,Tryg A/S,DK0060636678,Tryg A/S,Objectif validé,Validated Targets,,,0,Oui
+TRYG DC Equity,Tryg A/S,DK0060636678,,Absent de la base SBTi,,,,0,Oui
 6645 JP Equity,Omron Corp,JP3197800000,OMRON Corporation,Objectif validé,Validated Targets,,,7.52,Oui
 BEN US Equity,Franklin Resources Inc,US3546131018,,Absent de la base SBTi,,,,0,Non
-BIO US Equity,Bio-Rad Laboratories Inc,US0905722072,,Absent de la base SBTi,,,,0,Non
+BIO US Equity,Bio-Rad Laboratories Inc,US0905722072,,Absent de la base SBTi,,,,0,Oui
 SPX LN Equity,Spirax-Sarco Engineering PLC,GB00BWFGQN14,Spirax Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 TEL NO Equity,Telenor ASA,NO0010063308,Telenor Group,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 DVA US Equity,DaVita Inc,US23918K1088,DaVita,Objectif validé,Validated Targets,,,0,Oui
 6506 JP Equity,Yaskawa Electric Corp,JP3932000007,Yaskawa Electric Corporation,Objectif validé,Validated Targets,,,0,Oui
 RYAN US Equity,Ryan Specialty Holdings Inc,US78351F1075,,Absent de la base SBTi,,,,0,Non
-NIBEB SS Equity,Nibe Industrier AB,SE0015988019,,Absent de la base SBTi,,,,17.79,Non
+NIBEB SS Equity,Nibe Industrier AB,SE0015988019,,Absent de la base SBTi,,,,17.79,Oui
 3659 JP Equity,Nexon Co Ltd,JP3758190007,,Absent de la base SBTi,,,,0,Non
-1928 HK Equity,Sands China Ltd,KYG7800X1079,,Absent de la base SBTi,,,,0,Non
+1928 HK Equity,Sands China Ltd,KYG7800X1079,,Absent de la base SBTi,,,,0,Oui
 INDT SS Equity,Indutrade AB,SE0001515552,Indutrade AB,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 6479 JP Equity,MINEBEA MITSUMI Inc,JP3906000009,MinebeaMitsumi Inc.,Objectif validé,Validated Targets,,,0,Oui
-1113 HK Equity,CK Asset Holdings Ltd,KYG2177B1014,CK Asset Holdings Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+1113 HK Equity,CK Asset Holdings Ltd,KYG2177B1014,,Absent de la base SBTi,,,,0,Non
 4612 JP Equity,Nippon Paint Holdings Co Ltd,JP3749400002,,Absent de la base SBTi,,,,0.22,Non
 1878 JP Equity,Daito Trust Construction Co Lt,JP3486800000,"Daito Trust Construction Co., Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.04,Oui
-BRKR US Equity,Bruker Corp,US1167941087,BRUKER CORPORATION,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Non
+BRKR US Equity,Bruker Corp,US1167941087,BRUKER CORPORATION,Engagement seulement (non validé),Commitment to Set Targets,,Commitment to Set Targets,0,Oui
 7259 JP Equity,Aisin Corp,JP3102000001,AISIN CORPORATION,Objectif validé,Validated Targets,,,10.88,Oui
-9005 JP Equity,Tokyu Corp,JP3574200006,,Absent de la base SBTi,,,,17.55,Non
-SRT3 GY Equity,Sartorius AG,DE0007165631,Sartorius AG,Objectif validé,Validated Targets,,,0,Oui
+9005 JP Equity,Tokyu Corp,JP3574200006,,Absent de la base SBTi,,,,17.55,Oui
+SRT3 GY Equity,Sartorius AG,DE0007165631,,Absent de la base SBTi,,,,0,Oui
 NESTE FH Equity,Neste Oyj,FI0009013296,,Absent de la base SBTi,,,,32.81,Oui
-9042 JP Equity,Hankyu Hanshin Holdings Inc,JP3774200004,,Absent de la base SBTi,,,,12.62,Non
-5019 JP Equity,Idemitsu Kosan Co Ltd,JP3142500002,,Absent de la base SBTi,,,,0.64,Non
+9042 JP Equity,Hankyu Hanshin Holdings Inc,JP3774200004,,Absent de la base SBTi,,,,12.62,Oui
+5019 JP Equity,Idemitsu Kosan Co Ltd,JP3142500002,,Absent de la base SBTi,,,,0.64,Oui
 FORTUM FH Equity,Fortum Oyj,FI0009007132,Fortum Oyj,Objectif validé,Validated Targets,Validated Targets,Validated Targets,13.72,Oui
 SOBI SS Equity,Swedish Orphan Biovitrum AB,SE0000872095,Sobi,Objectif validé,Validated Targets,,,0,Oui
 CRDA LN Equity,Croda International PLC,GB00BJFFLV09,Croda International Plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.26,Oui
 STERV FH Equity,Stora Enso Oyj,FI0009005961,Stora Enso,Objectif validé,Validated Targets,,,27.39,Oui
 ORK NO Equity,Orkla ASA,NO0003733800,Orkla ASA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-PAH3 GY Equity,Porsche Automobil Holding SE,DE000PAH0038,,Absent de la base SBTi,,,,0,Non
+PAH3 GY Equity,Porsche Automobil Holding SE,DE000PAH0038,,Absent de la base SBTi,,,,0,Oui
 5201 JP Equity,AGC Inc,JP3112000009,AGC Inc.,Objectif validé,Validated Targets,,,6.87,Oui
-MNDI LN Equity,Mondi PLC,GB00BMWC6P49,Mondi plc,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
+MNDI LN Equity,Mondi PLC,GB00BMWC6P49,,Absent de la base SBTi,,,,0,Oui
 BEIJB SS Equity,Beijer Ref AB,SE0015949748,Beijer Ref AB,Objectif validé,Validated Targets,,,0,Oui
-DIM FP Equity,Sartorius Stedim Biotech,FR0013154002,,Absent de la base SBTi,,,,0,Non
+DIM FP Equity,Sartorius Stedim Biotech,FR0013154002,,Absent de la base SBTi,,,,0,Oui
 7912 JP Equity,Dai Nippon Printing Co Ltd,JP3493800001,"Dai Nippon Printing Co., Ltd.",Objectif validé,Validated Targets,,,0,Oui
-DINO US Equity,HF Sinclair Corp,US4039491000,,Absent de la base SBTi,,,,1.22,Non
-5713 JP Equity,Sumitomo Metal Mining Co Ltd,JP3402600005,,Absent de la base SBTi,,,,0.02,Non
-8593 JP Equity,Mitsubishi HC Capital Inc,JP3499800005,,Absent de la base SBTi,,,,0,Non
+DINO US Equity,HF Sinclair Corp,US4039491000,,Absent de la base SBTi,,,,1.22,Oui
+5713 JP Equity,Sumitomo Metal Mining Co Ltd,JP3402600005,,Absent de la base SBTi,,,,0.02,Oui
+8593 JP Equity,Mitsubishi HC Capital Inc,JP3499800005,,Absent de la base SBTi,,,,0,Oui
 LIFCOB SS Equity,Lifco AB,SE0015949201,Lifco AB,Objectif validé,Validated Targets,,,1.32,Oui
 66 HK Equity,MTR Corp Ltd,HK0066009694,MTR Corporation Limited,Objectif validé,Validated Targets,,,83.29,Oui
 GBLB BB Equity,Groupe Bruxelles Lambert NV,BE0003797140,Groupe Bruxelles Lambert,Objectif validé,Validated Targets,,,0,Oui
-OMV AV Equity,OMV AG,AT0000743059,,Absent de la base SBTi,,,,0,Non
+OMV AV Equity,OMV AG,AT0000743059,,Absent de la base SBTi,,,,0,Oui
 GET FP Equity,Getlink SE,FR0010533075,GETLINK,Objectif validé,Validated Targets,,,10.09,Oui
 9107 JP Equity,Kawasaki Kisen Kaisha Ltd,JP3223800008,"Kawasaki Kisen Kaisha, Ltd.",Objectif validé,Validated Targets,,,0,Oui
 JMT PL Equity,Jeronimo Martins SGPS SA,PTJMT0AE0001,"Jerónimo Martins - SGPS, S.A.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 TELIA SS Equity,Telia Co AB,SE0000667925,Telia Company,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 SYENS BB Equity,Syensqo SA,BE0974464977,Syensqo SA,Objectif validé,Validated Targets,,,7.05,Oui
-STE SP Equity,Singapore Technologies Enginee,SG1F60858221,,Absent de la base SBTi,,,,0,Non
-4091 JP Equity,Nippon Sanso Holdings Corp,JP3711600001,,Absent de la base SBTi,,,,0,Non
+STE SP Equity,Singapore Technologies Enginee,SG1F60858221,,Absent de la base SBTi,,,,0,Oui
+4091 JP Equity,Nippon Sanso Holdings Corp,JP3711600001,,Absent de la base SBTi,,,,0,Oui
 4768 JP Equity,Otsuka Corp,JP3188200004,OTSUKA CORPORATION,Objectif validé,Validated Targets,,Commitment Removed,2.09,Oui
-TLX GY Equity,Talanx AG,DE000TLX1005,,Absent de la base SBTi,,,,0,Non
-REC IM Equity,Recordati Industria Chimica e,IT0003828271,,Absent de la base SBTi,,,,0,Non
+TLX GY Equity,Talanx AG,DE000TLX1005,,Absent de la base SBTi,,,,0,Oui
+REC IM Equity,Recordati Industria Chimica e,IT0003828271,,Absent de la base SBTi,,,,0,Oui
 2897 JP Equity,Nissin Foods Holdings Co Ltd,JP3675600005,"Nissin Foods Holdings Co., Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 LUV US Equity,Southwest Airlines Co,US8447411088,,Absent de la base SBTi,,,,0,Non
 TPG US Equity,TPG Inc,US8726571016,,Absent de la base SBTi,,,,0,Non
 EDR US Equity,Endeavor Group Holdings Inc,US29260Y1091,,Absent de la base SBTi,,,,0,Non
 2269 JP Equity,MEIJI Holdings Co Ltd,JP3918000005,"Meiji Holdings Co., Ltd.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-KBX GY Equity,Knorr-Bremse AG,DE000KBX1006,Knorr-Bremse AG,Objectif validé,Validated Targets,,,42.03,Oui
-XP US Equity,XP Inc,KYG982391099,,Absent de la base SBTi,,,,0,Non
+KBX GY Equity,Knorr-Bremse AG,DE000KBX1006,,Absent de la base SBTi,,,,42.03,Oui
+XP US Equity,XP Inc,KYG982391099,,Absent de la base SBTi,,,,0,Oui
 WIL SP Equity,Wilmar International Ltd,SG1T56930848,Wilmar International Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-P911 GY Equity,Dr Ing hc F Porsche AG,DE000PAG9113,,Absent de la base SBTi,,,,18.01,Non
+P911 GY Equity,Dr Ing hc F Porsche AG,DE000PAG9113,,Absent de la base SBTi,,,,18.01,Oui
 EMSN SE Equity,EMS-Chemie Holding AG,CH0016440353,EMS-CHEMIE AG,Engagement retiré,Commitment Removed,,Commitment Removed,0,Non
 SIRI US Equity,Sirius XM Holdings Inc,US8299331004,,Absent de la base SBTi,,,,0,Non
-KESKOA FH Equity,Kesko Oyj,FI0009007900,Kesko Corporation,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.89,Oui
-1038 HK Equity,CK Infrastructure Holdings Ltd,BMG2178K1009,,Absent de la base SBTi,,,,4.46,Non
+KESKOA FH Equity,Kesko Oyj,FI0009007900,,Absent de la base SBTi,,,,0.89,Oui
+1038 HK Equity,CK Infrastructure Holdings Ltd,BMG2178K1009,,Absent de la base SBTi,,,,4.46,Oui
 BIM FP Equity,BioMerieux,FR0013280286,bioMerieux,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 RCI/B CN Equity,Rogers Communications Inc,CA7751092007,Rogers Communications Inc.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,1.16,Oui
-YAR NO Equity,Yara International ASA,NO0010208051,Yara International ASA,Engagement retiré,Commitment Removed,,,6.52,Non
-REH AU Equity,Reece Ltd,AU000000REH4,,Absent de la base SBTi,,,,0,Non
+YAR NO Equity,Yara International ASA,NO0010208051,Yara International ASA,Engagement retiré,Commitment Removed,,,6.52,Oui
+REH AU Equity,Reece Ltd,AU000000REH4,,Absent de la base SBTi,,,,0,Oui
 MEL NZ Equity,Meridian Energy Ltd,NZMELE0002S7,Meridian Energy,Objectif validé,Validated Targets,Validated Targets,Validated Targets,18.65,Oui
-BOL FP Equity,Bollore SE,FR0000039299,,Absent de la base SBTi,,,,0.45,Non
-6823 HK Equity,HKT Trust & HKT Ltd,HK0000093390,,Absent de la base SBTi,,,,0,Non
-AMUN FP Equity,Amundi SA,FR0004125920,,Absent de la base SBTi,,,,0,Non
+BOL FP Equity,Bollore SE,FR0000039299,,Absent de la base SBTi,,,,0.45,Oui
+6823 HK Equity,HKT Trust & HKT Ltd,HK0000093390,,Absent de la base SBTi,,,,0,Oui
+AMUN FP Equity,Amundi SA,FR0004125920,,Absent de la base SBTi,,,,0,Oui
 3003 JP Equity,Hulic Co Ltd,JP3360800001,"Hulic Co., Ltd.",Objectif validé,Validated Targets,,,0.72,Oui
-SAP CN Equity,Saputo Inc,CA8029121057,Saputo Inc.,Objectif validé,Validated Targets,,,0,Oui
+SAP CN Equity,Saputo Inc,CA8029121057,,Absent de la base SBTi,,,,0,Oui
 3092 JP Equity,ZOZO Inc,JP3399310006,"ZOZO, Inc.",Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 ADP FP Equity,Aeroports de Paris,FR0010340141,Aéroports de Paris SA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0.41,Oui
-WLK US Equity,Westlake Corp,US9604131022,,Absent de la base SBTi,,,,0.38,Non
+WLK US Equity,Westlake Corp,US9604131022,,Absent de la base SBTi,,,,0.38,Oui
 4528 JP Equity,Ono Pharmaceutical Co Ltd,JP3197600004,"ONO PHARMACEUTICAL CO., LTD.",Objectif validé,Validated Targets,,Commitment Removed,0,Oui
 WMG US Equity,Warner Music Group Corp,US9345502036,Warner Music Inc (WMG),Objectif validé,Validated Targets,,,0,Oui
 2587 JP Equity,Suntory Beverage & Food Ltd,JP3336560002,Suntory Beverage & Food Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-CLI SP Equity,Capitaland Investment Ltd/Sing,SGXE62145532,,Absent de la base SBTi,,,,13.5,Non
-HLAG GY Equity,Hapag-Lloyd AG,DE000HLAG475,,Absent de la base SBTi,,,,0,Non
-SAGAA SS Equity,Sagax AB,SE0004635878,AB Sagax,Objectif validé,Validated Targets,,,17.85,Oui
+CLI SP Equity,Capitaland Investment Ltd/Sing,SGXE62145532,,Absent de la base SBTi,,,,13.5,Oui
+HLAG GY Equity,Hapag-Lloyd AG,DE000HLAG475,,Absent de la base SBTi,,,,0,Oui
+SAGAA SS Equity,Sagax AB,SE0004635878,,Absent de la base SBTi,,,,17.85,Oui
 1997 HK Equity,Wharf Real Estate Investment C,KYG9593A1040,Wharf Real Estate Investment Company Limited,Objectif validé,Validated Targets,,,13.23,Oui
-SDR LN Equity,Schroders PLC,GB00BP9LHF23,Schroders,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
-CPR IM Equity,Davide Campari-Milano NV,NL0015435975,,Absent de la base SBTi,,,,0,Non
-BEPC CN Equity,Brookfield Renewable Corp,CA11285B1085,,Absent de la base SBTi,,,,8.04,Non
+SDR LN Equity,Schroders PLC,GB00BP9LHF23,,Absent de la base SBTi,,,,0,Oui
+CPR IM Equity,Davide Campari-Milano NV,NL0015435975,,Absent de la base SBTi,,,,0,Oui
+BEPC CN Equity,Brookfield Renewable Corp,CA11285B1085,,Absent de la base SBTi,,,,8.04,Oui
 RAND NA Equity,Randstad NV,NL0000379121,Randstad N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-GFS US Equity,GLOBALFOUNDRIES Inc,KYG393871085,Globalfoundries Inc,Objectif validé,Validated Targets,,,,Oui
+GFS US Equity,GLOBALFOUNDRIES Inc,KYG393871085,,Absent de la base SBTi,,,,,Non
 AM FP Equity,Dassault Aviation SA,FR0014004L86,,Absent de la base SBTi,,,,0,Non
 INW IM Equity,Infrastrutture Wireless Italia,IT0005090300,INWIT (Infrastrutture Wireless Italiane SpA),Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-4151 JP Equity,Kyowa Kirin Co Ltd,JP3256000005,,Absent de la base SBTi,,,,0,Non
+4151 JP Equity,Kyowa Kirin Co Ltd,JP3256000005,,Absent de la base SBTi,,,,0,Oui
 SOF BB Equity,Sofina SA,BE0003717312,Sofina SA,Objectif validé,Validated Targets,,,0,Oui
-7181 JP Equity,Japan Post Insurance Co Ltd,JP3233250004,,Absent de la base SBTi,,,,0,Non
+7181 JP Equity,Japan Post Insurance Co Ltd,JP3233250004,,Absent de la base SBTi,,,,0,Oui
 DIE BB Equity,D'ieteren Group,BE0974259880,D'Ieteren Group,Objectif validé,Validated Targets,,,15.49,Oui
-19 HK Equity,Swire Pacific Ltd,HK0019000162,,Absent de la base SBTi,,,,15.66,Non
-LATOB SS Equity,Investment AB Latour,SE0010100958,,Absent de la base SBTi,,,,0.72,Non
+19 HK Equity,Swire Pacific Ltd,HK0019000162,,Absent de la base SBTi,,,,15.66,Oui
+LATOB SS Equity,Investment AB Latour,SE0010100958,,Absent de la base SBTi,,,,0.72,Oui
 83 HK Equity,Sino Land Co Ltd,HK0083000502,Sino Land Company Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,5.95,Oui
 GJF NO Equity,Gjensidige Forsikring ASA,NO0010582521,Gjensidige Forsikring ASA,Objectif validé,Validated Targets,,Commitment to Set Targets,0,Oui
 CCL LN Equity,Carnival PLC,GB0031215220,,Absent de la base SBTi,,,,0,Non
-4716 JP Equity,Oracle Corp Japan,JP3689500001,,Absent de la base SBTi,,,,16.82,Non
-GENS SP Equity,Genting Singapore Ltd,SGXE21576413,,Absent de la base SBTi,,,,0,Non
+4716 JP Equity,Oracle Corp Japan,JP3689500001,,Absent de la base SBTi,,,,16.82,Oui
+GENS SP Equity,Genting Singapore Ltd,SGXE21576413,,Absent de la base SBTi,,,,0,Oui
 EDPR PL Equity,EDP Renovaveis SA,ES0127797019,"EDP Renováveis, S.A.",Engagement retiré,Commitment Removed,,Commitment Removed,95.39,Oui
-AZRG IT Equity,Azrieli Group Ltd,IL0011194789,,Absent de la base SBTi,,,,10.24,Non
-JD/ LN Equity,JD Sports Fashion PLC,GB00BM8Q5M07,JD Sports Fashion PLC,Objectif validé,Validated Targets,,,0,Oui
+AZRG IT Equity,Azrieli Group Ltd,IL0011194789,,Absent de la base SBTi,,,,10.24,Oui
+JD/ LN Equity,JD Sports Fashion PLC,GB00BM8Q5M07,,Absent de la base SBTi,,,,0,Non
 NEXI IM Equity,Nexi SpA,IT0005366767,Nexi SpA,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
-NTGY SM Equity,Naturgy Energy Group SA,ES0116870314,,Absent de la base SBTi,,,,4.93,Non
+NTGY SM Equity,Naturgy Energy Group SA,ES0116870314,,Absent de la base SBTi,,,,4.93,Oui
 SALM NO Equity,Salmar ASA,NO0010310956,SalMar ASA,Objectif validé,Validated Targets,,,62.19,Oui
 VAR NO Equity,Var Energi ASA,NO0011202772,,Absent de la base SBTi,,,,0,Non
 LUNDB SS Equity,L E Lundbergforetagen AB,SE0000108847,,Absent de la base SBTi,,,,23.4,Oui
@@ -1237,12 +1237,12 @@ ELI BB Equity,Elia Group SA/NV,BE0003822393,Elia Group,Objectif validé,Validate
 MBLY US Equity,Mobileye Global Inc,US60741F1049,,Absent de la base SBTi,,,,,Non
 VIV FP Equity,Vivendi SE,FR0000127771,Vivendi SE,Objectif validé,Validated Targets,,,0,Oui
 12 HK Equity,Henderson Land Development Co,HK0012000102,Henderson Land Development Company Limited,Objectif validé,Validated Targets,Validated Targets,Validated Targets,73.49,Oui
-1876 HK Equity,Budweiser Brewing Co APAC Ltd,KYG1674K1013,,Absent de la base SBTi,,,,0,Non
-8TRA GY Equity,Traton SE,DE000TRAT0N7,,Absent de la base SBTi,,,,0.43,Non
-1929 HK Equity,Chow Tai Fook Jewellery Group,KYG211461085,Chow Tai Fook Jewellery Group Limited,Engagement seulement (non validé),Commitment to Set Targets,,,0,Non
+1876 HK Equity,Budweiser Brewing Co APAC Ltd,KYG1674K1013,,Absent de la base SBTi,,,,0,Oui
+8TRA GY Equity,Traton SE,DE000TRAT0N7,,Absent de la base SBTi,,,,0.43,Oui
+1929 HK Equity,Chow Tai Fook Jewellery Group,KYG211461085,Chow Tai Fook Jewellery Group Limited,Engagement seulement (non validé),Commitment to Set Targets,,,0,Oui
 RKT US Equity,Rocket Cos Inc,US77311W1018,,Absent de la base SBTi,,,,0,Non
-VOLCARB SS Equity,Volvo Car AB,SE0021628898,Volvo Car Group,Objectif validé,Validated Targets,,Commitment to Set Targets,29.26,Oui
-JCNC SP Equity,Jardine Cycle & Carriage Ltd,SG1B51001017,,Absent de la base SBTi,,,,1.54,Non
+VOLCARB SS Equity,Volvo Car AB,SE0021628898,,Absent de la base SBTi,,,,29.26,Oui
+JCNC SP Equity,Jardine Cycle & Carriage Ltd,SG1B51001017,,Absent de la base SBTi,,,,1.54,Oui
 JDEP NA Equity,JDE Peet's NV,NL0014332678,JDE Peet’s N.V.,Objectif validé,Validated Targets,Validated Targets,Validated Targets,0,Oui
 SYM US Equity,Symbotic Inc,US87151X1019,,Absent de la base SBTi,,,,0,Non
-87 HK Equity,Swire Pacific Ltd,HK0087000532,,Absent de la base SBTi,,,,15.66,Non
+87 HK Equity,Swire Pacific Ltd,HK0087000532,,Absent de la base SBTi,,,,15.66,Oui

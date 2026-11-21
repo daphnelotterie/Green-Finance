@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
 
 from src.run_tri import run_pipeline as run_tri_step
+# from src.run_tri_mohamed import run_pipeline as run_tri_step  # version Mohamed (src/filters_mohamed.py)  # Modif Mohamed
 from src.optimizer import run_optimization as run_optimizer_step
 from src.backtest import run_backtest as run_backtest_step
 
