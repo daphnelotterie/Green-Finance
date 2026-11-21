@@ -22,6 +22,14 @@ from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
 
+# Statuts officiels de la base SBTi (Target Dashboard)
+SBTI_STATUS_FIELDS = ("near_term_status", "long_term_status", "net_zero_status")
+SBTI_VALIDATION_FIELDS = ("near_term_status", "long_term_status")
+SBTI_VALIDATED = "Validated Targets"
+SBTI_COMMITTED = "Commitment to Set Targets"
+SBTI_REMOVED = "Commitment Removed"
+
+
 class Company:
     """
     Représente une entreprise cotée de l'univers MSCI World Developed Markets
@@ -97,6 +105,13 @@ class Company:
 
     def get_sdg(self, number: int) -> float:
         return self.sdg_scores.get(number, 0.0)
+
+    def is_missing(self, *fields: str) -> bool:
+        for f in fields:
+            val = self._raw_data.get(f)
+            if val is None or val.strip() in ("", "NA", "N/A"):
+                return True
+        return False
 
     def to_dict(self) -> Dict[str, str]:
         return self._raw_data
@@ -265,24 +280,52 @@ class ClimateSDGFilter(AbstractFilter):
 
 class PositiveContributionFilter(AbstractFilter):
     """
-    Slide 24 & SFDR Article 2(17) condition 1 : Contribution Positive Substantielle.
-    L'entreprise doit obligatoirement contribuer de manière positive et mesurable :
-    - Soit sur le plan Environnemental : Part de revenus éligibles Taxonomie UE > 0%,
-      OU chiffre d'affaires Clean Tech >= 10%, OU trajectoire ITR <= 1.5°C.
-    - Soit sur le plan Social / Humain : Score d'alignement ODD >= 1.0 sur un ODD sociétal
-      (ODD 3 Santé, ODD 9 Innovation/Infrastructure, ou ODD fondamentaux 1, 2, 4, 6, 11).
+    Slide 13 & SFDR Article 2(17) : Contribution Positive Substantielle.
+    Pour notre fonds thématique HealthTech & IA, l'entreprise doit obligatoirement contribuer
+    de manière positive et mesurable :
+    - Voie Sociale / Santé (Thèse HealthTech) : ODD 3 (Santé) >= 1.0 ou ODD 9 (Innovation IA) >= 1.0,
+      ou ODD fondamentaux >= 1.5.
+    - Voie Environnementale / Climat (Slide 13 & SBTi) : Taxonomie >= 20% OU Cible de réduction validée par SBTi
+      ('Validated Targets') OU Clean Tech >= 10% OU trajectoire exemplaire ITR <= 1.5°C.
     """
 
-    def __init__(self):
+    def __init__(self, sbti_by_isin: Optional[Dict[str, Dict[str, str]]] = None, min_taxonomy_rev: float = 20.0):
         super().__init__(
-            name="Contribution Positive Substantielle (SFDR Art. 2(17))",
-            slide_ref="Slide 24",
-            description="Exige une contribution environnementale (Taxonomie/CleanTech/ITR 1.5°C) ou sociale positive (ODD >= 1.0)."
+            name="Contribution Positive Substantielle (SFDR Art. 2(17) - Santé & Climat)",
+            slide_ref="Slide 13 & SFDR Art. 2(17)",
+            description="Exige une contribution sociale (ODD 3/9 >= 1.0) OU environnementale (Taxo >= 20%, SBTi validé, CleanTech >= 10%, ITR <= 1.5°C)."
         )
+        self.sbti_by_isin = sbti_by_isin or {}
+        self.min_taxonomy_rev = min_taxonomy_rev
+
+    def sbti_status(self, company: Company) -> str:
+        """Statut SBTi de l'entreprise, retrouvée par son ISIN."""
+        record = self.sbti_by_isin.get(company.isin.upper())
+        if record is None:
+            return "Absent de la base SBTi"
+        if any(record.get(f, "").strip() == SBTI_VALIDATED for f in SBTI_VALIDATION_FIELDS):
+            return "Objectif validé"
+        statuses = [record.get(f, "").strip() for f in SBTI_STATUS_FIELDS]
+        if SBTI_VALIDATED in statuses:
+            return "Net zéro validé seul (non retenu)"
+        if SBTI_COMMITTED in statuses:
+            return "Engagement seulement (non validé)"
+        if SBTI_REMOVED in statuses:
+            return "Engagement retiré"
+        return "Statut non renseigné"
+
+    def has_sbti_validated_target(self, company: Company) -> bool:
+        return self.sbti_status(company) == "Objectif validé"
+
+    def has_sustainable_revenue(self, company: Company) -> bool:
+        if company.is_missing("EST_EU_TAXONOMY_MAX_REV"):
+            return False
+        return company.eu_taxonomy_rev >= self.min_taxonomy_rev
 
     def evaluate(self, company: Company) -> bool:
         contrib_env = (
-            company.eu_taxonomy_rev > 0.0
+            self.has_sustainable_revenue(company)
+            or self.has_sbti_validated_target(company)
             or company.cleantech_rev >= 10.0
             or company.itr <= 1.5
         )

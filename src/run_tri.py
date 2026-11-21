@@ -36,6 +36,7 @@ try:
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
+        SBTI_STATUS_FIELDS,
     )
 except ImportError:
     from filters import (
@@ -49,6 +50,7 @@ except ImportError:
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
+        SBTI_STATUS_FIELDS,
     )
 
 
@@ -79,6 +81,44 @@ def export_to_csv(filepath: str, companies, headers):
     print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
 
 
+def load_sbti_by_isin(filepath: str):
+    """Charge la base SBTi indexée par ISIN (pour les données complémentaires)."""
+    sbti_by_isin = {}
+    if not os.path.exists(filepath):
+        return sbti_by_isin
+    with open(filepath, mode="r", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            isin = (row.get("isin") or "").strip().upper()
+            if isin and isin not in sbti_by_isin:
+                sbti_by_isin[isin] = row
+    return sbti_by_isin
+
+
+def export_sbti_join(filepath: str, companies, contrib_filter):
+    """Exporte la jointure ISIN entre notre univers et la base SBTi (livrable complémentaire)."""
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    fieldnames = ["ticker", "name", "isin", "sbti_company_name", "statut_sbti"] + list(SBTI_STATUS_FIELDS) + [
+        "ca_aligne_taxonomie_pct", "contribution_positive_sfdr"]
+    with open(filepath, mode="w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        for c in companies:
+            record = contrib_filter.sbti_by_isin.get(c.isin.upper(), {})
+            row = {
+                "ticker": c.ticker,
+                "name": c.name,
+                "isin": c.isin,
+                "sbti_company_name": record.get("company_name", ""),
+                "statut_sbti": contrib_filter.sbti_status(c),
+                "ca_aligne_taxonomie_pct": c.to_dict().get("EST_EU_TAXONOMY_MAX_REV", ""),
+                "contribution_positive_sfdr": "Oui" if contrib_filter.evaluate(c) else "Non",
+            }
+            for field in SBTI_STATUS_FIELDS:
+                row[field] = record.get(field, "")
+            writer.writerow(row)
+    print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
+
+
 def run_pipeline(verbose=True):
     root_dir = resolve_project_root()
     
@@ -92,6 +132,9 @@ def run_pipeline(verbose=True):
         print(f"Erreur : Impossible de trouver all_data.csv dans {possible_inputs}")
         sys.exit(1)
 
+    sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")
+    sbti_by_isin = load_sbti_by_isin(sbti_csv) if os.path.exists(sbti_csv) else {}
+
     if verbose:
         print("=" * 80)
         print(" PIPELINE DE SÉLECTION CONFORME AU COURS 'APPROCHE QUANTITATIVE' (JEAN JARDEL)")
@@ -102,6 +145,8 @@ def run_pipeline(verbose=True):
     total_initial = len(companies)
     if verbose:
         print(f"\n[Univers Initial] MSCI World Developed Markets : {total_initial} valeurs\n")
+        if sbti_by_isin:
+            print(f"[Données SBTi] {len(sbti_by_isin)} entreprises dans la base SBTi (jointure ISIN active)")
 
     # 2. Instanciation des filtres
     pab_filter = PABExclusionFilter()
@@ -110,7 +155,7 @@ def run_pipeline(verbose=True):
     itr_filter = ParisAlignmentITRFilter(max_itr=2.0)
     carbon_filter = SectorCarbonIntensityFilter(companies, percentile=0.90)
     climate_sdg_filter = ClimateSDGFilter()
-    pos_contrib_filter = PositiveContributionFilter()
+    pos_contrib_filter = PositiveContributionFilter(sbti_by_isin=sbti_by_isin, min_taxonomy_rev=20.0)
     thematic_filter = HealthTechAIScopeFilter()
     financial_filter = FinancialQualityFilter()
 
@@ -169,6 +214,11 @@ def run_pipeline(verbose=True):
     file_scope_data = os.path.join(root_dir, "data", "actifs_notre_secteur_healthtech_ai.csv")
     export_to_csv(file_scope_data, final_selected_universe, headers)
 
+    # Export de la jointure SBTi dans data/sbti/ (donnée complémentaire pour le rendu)
+    if sbti_by_isin:
+        file_sbti_join = os.path.join(root_dir, "data", "sbti", "jointure_sbti_msci.csv")
+        export_sbti_join(file_sbti_join, companies, pos_contrib_filter)
+
     legacy_tri = os.path.join(root_dir, "dossier_tri")
     if os.path.exists(legacy_tri):
         export_to_csv(os.path.join(legacy_tri, "actifs_notre_secteur_healthtech_ai.csv"), final_selected_universe, headers)
@@ -177,6 +227,8 @@ def run_pipeline(verbose=True):
         print("\n" + "=" * 80)
         print(" SYNTHÈSE DU LIVRABLE GÉNÉRÉ DANS LE DOSSIER data/")
         print(f" • Actifs sélectionnés pour le fonds : {file_scope_data} ({len(final_selected_universe)} actifs)")
+        if sbti_by_isin:
+            print(f" • Donnée complémentaire SBTi        : {file_sbti_join} ({len(companies)} valeurs)")
         print("=" * 80)
 
     return final_selected_universe
