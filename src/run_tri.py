@@ -13,10 +13,11 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
   - Étape 5 : Empreinte & intensité carbone sectorielle (Slide 46 & 50)
   - Étape 6 : ODD climatiques et environnementaux (Slide 47 & 50)
   - Étape 7 : Contribution positive substantielle (Slide 24 & SFDR Art. 2(17))
+              (SBTi : photo du 13/01/2025, objectifs validés publiés au 31/12/2024 - Modif Mohamed)
 
   - Étape 8 : Intersection Univers Thématique HealthTech & AI (Slide 62)
   - Étape 9 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
-  ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv' (50 valeurs)
+  ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv' (49 valeurs - Modif Mohamed)
 """
 
 import csv
@@ -39,6 +40,9 @@ try:
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
         SBTI_STATUS_FIELDS,
+        SBTI_VALIDATED,  # Modif Mohamed
+        SBTI_COMMITTED,  # Modif Mohamed
+        SBTI_REMOVED,  # Modif Mohamed
     )
 except ImportError:
     from filters import (
@@ -55,6 +59,9 @@ except ImportError:
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
         SBTI_STATUS_FIELDS,
+        SBTI_VALIDATED,  # Modif Mohamed
+        SBTI_COMMITTED,  # Modif Mohamed
+        SBTI_REMOVED,  # Modif Mohamed
     )
 
 
@@ -98,6 +105,39 @@ def load_sbti_by_isin(filepath: str):
     return sbti_by_isin
 
 
+def load_sbti_snapshot_by_isin(filepath: str):  # Modif Mohamed
+    """Charge la photo SBTi du 13/01/2025, déjà jointe à l'univers MSCI, indexée par ISIN (Modif Mohamed).
+
+    Elle donne les statuts SBTi à la date de nos données (31/12/2024), sans le biais d'anticipation
+    de la base de novembre 2026 (89 valeurs y sont validées alors qu'elles ne l'étaient pas fin 2024).
+      - seuls les rapprochements sûrs sont gardés (sbti_match_status == 'MATCHED') : les cas 'REVIEW'
+        (Roche...) et 'UNMATCHED' restent absents de la base SBTi, une donnée manquante ne vaut pas validation ;
+      - un objectif n'est validé que si sa publication avant le 31/12/2024 est confirmée
+        (sbti_near_term_validation_published_by_cutoff_confirmed == '1') ;
+      - les statuts de la photo ('Targets Set', 'Committed', 'Removed') sont traduits dans le vocabulaire
+        du Target Dashboard utilisé par filters.py. Aucun objectif long terme n'y est validé sans objectif
+        court terme validé : le statut court terme suffit.
+    """
+    snapshot_to_dashboard = {"Committed": SBTI_COMMITTED, "Removed": SBTI_REMOVED}  # Modif Mohamed
+    sbti_by_isin = {}  # Modif Mohamed
+    if not os.path.exists(filepath):  # Modif Mohamed
+        return sbti_by_isin  # Modif Mohamed
+    with open(filepath, mode="r", encoding="utf-8-sig") as f:  # Modif Mohamed
+        for row in csv.DictReader(f):  # Modif Mohamed
+            isin = (row.get("isin") or "").strip().upper()  # Modif Mohamed
+            if not isin or row.get("sbti_match_status") != "MATCHED":  # Modif Mohamed
+                continue  # Modif Mohamed
+            snapshot = (row.get("sbti_near_term_status_snapshot") or "").strip()  # Modif Mohamed
+            if row.get("sbti_near_term_validation_published_by_cutoff_confirmed") == "1":  # Modif Mohamed
+                near_term = SBTI_VALIDATED  # Modif Mohamed
+            elif snapshot == "Targets Set":  # validé en janvier 2025 mais publication non confirmée au 31/12/2024  # Modif Mohamed
+                near_term = "Targets Set (publication non confirmée au 31/12/2024)"  # Modif Mohamed
+            else:  # Modif Mohamed
+                near_term = snapshot_to_dashboard.get(snapshot, snapshot)  # Modif Mohamed
+            sbti_by_isin[isin] = {"company_name": row.get("sbti_company_name", ""), "near_term_status": near_term}  # Modif Mohamed
+    return sbti_by_isin  # Modif Mohamed
+
+
 def export_sbti_join(filepath: str, companies, contrib_filter):
     """Exporte la jointure ISIN entre notre univers et la base SBTi (livrable complémentaire)."""
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
@@ -136,8 +176,11 @@ def run_pipeline(verbose=True):
         print(f"Erreur : Impossible de trouver all_data.csv dans {possible_inputs}")
         sys.exit(1)
 
-    sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")
-    sbti_by_isin = load_sbti_by_isin(sbti_csv) if os.path.exists(sbti_csv) else {}
+    # Base SBTi de novembre 2026 (postérieure à nos données du 31/12/2024 : biais d'anticipation)  # Modif Mohamed
+    # sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")  # Modif Mohamed
+    # sbti_by_isin = load_sbti_by_isin(sbti_csv) if os.path.exists(sbti_csv) else {}  # Modif Mohamed
+    sbti_csv = os.path.join(root_dir, "data", "sbti", "msci_world_jointure_sbti_2025-01-13.csv")  # Modif Mohamed
+    sbti_by_isin = load_sbti_snapshot_by_isin(sbti_csv) if os.path.exists(sbti_csv) else {}  # Modif Mohamed
 
     if verbose:
         print("=" * 80)
@@ -150,7 +193,7 @@ def run_pipeline(verbose=True):
     if verbose:
         print(f"\n[Univers Initial] MSCI World Developed Markets : {total_initial} valeurs\n")
         if sbti_by_isin:
-            print(f"[Données SBTi] {len(sbti_by_isin)} entreprises dans la base SBTi (jointure ISIN active)")
+            print(f"[Données SBTi] {len(sbti_by_isin)} valeurs retrouvées dans la photo SBTi du 13/01/2025 (statuts au 31/12/2024)")  # Modif Mohamed
 
     # 2. Instanciation des filtres (conformes aux Slides 13 & 40 à 50)
     pab_filter = PABExclusionFilter()

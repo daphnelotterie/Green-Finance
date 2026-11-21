@@ -11,10 +11,10 @@ REGN US Equity,Regeneron Pharmaceuticals Inc,US75886F1075,Health Care,Biotechnol
 6701 JP Equity,NEC Corp,JP3733000008,Information Technology,Computers,JAPAN,4.50%,0.045000,19.62%,33.02%,0.59,1.30,0.00,2.00,7.20,10.77,240.61,4.92%
 PNR US Equity,Pentair PLC,IE00BLS09M33,Industrials,Environmental Control,BRITAIN,4.50%,0.045000,19.65%,31.73%,0.62,2.00,2.50,2.50,7.50,30.21,714.05,5.48%
 SOBI SS Equity,Swedish Orphan Biovitrum AB,SE0000872095,Health Care,Biotechnology,SWEDEN,4.50%,0.045000,13.07%,37.28%,0.35,1.50,5.00,1.50,6.10,0.70,181.85,0.00%
-MOH US Equity,Molina Healthcare Inc,US60855R1005,Health Care,Healthcare-Services,UNITED STATES,3.89%,0.038936,17.91%,37.19%,0.48,1.50,0.00,0.50,6.00,0.51,83.33,0.00%
-AZN LN Equity,AstraZeneca PLC,GB0009895292,Health Care,Pharmaceuticals,BRITAIN,2.83%,0.028296,9.48%,25.27%,0.38,1.30,3.50,0.50,5.50,7.46,207.47,0.00%
-SGE LN Equity,Sage Group PLC,GB00B8C3BL03,Information Technology,Software,BRITAIN,2.79%,0.027899,13.97%,27.37%,0.51,1.30,0.00,1.50,8.40,1.64,69.12,0.00%
-CHD US Equity,Church & Dwight Co Inc,US1713401024,Consumer Staples,Household Products/Wares,UNITED STATES,2.49%,0.024869,10.66%,23.74%,0.45,1.80,3.50,2.00,5.40,25.40,415.95,0.00%
+MOH US Equity,Molina Healthcare Inc,US60855R1005,Health Care,Healthcare-Services,UNITED STATES,4.37%,0.043709,17.91%,37.19%,0.48,1.50,0.00,0.50,6.00,0.51,83.33,0.00%
+AZN LN Equity,AstraZeneca PLC,GB0009895292,Health Care,Pharmaceuticals,BRITAIN,3.35%,0.033529,9.48%,25.27%,0.38,1.30,3.50,0.50,5.50,7.46,207.47,0.00%
+SGE LN Equity,Sage Group PLC,GB00B8C3BL03,Information Technology,Software,BRITAIN,2.80%,0.027995,13.97%,27.37%,0.51,1.30,0.00,1.50,8.40,1.64,69.12,0.00%
+CHD US Equity,Church & Dwight Co Inc,US1713401024,Consumer Staples,Household Products/Wares,UNITED STATES,2.48%,0.024768,10.66%,23.74%,0.45,1.80,3.50,2.00,5.40,25.40,415.95,0.00%
 CRM US Equity,Salesforce Inc,US79466L3024,Information Technology,Software,UNITED STATES,1.00%,0.010000,17.05%,39.53%,0.43,1.40,0.00,2.00,4.30,7.91,114.42,18.97%
 SAP GY Equity,SAP SE,DE0007164600,Information Technology,Software,GERMANY,1.00%,0.010000,15.75%,26.88%,0.59,1.70,0.00,1.50,6.20,7.26,160.04,26.05%
 MRK US Equity,Merck & Co Inc,US58933Y1055,Health Care,Pharmaceuticals,UNITED STATES,1.00%,0.010000,6.55%,24.22%,0.27,1.30,2.50,-0.50,5.20,17.70,235.30,0.00%
@@ -31,7 +31,6 @@ TEL US Equity,TE Connectivity Ltd,IE000IVNQZ81,Information Technology,Electronic
 A US Equity,Agilent Technologies Inc,US00846U1016,Health Care,Electronics,UNITED STATES,1.00%,0.010000,11.47%,28.62%,0.40,1.50,0.50,0.50,6.10,10.91,354.84,0.00%
 CTSH US Equity,Cognizant Technology Solutions,US1924461023,Information Technology,Computers,UNITED STATES,1.00%,0.010000,7.03%,30.77%,0.23,1.30,0.00,1.50,6.30,6.87,139.72,3.35%
 IQV US Equity,IQVIA Holdings Inc,US46266C1053,Health Care,Healthcare-Services,UNITED STATES,1.00%,0.010000,6.46%,33.03%,0.20,1.50,0.00,1.50,6.60,3.04,202.34,0.00%
-VEEV US Equity,Veeva Systems Inc,US9224751084,Health Care,Software,UNITED STATES,1.00%,0.010000,9.87%,39.41%,0.25,1.60,0.00,0.50,6.30,0.20,106.02,0.00%
 ANSS US Equity,ANSYS Inc,US03662Q1058,Information Technology,Software,UNITED STATES,1.00%,0.010000,7.08%,35.14%,0.20,1.60,0.00,2.00,6.90,5.35,108.14,0.00%
 CAP FP Equity,Capgemini SE,FR0000125338,Information Technology,Computers,FRANCE,1.00%,0.010000,8.98%,30.74%,0.29,1.30,0.00,2.00,7.40,3.95,147.45,2.42%
 MTD US Equity,Mettler-Toledo International I,US5926881054,Health Care,Electronics,UNITED STATES,1.00%,0.010000,10.55%,31.80%,0.33,1.80,0.00,1.50,6.90,17.32,409.16,0.00%
@@ -43,7 +42,7 @@ CLX US Equity,Clorox Co/The,US1890541097,Consumer Staples,Household Products/War
 MRK GY Equity,Merck KGaA,DE0006599905,Health Care,Pharmaceuticals,GERMANY,1.00%,0.010000,6.64%,27.89%,0.24,2.00,2.50,1.00,5.70,69.79,665.74,1.61%
 SOON SE Equity,Sonova Holding AG,CH0012549785,Health Care,Healthcare-Products,SWITZERLAND,1.00%,0.010000,9.84%,31.69%,0.31,1.80,0.00,1.50,8.00,2.94,404.42,0.00%
 RVTY US Equity,REVVITY INC,US7140461093,Health Care,Healthcare-Products,UNITED STATES,1.00%,0.010000,4.54%,31.54%,0.14,1.90,0.00,1.50,7.00,8.36,399.87,0.00%
-TECH US Equity,Bio-Techne Corp,US09073M1045,Health Care,Healthcare-Products,UNITED STATES,1.00%,0.010000,7.43%,35.46%,0.21,1.80,0.50,0.50,7.00,15.52,320.68,0.00%
+STMN SE Equity,Straumann Holding AG,CH1175448666,Health Care,Healthcare-Products,SWITZERLAND,1.00%,0.010000,7.06%,36.63%,0.19,1.70,0.00,-0.50,5.40,3.49,489.68,0.00%
 QGEN US Equity,QIAGEN NV,NL0015001WM6,Health Care,Healthcare-Products,NETHERLANDS,1.00%,0.010000,7.62%,23.54%,0.32,1.40,3.50,0.50,6.90,17.34,301.31,0.00%
 CRL US Equity,Charles River Laboratories Int,US1598641074,Health Care,Healthcare-Services,UNITED STATES,1.00%,0.010000,5.40%,38.84%,0.14,1.70,0.00,0.50,5.30,26.51,258.83,0.00%
 ORK NO Equity,Orkla ASA,NO0003733800,Consumer Staples,Food,NORWAY,1.00%,0.010000,2.91%,23.26%,0.13,1.60,3.50,1.50,7.90,30.98,709.43,0.00%
