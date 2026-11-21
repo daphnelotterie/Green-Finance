@@ -24,6 +24,7 @@ COULEURS = {
     "daphne_original": "#eb6834",   # filtres hybrides + Pedersen corrigé
     "equipondere": "#1baf7a",   # vert d'eau : équipondéré 1/N sur les mêmes titres
     "daphne_esg_risk": "#b68100",  # filtres hybrides + budgets de risque ESG
+    "thematique_recalibree": "#6250d6",  # violet : stratégie A, TE minimale + diversification maximale
     "msci_world": "#52514e",    # encre neutre : indice de référence
 }
 

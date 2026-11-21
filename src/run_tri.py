@@ -140,7 +140,7 @@ def build_filters(companies, sbti_by_isin, filter_mode="daphne"):
         EnvironmentalPillarFilter(companies, filter_mode=filter_mode),
         SectorCarbonFootprintFilter(companies), SectorCarbonIntensityFilter(companies),
         ClimateSDGFilter(), PositiveContributionFilter(sbti_by_isin, filter_mode=filter_mode),
-        HealthTechAIScopeFilter(), FinancialQualityFilter(companies),
+        HealthTechAIScopeFilter(), FinancialQualityFilter(companies, filter_mode=filter_mode),
     ]
 
 

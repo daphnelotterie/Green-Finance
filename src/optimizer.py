@@ -11,6 +11,12 @@ restent ceux du code initial. Les contraintes remplacent ses pénalités.
 Sigma est estimée sur 156 rendements hebdomadaires EUR par Ledoit-Wolf,
 connus à la date de constitution. Aucun rendement espéré n'est utilisé.
 
+``te_div`` (stratégie A, thématique recalibrée) : moitié tracking error
+minimale contre le MSCI World (IWDA), moitié diversification maximale, sous
+les mêmes contraintes plus une intensité carbone S1+2+3 <= 50 % de celle du
+MSCI World et un plafond de 12 % par sous-secteur (secteur GICS + industry_group).
+La moyenne de deux solutions admissibles reste admissible.
+
 Contraintes communes : somme=1, poids<=4.5%, Santé 50-65%, Tech 28-40%,
 autres<=15%, ITR pondéré<=1.8°C. Plancher original=1%, ESG=0%.
 Une solution infaisable ou un échec du solveur arrête le calcul.
@@ -21,16 +27,24 @@ import csv
 import json
 import math
 import warnings
+from functools import lru_cache
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
 from scipy.optimize import linprog, minimize
 from sklearn.covariance import LedoitWolf
 
+try:
+    from .prices import BENCHMARK_COLUMN
+except ImportError:  # Exécution directe : python src/optimizer.py
+    from prices import BENCHMARK_COLUMN
+
 
 TOLERANCE = 1e-7
-OPTIMIZER_MODES = ("original", "esg_risk")
+OPTIMIZER_MODES = ("original", "esg_risk", "te_div")
+CARBON_FIELDS = ("INTENSITY_SCOPE_1", "INTENSITY_SCOPE_2", "INTENSITY_SCOPE_3")
 
 
 def to_float(val, default=0.0):
@@ -83,51 +97,101 @@ def load_prices(prices_csv_path):
 
 
 class ThematicConstraints:
-    """Contraintes linéaires communes ; aucun seuil n'est relâché automatiquement."""
+    """Contraintes linéaires communes ; aucun seuil n'est relâché automatiquement.
 
-    def __init__(self, health=(0.50, 0.65), tech=(0.28, 0.40), other_max=0.15, max_itr=1.8):
+    ``max_waci`` (facultatif) plafonne l'intensité carbone S1+2+3 moyenne pondérée ;
+    les intensités des titres sont alors exigées (``waci``) par toutes les méthodes.
+    ``max_sub_industry`` (facultatif) plafonne le poids de chaque sous-secteur ; le
+    sous-secteur de chaque titre (``groups``) est alors exigé.
+    """
+
+    def __init__(self, health=(0.50, 0.65), tech=(0.28, 0.40), other_max=0.15, max_itr=1.8, max_waci=None,
+                 max_sub_industry=None):
         if not (0 <= health[0] <= health[1] <= 1 and 0 <= tech[0] <= tech[1] <= 1):
             raise ValueError("Bornes sectorielles invalides.")
         if not 0 <= other_max <= 1 or not math.isfinite(max_itr):
             raise ValueError("Plafond sectoriel ou ITR invalide.")
+        if max_waci is not None and (not math.isfinite(max_waci) or max_waci <= 0):
+            raise ValueError("Plafond d'intensité carbone invalide.")
+        if max_sub_industry is not None and not 0 < max_sub_industry <= 1:
+            raise ValueError("Plafond par sous-secteur invalide.")
         self.health, self.tech = health, tech
         self.other_max, self.max_itr = other_max, max_itr
+        self.max_waci = max_waci
+        self.max_sub_industry = max_sub_industry
 
-    def matrices(self, sectors, itrs):
+    def matrices(self, sectors, itrs, waci=None, groups=None):
         hc = np.array([float(s == "Health Care") for s in sectors])
         te = np.array([float(s == "Information Technology") for s in sectors])
         A = np.vstack([-hc, hc, -te, te, 1.0 - hc - te, np.asarray(itrs, dtype=float)])
         b = np.array([-self.health[0], self.health[1], -self.tech[0], self.tech[1],
                       self.other_max, self.max_itr])
+        if self.max_waci is not None:
+            if waci is None:
+                raise ValueError("Contrainte carbone demandée sans intensités carbone des titres.")
+            A = np.vstack([A, np.asarray(waci, dtype=float)])
+            b = np.r_[b, self.max_waci]
+        if self.max_sub_industry is not None:
+            if groups is None:
+                raise ValueError("Plafond par sous-secteur demandé sans sous-secteur des titres.")
+            labels = np.asarray(groups)
+            rows = [(labels == g).astype(float) for g in sorted(set(groups))]
+            A = np.vstack([A, *rows])
+            b = np.r_[b, [self.max_sub_industry] * len(rows)]
         return A, b
 
-    def report(self, weights, sectors, itrs, w_min=0.0, w_max=1.0):
+    def report(self, weights, sectors, itrs, w_min=0.0, w_max=1.0, waci=None, groups=None):
         w = np.asarray(weights, dtype=float)
-        A, b = self.matrices(sectors, itrs)
-        return {"Santé": float(A[1] @ w), "Tech": float(A[3] @ w),
-                "Autres": float(A[4] @ w), "ITR": float(A[5] @ w),
-                "Somme": float(w.sum()), "Poids_min": float(w.min()), "Poids_max": float(w.max()),
-                "Dépassement": max(0.0, float((A @ w - b).max()), abs(float(w.sum()) - 1.0),
-                                   float(w_min - w.min()), float(w.max() - w_max))}
+        A, b = self.matrices(sectors, itrs, waci, groups)
+        report = {"Santé": float(A[1] @ w), "Tech": float(A[3] @ w),
+                  "Autres": float(A[4] @ w), "ITR": float(A[5] @ w),
+                  "Somme": float(w.sum()), "Poids_min": float(w.min()), "Poids_max": float(w.max()),
+                  "Dépassement": max(0.0, float((A @ w - b).max()), abs(float(w.sum()) - 1.0),
+                                     float(w_min - w.min()), float(w.max() - w_max))}
+        if self.max_waci is not None:
+            report["Intensité carbone"] = float(A[6] @ w)
+        if self.max_sub_industry is not None:
+            report["Sous-secteur max"] = float(pd.Series(w).groupby(np.asarray(groups)).sum().max())
+        return report
 
     @staticmethod
     def describe(report):
+        carbon = f" | carbone {report['Intensité carbone']:.0f}" if "Intensité carbone" in report else ""
+        sub = f" | sous-secteur max {report['Sous-secteur max']:.1%}" if "Sous-secteur max" in report else ""
         return (f"Santé {report['Santé']:.1%} | Tech {report['Tech']:.1%} | "
-                f"Autres {report['Autres']:.1%} | ITR {report['ITR']:.2f}°C | "
+                f"Autres {report['Autres']:.1%} | ITR {report['ITR']:.2f}°C{carbon}{sub} | "
                 f"dépassement max : {report['Dépassement']:.1e}")
 
     def as_dict(self):
         return {"health_min": self.health[0], "health_max": self.health[1],
                 "tech_min": self.tech[0], "tech_max": self.tech[1],
-                "other_max": self.other_max, "max_itr": self.max_itr}
+                "other_max": self.other_max, "max_itr": self.max_itr, "max_waci": self.max_waci,
+                "max_sub_industry": self.max_sub_industry}
 
 
-def feasible_weights(sectors, itrs, w_min, w_max, constraints, positive=False):
+@lru_cache(maxsize=4)
+def msci_waci(all_data_path=None):
+    """Intensité carbone S1+2+3 du MSCI World : poids de l'indice renormalisés sur la couverture."""
+    path = Path(all_data_path) if all_data_path else Path(resolve_project_root()) / "data" / "raw" / "all_data.csv"
+    total = covered = 0.0
+    with open(path, encoding="utf-8-sig", newline="") as stream:
+        for row in csv.DictReader(stream):
+            weight = to_float(row.get("Weight in MSCI World"), default=float("nan"))
+            values = [to_float(row.get(field), default=float("nan")) for field in CARBON_FIELDS]
+            if math.isfinite(weight) and all(math.isfinite(v) for v in values):
+                total += weight * sum(values)
+                covered += weight
+    if covered <= 0:
+        raise ValueError("Intensité carbone du MSCI World incalculable : poids ou intensités absents.")
+    return total / covered
+
+
+def feasible_weights(sectors, itrs, w_min, w_max, constraints, positive=False, waci=None, groups=None):
     """Point admissible par programme linéaire, intérieur pour les budgets log."""
     n = len(sectors)
     if not n or not 0 <= w_min <= w_max <= 1:
         raise ValueError("Univers vide ou bornes de poids invalides.")
-    A, b = constraints.matrices(sectors, itrs)
+    A, b = constraints.matrices(sectors, itrs, waci, groups)
     if positive:
         # Maximise le plus petit poids t pour initialiser log(y) sans zéro.
         A_lp = np.vstack([np.c_[A, np.zeros(len(b))], np.c_[-np.eye(n), np.ones(n)]])
@@ -145,20 +209,20 @@ def feasible_weights(sectors, itrs, w_min, w_max, constraints, positive=False):
     return lp.x[:n]
 
 
-def verify_solution(weights, result, sectors, itrs, w_min, w_max, constraints):
+def verify_solution(weights, result, sectors, itrs, w_min, w_max, constraints, waci=None, groups=None):
     if not result.success or not np.isfinite(weights).all():
         raise RuntimeError(f"Optimisation non convergée : {result.message}")
-    report = constraints.report(weights, sectors, itrs, w_min, w_max)
+    report = constraints.report(weights, sectors, itrs, w_min, w_max, waci, groups)
     if report["Dépassement"] > TOLERANCE:
         raise RuntimeError(f"Solution hors contraintes : {report}")
     return report
 
 
-def solve_constrained_qp(H, c, sectors, itrs, w_min, w_max, constraints):
+def solve_constrained_qp(H, c, sectors, itrs, w_min, w_max, constraints, waci=None, groups=None):
     """Même objectif quadratique qu'à l'origine, contraintes désormais strictes."""
     n = len(c)
-    A, b = constraints.matrices(sectors, itrs)
-    initial = feasible_weights(sectors, itrs, w_min, w_max, constraints)
+    A, b = constraints.matrices(sectors, itrs, waci, groups)
+    initial = feasible_weights(sectors, itrs, w_min, w_max, constraints, waci=waci, groups=groups)
     cons = [{"type": "eq", "fun": lambda w: w.sum() - 1.0, "jac": lambda w: np.ones(n)},
             {"type": "ineq", "fun": lambda w: b - A @ w, "jac": lambda w: -A}]
     with warnings.catch_warnings():
@@ -170,8 +234,32 @@ def solve_constrained_qp(H, c, sectors, itrs, w_min, w_max, constraints):
                        method="SLSQP", bounds=[(w_min, w_max)] * n, constraints=cons,
                        options={"maxiter": 3000, "ftol": 1e-12})
     # Ne pas tronquer/renormaliser après le solveur : cela pourrait casser A w <= b.
-    verify_solution(res.x, res, sectors, itrs, w_min, w_max, constraints)
+    verify_solution(res.x, res, sectors, itrs, w_min, w_max, constraints, waci, groups)
     return res.x, res
+
+
+def solve_max_diversification(cov, sectors, itrs, w_max, constraints, waci=None, groups=None):
+    """Diversification maximale (Choueifaty & Coignard, 2008) : max somme(w_i s_i) / sqrt(w'Sw).
+
+    Forme convexe équivalente : min y'Sy sous s'y = 1, y >= 0 et contraintes rendues
+    homogènes (A y <= b somme(y), y_i <= w_max somme(y)), puis w = y / somme(y).
+    """
+    n = len(sectors)
+    vols = np.sqrt(np.diag(cov))
+    A, b = constraints.matrices(sectors, itrs, waci, groups)
+    G = np.vstack([A - b[:, None], np.eye(n) - w_max])
+    initial = feasible_weights(sectors, itrs, 0.0, w_max, constraints, positive=True, waci=waci, groups=groups)
+    y0 = initial / (vols @ initial)
+    cons = [{"type": "eq", "fun": lambda y: vols @ y - 1.0, "jac": lambda y: vols},
+            {"type": "ineq", "fun": lambda y: -G @ y, "jac": lambda y: -G}]
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="Values in x were outside bounds during a minimize step, clipping to bounds",
+                                category=RuntimeWarning, module=r"scipy\.optimize\._slsqp_py")
+        res = minimize(lambda y: y @ cov @ y, y0, jac=lambda y: 2.0 * cov @ y, method="SLSQP",
+                       bounds=[(0.0, None)] * n, constraints=cons, options={"maxiter": 3000, "ftol": 1e-12})
+    weights = res.x / res.x.sum()
+    verify_solution(weights, res, sectors, itrs, 0.0, w_max, constraints, waci, groups)
+    return weights, res
 
 
 def solve_risk_budgeting(cov, budgets, sectors, itrs, w_max, constraints):
@@ -266,7 +354,7 @@ class PedersenPortfolioOptimizer:
     def record_solution(self, weights, result, covariance):
         self.weights = weights.tolist()
         self.report = verify_solution(weights, result, self.sectors, self.itrs, self.w_min, self.w_max,
-                                      self.constraints)
+                                      self.constraints, getattr(self, "waci", None), getattr(self, "groups", None))
         variance = float(weights @ covariance @ weights)
         self.risk_contributions = weights * (covariance @ weights) / variance
         self.diagnostics = {
@@ -368,6 +456,7 @@ class ESGRiskBudgetingOptimizer(PedersenPortfolioOptimizer):
         if not self.n:
             raise ValueError("Aucun titre avec historique complet pour la covariance.")
         returns = returns[[r["ticker"] for r in self.assets]]
+        self.weekly_returns = returns
         estimator = LedoitWolf().fit(returns.values)
         self.cov = estimator.covariance_ * 52
         if not np.isfinite(self.cov).all() or np.linalg.eigvalsh(self.cov).min() <= 0:
@@ -399,19 +488,118 @@ class ESGRiskBudgetingOptimizer(PedersenPortfolioOptimizer):
         return self.weights
 
 
+class TrackingDiversificationOptimizer(ESGRiskBudgetingOptimizer):
+    """Stratégie A : ensemble 50/50 tracking error minimale (MSCI World) + diversification maximale.
+
+    Pourquoi : la tracking error minimale rapproche le fonds du marché sous les contraintes
+    thématiques et climat (slide 63 du cours) ; la diversification maximale répartit le risque
+    entre titres peu corrélés. Seule, chacune dépend fortement de la lecture retenue ; leur moyenne
+    réduit ce risque de méthode. Aucun rendement espéré n'est estimé.
+    Covariances Ledoit-Wolf sur 156 rendements hebdomadaires EUR connus à la date : jointe
+    titres + IWDA pour la tracking error, titres seuls pour la diversification.
+    Plafond de 12 % par sous-secteur (secteur GICS + industry_group de all_data.csv) : règle de
+    diversification fixée a priori (au plus un huitième du fonds par segment), pas un réglage
+    de performance ; sur les données 2018-2026, elle coûte en historique et n'apporte pas de gain
+    significatif après 2024, mais limite la perte si le plus gros segment chute.
+    """
+
+    optimizer_mode = "te_div"
+
+    def __init__(self, input_csv_path, prices=None, prices_csv_path=None, benchmark=None, as_of="2024-12-31",
+                 window_weeks=156, w_max=0.045, mix=0.5, waci_ratio=0.5, sub_industry_cap=0.12, all_data_path=None,
+                 constraints=None, rows=None, verbose=True):
+        if not 0.0 <= mix <= 1.0:
+            raise ValueError("La part tracking error doit être comprise entre 0 et 1.")
+        self.mix, self.waci_ratio = mix, waci_ratio
+        self.msci_waci = None
+        if constraints is None:
+            if waci_ratio is not None:
+                self.msci_waci = msci_waci(str(all_data_path) if all_data_path else None)
+            constraints = ThematicConstraints(max_waci=None if waci_ratio is None else waci_ratio * self.msci_waci,
+                                              max_sub_industry=sub_industry_cap)
+        super().__init__(input_csv_path, prices=prices, prices_csv_path=prices_csv_path, as_of=as_of,
+                         window_weeks=window_weeks, w_max=w_max, constraints=constraints, rows=rows, verbose=verbose)
+        if benchmark is None:
+            if BENCHMARK_COLUMN not in self.prices.columns:
+                raise ValueError("Cours du MSCI World (IWDA) absents : tracking error incalculable.")
+            benchmark = self.prices[BENCHMARK_COLUMN]
+        self.benchmark = benchmark
+
+    def estimate_covariance(self):
+        """Covariance des titres (parent) puis covariance jointe avec l'indice, mêmes semaines."""
+        super().estimate_covariance()
+        returns = self.weekly_returns
+        weekly = self.benchmark.loc[:self.as_of].ffill(limit=10).resample("W-FRI").last().loc[:self.as_of]
+        bench = weekly.pct_change(fill_method=None).reindex(returns.index)
+        if bench.isna().any() or not np.isfinite(bench.to_numpy()).all():
+            raise ValueError("Rendements hebdomadaires du MSCI World incomplets sur la fenêtre de covariance.")
+        estimator = LedoitWolf().fit(np.column_stack([returns.values, bench.values]))
+        self.cov_joint = estimator.covariance_ * 52
+        self.covariance_details["ledoit_wolf_shrinkage_avec_indice"] = float(estimator.shrinkage_)
+
+    def carbon_intensities(self):
+        return [sum(required_float(r, field) for field in CARBON_FIELDS) for r in self.assets]
+
+    def sub_industries(self):
+        """Sous-secteur = secteur GICS + industry_group (certains libellés existent dans plusieurs secteurs)."""
+        labels = [f"{r.get('gics_sector_name', '').strip()} | {r.get('industry_group', '').strip()}" for r in self.assets]
+        if any(label.endswith("| ") for label in labels):
+            raise ValueError("industry_group manquant : plafond par sous-secteur incalculable.")
+        return labels
+
+    def tracking_error(self, weights):
+        v = np.r_[np.asarray(weights, dtype=float), -1.0]
+        return math.sqrt(max(float(v @ self.cov_joint @ v), 0.0))
+
+    def optimize(self):
+        self.estimate_covariance()
+        self.build_inputs(include_market=False)
+        self.waci = self.carbon_intensities() if self.constraints.max_waci is not None else None
+        self.groups = self.sub_industries() if self.constraints.max_sub_industry is not None else None
+        n = self.n
+        w_te, res_te = solve_constrained_qp(self.cov_joint[:n, :n], self.cov_joint[:n, n], self.sectors, self.itrs,
+                                            0.0, self.w_max, self.constraints, self.waci, self.groups)
+        w_div, res_div = solve_max_diversification(self.cov, self.sectors, self.itrs, self.w_max,
+                                                   self.constraints, self.waci, self.groups)
+        weights = self.mix * w_te + (1.0 - self.mix) * w_div
+        result = SimpleNamespace(success=bool(res_te.success and res_div.success),
+                                 message=f"TE : {res_te.message} | diversification : {res_div.message}",
+                                 nit=int(res_te.nit + res_div.nit), fun=self.tracking_error(weights))
+        self.components = {"tracking_error": w_te, "diversification": w_div}
+        self.record_solution(weights, result, self.cov)
+        vols = np.sqrt(np.diag(self.cov))
+        div_ratio = lambda w: float(vols @ w / math.sqrt(w @ self.cov @ w))
+        self.diagnostics.update({
+            "covariance_method": "LedoitWolf_weekly_EUR (titres) + jointe titres/IWDA (tracking error)",
+            **self.covariance_details, "part_tracking_error": self.mix,
+            "tracking_error_ex_ante": self.tracking_error(weights),
+            "tracking_error_ex_ante_poche_te": self.tracking_error(w_te),
+            "tracking_error_ex_ante_poche_diversification": self.tracking_error(w_div),
+            "ratio_diversification": div_ratio(weights),
+            "ratio_diversification_poche_diversification": div_ratio(w_div),
+            "intensite_carbone_msci_world": self.msci_waci, "plafond_intensite_carbone": self.constraints.max_waci,
+            "plafond_sous_secteur": self.constraints.max_sub_industry,
+            "poids_sous_secteurs": ({g: float(v) for g, v in pd.Series(weights).groupby(np.asarray(self.groups)).sum()
+                                     .sort_values(ascending=False).items()} if self.groups is not None else None),
+        })
+        return self.weights
+
+
 def run_optimization(optimizer_mode="original", input_path=None, output_path=None, prices_path=None,
                      as_of="2024-12-31", diagnostics_path=None, verbose=True):
     """Étape appelée par run_pipeline ; retourne le chemin du portefeuille CSV."""
     if optimizer_mode not in OPTIMIZER_MODES:
         raise ValueError(f"Optimiseur inconnu : {optimizer_mode!r}. Choisir {OPTIMIZER_MODES}.")
     root = Path(resolve_project_root())
-    destination = root / "results" / ("daphne_original" if optimizer_mode == "original" else "daphne_esg_risk")
+    destination = root / "results" / {"original": "daphne_original", "esg_risk": "daphne_esg_risk",
+                                      "te_div": "thematique_recalibree"}[optimizer_mode]
     input_path = Path(input_path) if input_path is not None else destination / "actifs_selectionnes.csv"
     output_path = Path(output_path) if output_path is not None else destination / "portefeuille_final_pondere.csv"
     diagnostics_path = Path(diagnostics_path) if diagnostics_path is not None else output_path.with_name("diagnostics_optimisation.json")
-    if optimizer_mode == "esg_risk":
+    if optimizer_mode in ("esg_risk", "te_div"):
         prices_path = Path(prices_path) if prices_path is not None else root / "data" / "cache" / "prices" / "prix_eur.csv"
-        optimizer = ESGRiskBudgetingOptimizer(input_path, prices_csv_path=prices_path, as_of=as_of, verbose=verbose)
+        optimizer_class = ESGRiskBudgetingOptimizer if optimizer_mode == "esg_risk" else TrackingDiversificationOptimizer
+        optimizer = optimizer_class(input_path, prices_csv_path=prices_path, as_of=as_of, verbose=verbose)
     else:
         optimizer = PedersenPortfolioOptimizer(input_path, verbose=verbose)
     optimizer.optimize()

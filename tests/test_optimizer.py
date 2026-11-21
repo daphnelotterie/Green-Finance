@@ -8,7 +8,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.optimizer import ESGRiskBudgetingOptimizer, PedersenPortfolioOptimizer, ThematicConstraints
+from src.optimizer import (ESGRiskBudgetingOptimizer, PedersenPortfolioOptimizer, ThematicConstraints,
+                           TrackingDiversificationOptimizer)
 
 
 def universe():
@@ -116,6 +117,89 @@ class OptimizerTests(unittest.TestCase):
                 optimizer = self.optimizer(mode, rows=rows)
                 with self.assertRaisesRegex(ValueError, "GOVERNANCE_PILLAR_SCORE"):
                     optimizer.optimize()
+
+    def tracking_diversification(self, prices=None, rows=None, max_waci=340.0):
+        """Plafond 340 : faisable (minimum 316,8) et actif (364,5 sans contrainte carbone)."""
+        rows = universe() if rows is None else rows
+        for i, row in enumerate(rows):
+            row.setdefault("INTENSITY_SCOPE_1", str(20 + 15 * (i % 6)))
+            row.setdefault("INTENSITY_SCOPE_2", "10")
+            row.setdefault("INTENSITY_SCOPE_3", str(150 + 40 * (i % 9)))
+        prices = self.prices if prices is None else prices
+        benchmark = prices.mean(axis=1)
+        return TrackingDiversificationOptimizer(None, rows=rows, prices=prices, benchmark=benchmark,
+                                                as_of="2024-12-31", verbose=False,
+                                                constraints=ThematicConstraints(max_waci=max_waci))
+
+    def test_tracking_diversification_respects_every_constraint_including_carbon(self):
+        optimizer = self.tracking_diversification()
+        weights = np.array(optimizer.optimize())
+        self.assertAlmostEqual(weights.sum(), 1, places=9)
+        self.assertGreaterEqual(weights.min(), -1e-12)
+        self.assertLessEqual(weights.max(), .045 + 1e-9)
+        self.assertLessEqual(optimizer.report["Dépassement"], 1e-7)
+        self.assertLessEqual(optimizer.report["Intensité carbone"], 340.0 + 1e-7)
+        self.assertGreater(optimizer.report["Intensité carbone"], 339.0)  # contrainte effectivement active
+        self.assertTrue(optimizer.diagnostics["converged"])
+        # Ensemble 50/50 des deux solutions, chacune admissible.
+        components = optimizer.components
+        np.testing.assert_allclose(weights, .5 * components["tracking_error"] + .5 * components["diversification"])
+        # La poche tracking error a la plus faible tracking error ex ante des trois portefeuilles.
+        te = {name: optimizer.tracking_error(w) for name, w in components.items()}
+        self.assertLessEqual(te["tracking_error"], te["diversification"] + 1e-9)
+        self.assertLessEqual(te["tracking_error"], optimizer.tracking_error(weights) + 1e-9)
+
+    def test_tracking_diversification_ignores_prices_after_allocation_date(self):
+        first = self.tracking_diversification()
+        first.optimize()
+        shocked = self.prices.copy()
+        shocked.loc[shocked.index > "2024-12-31"] *= 1000
+        second = self.tracking_diversification(prices=shocked)
+        second.benchmark = second.benchmark.where(second.benchmark.index <= "2024-12-31", 1e6)
+        second.optimize()
+        np.testing.assert_allclose(first.weights, second.weights)
+        # Égalité au bruit d'arrondi près : l'indice synthétique est une moyenne recalculée.
+        np.testing.assert_allclose(first.cov_joint, second.cov_joint, rtol=1e-12, atol=1e-15)
+
+    def sub_industry_rows(self):
+        rows = universe()
+        for i, row in enumerate(rows):
+            row["industry_group"] = (["Pharma", "Biotech", "Products", "Services", "Tools"][i % 5] if i < 18
+                                     else ["Software", "Semis", "Computers"][i % 3] if i < 28 else "Machinery")
+        return rows
+
+    def test_sub_industry_cap_is_respected_by_both_components(self):
+        rows = self.sub_industry_rows()
+        optimizer = self.tracking_diversification(rows=rows)
+        optimizer.constraints = ThematicConstraints(max_waci=340.0, max_sub_industry=.12)
+        weights = np.array(optimizer.optimize())
+        labels = np.array(optimizer.groups)
+        for component in (weights, *optimizer.components.values()):
+            sums = {g: component[labels == g].sum() for g in set(labels)}
+            self.assertLessEqual(max(sums.values()), .12 + 1e-9)
+        self.assertLessEqual(optimizer.report["Sous-secteur max"], .12 + 1e-9)
+        self.assertLessEqual(optimizer.report["Dépassement"], 1e-7)
+        self.assertAlmostEqual(sum(optimizer.diagnostics["poids_sous_secteurs"].values()), 1, places=9)
+
+    def test_infeasible_sub_industry_cap_stops_instead_of_relaxing(self):
+        # Cinq sous-secteurs santé à 5 % au plus ne peuvent pas porter 50 % de santé.
+        optimizer = self.tracking_diversification(rows=self.sub_industry_rows())
+        optimizer.constraints = ThematicConstraints(max_waci=340.0, max_sub_industry=.05)
+        with self.assertRaisesRegex(ValueError, "infaisables"):
+            optimizer.optimize()
+
+    def test_sub_industry_cap_requires_industry_group(self):
+        optimizer = self.tracking_diversification()  # univers synthétique sans industry_group
+        optimizer.constraints = ThematicConstraints(max_waci=340.0, max_sub_industry=.12)
+        with self.assertRaisesRegex(ValueError, "industry_group"):
+            optimizer.optimize()
+
+    def test_carbon_cap_requires_every_intensity(self):
+        rows = universe()
+        optimizer = self.tracking_diversification(rows=rows)
+        optimizer.assets[3]["INTENSITY_SCOPE_3"] = "NA"
+        with self.assertRaisesRegex(ValueError, "INTENSITY_SCOPE_3"):
+            optimizer.optimize()
 
     def test_csv_precision_preserves_budget_and_sector_bounds(self):
         optimizer = self.optimizer("original")

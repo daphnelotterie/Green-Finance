@@ -1,9 +1,14 @@
-"""Filtres de sélection communs aux modes Daphné et Mohamed.
+"""Filtres de sélection communs aux modes Daphné, Mohamed et thématique recalibrée.
 
-Les classes et l'ordre de l'entonnoir historique sont conservés. Les trois
-variantes de règles portent sur l'ITR, l'égalité au quantile du pilier E et la
-contribution positive. Les seuils relatifs sont calculés sur l'univers initial.
-Il s'agit de règles pédagogiques/proxys, pas d'une certification réglementaire.
+Les classes et l'ordre de l'entonnoir historique sont conservés. Les variantes
+de règles portent sur l'ITR, l'égalité au quantile du pilier E, la contribution
+positive et, pour le mode recalibré, le filtre financier allégé. Les seuils
+relatifs sont calculés sur l'univers initial. Il s'agit de règles
+pédagogiques/proxys, pas d'une certification réglementaire.
+
+Mode ``recalibree`` (stratégie A) : ITR < Q80 et pilier E >= Q5 comme le mode
+Mohamed (règles des slides 43-45/50), contribution hybride comme le mode
+Daphné, même thème, filtre financier réduit à la rentabilité et à la dette.
 """
 
 from abc import ABC, abstractmethod
@@ -12,7 +17,9 @@ from collections import defaultdict
 from math import isfinite
 
 
-FILTER_MODES = ("daphne", "mohamed")
+FILTER_MODES = ("daphne", "mohamed", "recalibree")
+# Modes qui appliquent la règle de température du cours (ITR < Q80) et l'égalité admise au Q5 du pilier E
+COURSE_RULE_MODES = ("mohamed", "recalibree")
 
 
 def validate_filter_mode(filter_mode: str) -> str:
@@ -237,18 +244,18 @@ class GoodGovernanceAndRatingFilter(AbstractFilter):
 
 
 class ParisAlignmentITRFilter(AbstractFilter):
-    """Daphné : ITR <= 2°C ; Mohamed : ITR < Q80 de l'univers initial."""
+    """Daphné : ITR <= 2°C ; Mohamed et recalibré : ITR < Q80 de l'univers initial."""
 
     def __init__(self, max_itr: float = 2.0, *, companies=None,
                  filter_mode: str = "daphne", quantile_level: float = 0.80):
         self.filter_mode = validate_filter_mode(filter_mode)
-        if filter_mode == "mohamed":
+        if filter_mode in COURSE_RULE_MODES:
             if companies is None:
-                raise ValueError("Le mode mohamed exige l'univers initial pour calculer le quantile ITR.")
+                raise ValueError(f"Le mode {filter_mode} exige l'univers initial pour calculer le quantile ITR.")
             max_itr = quantile([c.itr for c in companies if not c.is_missing("ITR")], quantile_level)
         self.max_itr = max_itr
         rule = (f"ITR < Q{int(quantile_level * 100)}% ({max_itr:.1f}°C)"
-                if filter_mode == "mohamed" else f"ITR <= {max_itr:.1f}°C")
+                if filter_mode in COURSE_RULE_MODES else f"ITR <= {max_itr:.1f}°C")
         super().__init__(
             name=f"Accord de Paris - {rule}",
             slide_ref="Slide 43 & 50",
@@ -258,20 +265,20 @@ class ParisAlignmentITRFilter(AbstractFilter):
     def evaluate(self, company: Company) -> bool:
         if company.is_missing("ITR"):
             return False
-        if self.filter_mode == "mohamed":
+        if self.filter_mode in COURSE_RULE_MODES:
             return company.itr < self.max_itr
         return company.itr <= self.max_itr
 
 
 class EnvironmentalPillarFilter(AbstractFilter):
-    """Pilier E : > Q5 pour Daphné, >= Q5 pour Mohamed (égalité conservée)."""
+    """Pilier E : > Q5 pour Daphné, >= Q5 pour Mohamed et recalibré (égalité conservée)."""
 
     def __init__(self, companies: List[Company], quantile_level: float = 0.05,
                  filter_mode: str = "daphne"):
         self.filter_mode = validate_filter_mode(filter_mode)
         valid_scores = [c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")]
         self.min_score = quantile(valid_scores, quantile_level)
-        operator = ">=" if filter_mode == "mohamed" else ">"
+        operator = ">=" if filter_mode in COURSE_RULE_MODES else ">"
         super().__init__(
             name=f"Pilier E {operator} Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",
             slide_ref="Slide 45 & 50",
@@ -281,7 +288,7 @@ class EnvironmentalPillarFilter(AbstractFilter):
     def evaluate(self, company: Company) -> bool:
         if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):
             return False
-        if self.filter_mode == "mohamed":
+        if self.filter_mode in COURSE_RULE_MODES:
             return company.env_pillar >= self.min_score
         return company.env_pillar > self.min_score
 
@@ -362,7 +369,7 @@ class ClimateSDGFilter(AbstractFilter):
 
 class PositiveContributionFilter(AbstractFilter):
     """
-    Contribution positive : hybride (daphne) ou Taxonomie/SBTi uniquement (mohamed).
+    Contribution positive : hybride (daphne, recalibree) ou Taxonomie/SBTi uniquement (mohamed).
     Slide 13 & SFDR Article 2(17), utilisée ici comme proxy pédagogique.
     Pour notre fonds thématique HealthTech & IA, l'entreprise doit obligatoirement contribuer
     de manière positive et mesurable :
@@ -376,7 +383,7 @@ class PositiveContributionFilter(AbstractFilter):
                  min_taxonomy_rev: float = 20.0, filter_mode: str = "daphne"):
         self.filter_mode = validate_filter_mode(filter_mode)
         super().__init__(
-            name=("Contribution positive hybride Santé & Climat" if filter_mode == "daphne"
+            name=("Contribution positive hybride Santé & Climat" if filter_mode != "mohamed"
                   else "Contribution positive stricte (Taxo >= 20% ou SBTi validé)"),
             slide_ref="Slide 13 & SFDR Art. 2(17)",
             description="Exige une contribution sociale (ODD 3/9 >= 1.0) OU environnementale (Taxo >= 20%, SBTi validé, CleanTech >= 10%, ITR <= 1.5°C)."
@@ -492,29 +499,42 @@ class HealthTechAIScopeFilter(AbstractFilter):
 class FinancialQualityFilter(AbstractFilter):
     """
     Slide 59 & 62 : Univers Financier Quantitatif (« durabilité financière », slide 5).
+    Modes daphne et mohamed :
     - Rentabilité : ROIC > 5% OU marge nette > 5%
     - Génération de cash : FCF yield > 0
     - Solvabilité : Debt/Assets < 65%
     - Risque : exclusion des 10% de titres les plus volatils du MSCI World (volatilité 5 ans)
+    Mode recalibree (filtre allégé) : rentabilité et solvabilité seulement. Le plafond de
+    volatilité excluait mécaniquement les leaders volatils (NVIDIA, AMD) alors que le risque
+    est piloté au niveau du portefeuille ; le FCF > 0 excluait la pharma qui investit
+    (Eli Lilly). Le filtre garde 81 % du MSCI World, proche des 85 % de l'univers financier
+    quantitatif de la slide 62 (942/1109).
     - Donnée manquante => exclusion
     """
 
     fields = ("ROIC", "Net margin", "FCF yield", "Debt assets", "Volatility 5Y")
+    light_fields = ("ROIC", "Net margin", "Debt assets")
 
-    def __init__(self, companies: List[Company], vol_percentile: float = 0.90):
+    def __init__(self, companies: List[Company], vol_percentile: float = 0.90, filter_mode: str = "daphne"):
+        self.filter_mode = validate_filter_mode(filter_mode)
+        self.light = filter_mode == "recalibree"
         self.max_volatility = quantile([c.volatility_5y for c in companies if not c.is_missing("Volatility 5Y")],
                                        vol_percentile)
-        super().__init__(
-            name="Univers Financier Quantitatif (Qualité & Cash)",
-            slide_ref="Slide 59 & 62",
-            description=f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."
-        )
+        if self.light:
+            name = "Univers Financier Quantitatif allégé (Rentabilité & Dette)"
+            description = "Garde les entreprises rentables (ROIC ou marge nette > 5 %) et peu endettées (dette/actifs < 65 %)."
+        else:
+            name = "Univers Financier Quantitatif (Qualité & Cash)"
+            description = f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."
+        super().__init__(name=name, slide_ref="Slide 59 & 62", description=description)
 
     def evaluate(self, company: Company) -> bool:
-        if company.is_missing(*self.fields):  # donnée manquante => exclusion
+        if company.is_missing(*(self.light_fields if self.light else self.fields)):  # donnée manquante => exclusion
             return False
         is_profitable = (company.roic > 5.0) or (company.net_margin > 5.0)  # ROE retiré (non fiable)
-        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué
         is_solvent = company.debt_assets < 65.0  # règle inchangée
+        if self.light:
+            return is_profitable and is_solvent
+        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué
         not_too_volatile = company.volatility_5y <= self.max_volatility  # risque au lieu de la performance passée
         return is_profitable and generates_cash and is_solvent and not_too_volatile

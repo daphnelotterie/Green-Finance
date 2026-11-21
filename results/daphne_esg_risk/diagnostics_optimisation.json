@@ -3,7 +3,7 @@
   "converged": true,
   "solver_message": "Optimization terminated successfully",
   "iterations": 23,
-  "objective_value": 2.4175270675711538,
+  "objective_value": 2.4175270855789206,
   "requested_assets": 56,
   "included_assets": 56,
   "excluded_assets": [],
@@ -15,33 +15,35 @@
     "tech_min": 0.28,
     "tech_max": 0.4,
     "other_max": 0.15,
-    "max_itr": 1.8
+    "max_itr": 1.8,
+    "max_waci": null,
+    "max_sub_industry": null
   },
   "report": {
-    "Santé": 0.6089486933910662,
-    "Tech": 0.2800000000000001,
-    "Autres": 0.11105130660893403,
-    "ITR": 1.5188284694842553,
-    "Somme": 1.0000000000000002,
-    "Poids_min": 0.005498363738170823,
-    "Poids_max": 0.040529928427217275,
-    "Dépassement": 2.220446049250313e-16
+    "Santé": 0.6089487548033232,
+    "Tech": 0.27999999999999997,
+    "Autres": 0.11105124519667672,
+    "ITR": 1.5188284180310396,
+    "Somme": 0.9999999999999999,
+    "Poids_min": 0.005498364440329886,
+    "Poids_max": 0.04052984539563759,
+    "Dépassement": 1.1102230246251565e-16
   },
-  "model_volatility": 0.12147304278022233,
-  "min_covariance_eigenvalue": 0.012432583056462696,
+  "model_volatility": 0.12147304956433706,
+  "min_covariance_eigenvalue": 0.012432582974691832,
   "covariance_method": "LedoitWolf_weekly_EUR",
   "as_of": "2024-12-31",
   "window_weeks": 156,
   "first_return_week": "2022-01-07",
   "last_return_week": "2024-12-27",
   "observations": 156,
-  "ledoit_wolf_shrinkage": 0.09113636940965276,
+  "ledoit_wolf_shrinkage": 0.09113636777464774,
   "forward_fill_limit_rows": 10,
   "budget_range": [
     0.5,
     1.5
   ],
-  "risk_budget_absolute_gap_sum": 0.005016258544136469,
-  "risk_budget_max_absolute_gap": 0.0002866564014556462,
+  "risk_budget_absolute_gap_sum": 0.005016171897945544,
+  "risk_budget_max_absolute_gap": 0.00028665165060917305,
   "risk_budgets_exact_under_active_constraints": false
 }

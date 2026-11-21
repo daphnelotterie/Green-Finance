@@ -9,7 +9,7 @@ from unittest.mock import patch
 import numpy as np
 import pandas as pd
 
-from src.backtest import PortfolioBacktester, WalkForwardBacktester, compute_metrics
+from src.backtest import PortfolioBacktester, WalkForwardBacktester, compute_metrics, monthly_returns, monthly_table
 from src.optimizer import load_prices
 from src.prices import BENCHMARK_COLUMN, HistoricalPriceLoader, run_prices
 
@@ -91,6 +91,33 @@ class HoldingsAndCostsTests(unittest.TestCase):
         self.assertAlmostEqual(attribution.loc["A", "poids_final"], .75)
         self.assertAlmostEqual(attribution.loc["B", "poids_final"], .25)
         self.assertAlmostEqual(attribution["poids_final"].sum(), 1.)
+
+
+class MonthlyReturnsTests(unittest.TestCase):
+    def test_month_end_start_is_the_base_and_months_compound_to_total(self):
+        dates = pd.bdate_range("2024-12-31", "2025-03-14")
+        values = pd.Series(np.linspace(1., 1.3, len(dates)), index=dates)
+        returns = monthly_returns(values)
+        self.assertEqual([str(p) for p in returns.index], ["2025-01", "2025-02", "2025-03"])
+        self.assertAlmostEqual(np.prod(1 + returns.values) - 1, .3)
+        self.assertAlmostEqual(returns.iloc[0], values.loc["2025-01-31"] / values.iloc[0] - 1)
+
+    def test_mid_month_start_counts_the_partial_month(self):
+        dates = pd.bdate_range("2025-01-15", "2025-02-28")
+        values = pd.Series(np.linspace(2., 2.2, len(dates)), index=dates)
+        returns = monthly_returns(values)
+        self.assertEqual([str(p) for p in returns.index], ["2025-01", "2025-02"])
+        self.assertAlmostEqual(returns.iloc[0], values.loc["2025-01-31"] / 2. - 1)
+        self.assertAlmostEqual(np.prod(1 + returns.values) - 1, .1)
+
+    def test_monthly_table_reports_each_year_with_compounded_total(self):
+        dates = pd.bdate_range("2024-12-31", "2026-02-27")
+        values = pd.Series(np.exp(np.linspace(0, .2, len(dates))), index=dates)
+        table = monthly_table({"fonds": values}, "test").set_index("Année")
+        self.assertEqual(list(table.index), [2025, 2026])
+        total = (1 + table["Année complète"]).prod() - 1
+        self.assertAlmostEqual(total, values.iloc[-1] - 1)
+        self.assertTrue(pd.isna(table.loc[2026, "mars"]))
 
 
 class InputAndMetricsTests(unittest.TestCase):

@@ -1,122 +1,192 @@
-# Résultats et analyse des trois modes
+# Résultats et analyse des quatre modes
 
-Exécution du **21 novembre 2026**, avec cours ajustés en EUR jusqu'au **20 novembre 2026**. Les trois modes ont été exécutés avec succès, puis reproduits depuis le cache local ; **23 tests automatisés passent**. Les chiffres ci-dessous proviennent des CSV générés par la pipeline ; les anciennes tables fondées sur des moyennes de statistiques individuelles sont remplacées. [Comparaison complète](../results/comparaison_modes.csv) · [Paramètres et empreintes des sources](../results/execution.json).
+Exécution du **21 novembre 2026**, avec cours ajustés en EUR jusqu'au **20 novembre 2026**. Les quatre modes ont été exécutés avec succès et **33 tests automatisés passent**. Les chiffres ci-dessous proviennent des CSV générés par la pipeline. [Comparaison complète](../results/comparaison_modes.csv) · [Rendements mensuels des modes](../results/performances_mensuelles_modes.csv) · [Paramètres et empreintes des sources](../results/execution.json).
 
-Sur la période après 2024, **Daphné + risque ESG obtient le meilleur compromis des trois variantes**, mais les trois restent derrière le MSCI World. L'optimisation ESG risque apporte une baisse du risque face à l'équipondération sur cette période ; son avantage ne se retrouve pas systématiquement dans l'historique antérieur.
+Après 2024, la **stratégie A (thématique recalibrée)** est la seule à approcher le MSCI World : **+16,9 %** en gestion active et **+15,6 %** à poids figés, contre **+17,8 %** pour l'indice. Les trois premiers modes font +6 à +10 %. A dépasse aussi les ETF MSCI World ESG du marché sur la même période (+12,7 % pour l'ETF SRI, +12,8 % pour l'ETF SRI PAB, d'après les recalculs de la recherche). Sur 2018-2024, A affiche 15,5 %/an et le meilleur Sharpe (0,89).
+
+A a toutefois été conçue après avoir vu 2025-2026. Sa performance après 2024 n'est donc pas une validation indépendante : voir [Méthodologie](methodologie_et_chronologie.md), sections 9 et 10.
 
 ## 1. Périmètre de la comparaison
 
 | Élément | Convention |
 |---|---|
 | Historique rétrospectif | 29/12/2017 → 31/12/2024 ; réoptimisation trimestrielle |
-| Période après constitution | 31/12/2024 → 20/11/2026 ; nombre de parts conservé, sans rebalancement |
+| Après 2024, poids figés (`hors_echantillon`) | 31/12/2024 → 20/11/2026 ; nombre de parts conservé, sans rebalancement |
+| Après 2024, gestion active (`hors_echantillon_rebalance`) | Mêmes dates ; poids de constitution puis réoptimisation à chaque fin de trimestre avec les seuls cours connus à la date |
 | Benchmark de performance | ETF `IWDA.AS`, proxy investissable du MSCI World en EUR |
-| Équipondéré | Même univers que le mode étudié ; 56 titres Daphné ou 47 Mohamed à la constitution |
+| Équipondéré | Même univers que le mode étudié (56 titres Daphné, 47 Mohamed, 88 pour A) |
 | Frais | 10 pb sur les montants échangés aux rebalancements ; hors frais initiaux, gestion et fiscalité |
 | Calcul du risque | Volatilité hebdomadaire annualisée sur 52 semaines ; perte maximale sur valorisations quotidiennes |
 | Ratio de Sharpe | `(rendement annualisé − 2 %) / volatilité` ; taux sans risque fixe |
 
-Le nom de fichier `hors_echantillon` désigne la période postérieure à la photographie de référence. **Ce n'est pas une validation prospective sans biais** : les filtres et leurs variantes ont été travaillés après 2024, l'univers n'est pas reconstruit à chaque date et les fondamentaux n'ont pas tous une date de publication vérifiée. Avant 2025, la sélection et les scores ESG de fin 2024 créent en plus un biais rétrospectif, même si les entrées de marché sont recalculées avec les seuls cours passés.
+Le mot « hors échantillon » désigne la période postérieure à la photographie de référence. **Ce n'est pas une validation prospective sans biais** : les filtres ont été travaillés après 2024, l'univers n'est pas reconstruit à chaque date et les fondamentaux n'ont pas tous une date de publication vérifiée. Dans la gestion active, l'univers et les scores ESG restent ceux de fin 2024, faute de données plus récentes. Avant 2025, la sélection fin 2024 crée en plus un biais de survivance d'environ 2 points par an : le MSCI World reconstitué avec ces titres fait 14,6 %/an contre 12,7 % pour IWDA.
 
-## 2. Après 2024 : rendement positif, retard sur le marché
+## 2. Après 2024
 
-| Portefeuille | Performance cumulée | Rendement annualisé | Volatilité | Sharpe | Perte maximale |
-|---|---:|---:|---:|---:|---:|
-| Daphné · origine | +7,42 % | +3,87 % | 16,79 % | 0,111 | −18,77 % |
-| Daphné · risque ESG | **+9,08 %** | **+4,72 %** | **13,98 %** | **0,194** | **−16,02 %** |
-| Mohamed · risque ESG | +8,54 % | +4,44 % | 14,48 % | 0,169 | −16,62 % |
-| Équipondéré Daphné | +6,47 % | +3,38 % | 15,29 % | 0,090 | −18,72 % |
-| Équipondéré Mohamed | +6,44 % | +3,37 % | 16,76 % | 0,081 | −20,30 % |
-| MSCI World (IWDA) | **+17,81 %** | **+9,08 %** | 14,24 % | **0,497** | −21,59 % |
+**Poids figés au 31/12/2024**, c'est-à-dire le portefeuille livré :
 
-À sélection Daphné identique, passer de l'optimiseur d'origine aux budgets de risque ESG ajoute **1,66 point** de performance cumulée et réduit la volatilité de **2,81 points**. La perte maximale s'améliore de **2,76 points**. Le gain est donc visible sur les trois dimensions, sans garantir qu'il persistera.
+| Portefeuille | Perf. cumulée | Rendement annualisé | Volatilité | Sharpe | Perte maximale | Tracking error | Bêta |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Daphné · origine | +7,42 % | +3,87 % | 16,79 % | 0,111 | −18,77 % | 12,65 % | 0,80 |
+| Daphné · risque ESG | +9,08 % | +4,72 % | 13,98 % | 0,194 | −16,02 % | 12,45 % | 0,60 |
+| Mohamed · risque ESG | +8,54 % | +4,44 % | 14,48 % | 0,169 | −16,62 % | 11,46 % | 0,69 |
+| **A · Thématique recalibrée** | **+15,55 %** | **+7,96 %** | 14,34 % | **0,416** | −16,78 % | **9,39 %** | 0,79 |
+| MSCI World (IWDA) | +17,81 % | +9,08 % | 14,24 % | 0,497 | −21,59 % | — | 1 |
 
-Face à son équipondéré, Daphné risque ESG gagne **2,61 points** cumulés, avec **1,31 point** de volatilité en moins. Mohamed risque ESG gagne **2,10 points** cumulés face au sien, avec **2,28 points** de volatilité en moins. L'optimiseur d'origine améliore aussi légèrement le rendement de l'équipondéré Daphné, mais augmente sa volatilité et n'améliore pas sa perte maximale.
+**Gestion active** (réoptimisation trimestrielle) :
 
-La comparaison avec le marché reste défavorable : Daphné risque ESG rend **8,72 points** de performance cumulée à IWDA et son Sharpe reste inférieur. Sa volatilité est proche de celle du benchmark, tandis que sa perte maximale est moins profonde de **5,57 points**. Les trois ratios d'information sont négatifs après 2024. Une baisse du drawdown ne suffit donc pas à conclure à une meilleure performance ajustée du risque sur tous les critères.
+| Portefeuille | Perf. cumulée | Rendement annualisé | Volatilité | Sharpe | Perte maximale | Tracking error | Bêta | Rotation /an |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Daphné · origine | +6,00 % | +3,13 % | 15,22 % | 0,075 | −19,72 % | 11,14 % | 0,77 | 58 % |
+| Daphné · risque ESG | +8,60 % | +4,47 % | 14,34 % | 0,172 | −17,07 % | 12,96 % | 0,59 | 28 % |
+| Mohamed · risque ESG | +9,95 % | +5,16 % | 14,94 % | 0,211 | −16,58 % | 12,32 % | 0,68 | 27 % |
+| **A · Thématique recalibrée** | **+16,89 %** | **+8,63 %** | **13,93 %** | **0,476** | −16,70 % | 9,67 % | 0,75 | 63 % |
+| MSCI World (IWDA) | +17,81 % | +9,08 % | 14,24 % | 0,497 | −21,59 % | — | 1 | — |
 
-![Valeur de 100 euros après 2024](../results/graphiques/comparaison_hors_echantillon.png)
+**Par année** (rendements mensuels composés ; 2026 arrêté au 20/11) :
+
+| Portefeuille | 2025 figé | 2026 figé | 2025 actif | 2026 actif |
+|---|---:|---:|---:|---:|
+| Daphné · origine | +0,53 % | +6,86 % | −2,54 % | +8,76 % |
+| Daphné · risque ESG | −3,28 % | +12,78 % | −5,47 % | +14,88 % |
+| Mohamed · risque ESG | −1,11 % | +9,76 % | −3,23 % | +13,62 % |
+| **A · Thématique recalibrée** | **+3,54 %** | +11,60 % | +0,14 % | **+16,73 %** |
+| MSCI World (IWDA) | +7,08 % | +10,02 % | +7,08 % | +10,02 % |
+
+Ce qu'il faut retenir :
+
+- **A est le seul mode proche de l'indice.** Le retard cumulé tombe à 2,3 points (poids figés) et 0,9 point (gestion active), contre 8 à 12 points pour les trois autres modes. A le fait avec la volatilité la plus basse en gestion active et une perte maximale inférieure de 5 points à celle du MSCI World.
+- **Le profil de A est celui d'un fonds santé.** A est en retard en 2025, année où la santé est le pire secteur (+1,8 % en EUR contre +7,3 % pour le marché ; Molina, Sarepta, CSL et Novo Nordisk pèsent). Il rattrape surtout en octobre-novembre 2026, quand la tech chute de 18,5 % et la santé monte de 9,4 %. Au 30/09/2026, A ne faisait que +14,0 % contre +24,0 % pour le MSCI World : **le résultat dépend fortement de la date d'arrêt**.
+- **Le rebalancement trimestriel n'aide pas les trois premiers modes** : il ne corrige pas leur sélection (logiciels, pharma sans les gagnants). Il apporte +1,3 point à A, sans que cet écart dépasse le bruit statistique.
+- **Les ratios d'information restent négatifs pour tous les modes** : −0,12 (figé) et −0,05 (actif) pour A, contre −0,32 à −0,53 pour les autres.
+
+L'attribution à poids figés de A est disponible dans le [CSV d'attribution](../results/thematique_recalibree/attribution_post2024.csv) :
+- premiers apports : Advantest (+3,37 points), NEC (+2,13), United Therapeutics (+1,98), Quest Diagnostics (+1,88), Merck & Co (+1,47) ;
+- plus fortes pertes : Molina (−1,17), Novo Nordisk (−1,04), Sarepta (−1,02), Cognizant (−0,97), Salesforce (−0,94).
+
+![Valeur de 100 euros après 2024, gestion active](../results/graphiques/comparaison_hors_echantillon_rebalance.png)
+
+![Valeur de 100 euros après 2024, poids figés](../results/graphiques/comparaison_hors_echantillon.png)
 
 ![Pertes depuis les sommets après 2024](../results/graphiques/drawdowns_hors_echantillon.png)
 
-## 3. Historique : l'équipondération reste un comparateur exigeant
+## 3. Performances mensuelles de A
 
-| Portefeuille | Rendement annualisé | Volatilité | Sharpe | Perte maximale |
-|---|---:|---:|---:|---:|
-| Daphné · origine | +14,79 % | 17,26 % | 0,741 | −27,38 % |
-| Daphné · risque ESG | +13,31 % | 15,52 % | 0,729 | **−26,37 %** |
-| Mohamed · risque ESG | +13,80 % | 15,86 % | 0,744 | −27,20 % |
-| Équipondéré Daphné | +14,31 % | 16,35 % | 0,753 | −27,07 % |
-| Équipondéré Mohamed | **+15,36 %** | 17,06 % | **0,783** | −28,50 % |
-| MSCI World (IWDA) | +12,66 % | 15,63 % | 0,682 | −33,63 % |
+Gestion active, en % ; novembre 2026 arrêté au 20/11 :
 
-Les trois modes dépassent le rendement annualisé et le Sharpe du benchmark dans cet historique. Cependant, les deux variantes ESG risque restent derrière leur équipondéré en rendement **et en Sharpe** ; la baisse de volatilité s'accompagne d'un coût de performance. Daphné origine gagne seulement **0,47 point par an** face à son équipondéré, avec davantage de risque et un Sharpe légèrement inférieur.
+| Année | Série | janv. | févr. | mars | avr. | mai | juin | juil. | août | sept. | oct. | nov. | déc. | Année |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2025 | **A** | 3,68 | −0,89 | −6,39 | −3,57 | 2,06 | −0,87 | −0,72 | 1,66 | 1,86 | 3,90 | 0,64 | −0,74 | **0,14** |
+| 2025 | MSCI World | 3,86 | −2,53 | −7,89 | −3,91 | 6,37 | 0,88 | 4,78 | −0,33 | 2,51 | 4,26 | −0,34 | 0,12 | 7,08 |
+| 2026 | **A** | −0,41 | 1,93 | −6,82 | 3,63 | 4,27 | 2,64 | 3,73 | 5,93 | −1,28 | 7,38 | −4,47 | | **16,73** |
+| 2026 | MSCI World | 0,59 | 1,23 | −4,86 | 8,33 | 5,40 | 1,42 | −0,72 | 2,05 | 1,87 | 0,43 | −5,39 | | 10,02 |
 
-La rotation annuelle **aller simple**, calculée à partir de la moitié du volume achats + ventes, représente environ **50,53 %** pour l'original, contre **23,59 %** et **23,74 %** pour les deux variantes ESG risque. Le volume échangé total vaut deux fois cette rotation ; les frais de 10 pb s'appliquent à ce volume total, et sont intégrés aux trajectoires historiques. Les rotations affichées ne sont pas des frais en pourcentage.
+Poids figés, en % :
 
-L'historique n'investit pas artificiellement avant la disponibilité des cours : au premier rebalancement, 39 titres Daphné et 32 titres Mohamed ont l'historique requis. Leur nombre évolue ensuite. Les [audits Daphné](../results/daphne_esg_risk/audit_rebalancements.csv) et [audits Mohamed](../results/mohamed_esg_risk/audit_rebalancements.csv) détaillent les titres disponibles et ceux exclus faute d'historique. Cette précaution ne supprime pas le biais de sélection de l'univers fin 2024.
+| Année | Série | janv. | févr. | mars | avr. | mai | juin | juil. | août | sept. | oct. | nov. | déc. | Année |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2025 | **A** | 3,68 | −0,89 | −6,36 | −3,99 | 1,99 | −0,94 | −1,39 | 2,07 | 2,04 | 7,05 | 1,41 | −0,52 | **3,54** |
+| 2026 | **A** | 1,56 | 3,55 | −7,00 | 5,64 | 6,76 | 3,65 | −2,05 | 2,59 | 0,64 | 4,32 | −7,47 | | **11,60** |
+
+A sous-performe surtout de mai à juillet 2025 (rebond des valeurs technologiques et financières) et en avril 2026. Il surperforme en août 2025, de juillet à août 2026 et en octobre 2026.
+
+Fichiers :
+- les tableaux année × mois de chaque mode, pour chaque période et avec l'équipondéré, sont dans `results/<mode>/performances_mensuelles.csv` ;
+- les rendements mensuels des quatre modes et du MSCI World sur les mêmes dates sont dans [performances_mensuelles_modes.csv](../results/performances_mensuelles_modes.csv).
+
+## 4. Historique : rétrospectif et biaisé à la hausse
+
+| Portefeuille | Rendement annualisé | Volatilité | Sharpe | Perte maximale | Tracking error | Rotation /an |
+|---|---:|---:|---:|---:|---:|---:|
+| Daphné · origine | +14,79 % | 17,26 % | 0,741 | −27,38 % | 9,67 % | 50 % |
+| Daphné · risque ESG | +13,31 % | 15,52 % | 0,729 | −26,37 % | 9,07 % | 24 % |
+| Mohamed · risque ESG | +13,80 % | 15,86 % | 0,744 | −27,20 % | 8,96 % | 24 % |
+| **A · Thématique recalibrée** | **+15,51 %** | **15,16 %** | **0,891** | −27,48 % | **7,92 %** | 61 % |
+| Équipondéré A (88 titres) | +16,03 % | 16,75 % | 0,837 | −27,91 % | 8,58 % | 22 % |
+| MSCI World (IWDA) | +12,66 % | 15,63 % | 0,682 | −33,63 % | — | — |
+| MSCI World reconstitué (survivants fin 2024) | 14,6 % | — | — | — | — | — |
+
+Repère honnête : le MSCI World reconstitué avec les titres présents fin 2024 (14,6 %/an), pas l'ETF IWDA. Sur ce repère :
+- les trois premiers modes ne font pas mieux que le marché ;
+- A le dépasse d'environ 0,9 point par an, avec la volatilité la plus basse et le meilleur Sharpe ;
+- l'équipondéré de A fait un peu plus en rendement (16,0 %/an), mais avec un Sharpe plus faible.
+
+Par année, A contre le MSCI World :
+
+| | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| A | +5,7 % | +44,7 % | +23,0 % | +23,4 % | −8,4 % | +12,7 % | +14,5 % |
+| MSCI World | −4,2 % | +29,6 % | +6,2 % | +32,5 % | −13,5 % | +19,9 % | +27,2 % |
+
+A est en retard lors des envolées des méga-capitalisations tech (2021, 2023, 2024) et en avance lors des baisses (2018, 2022) comme en 2019-2020.
+
+Premier rebalancement : le cache commençant le 02/01/2015, 66 titres de A sur 88 ont 156 semaines complètes le 29/12/2017, dont 48 investis. Au dernier rebalancement de l'historique, les 88 sont disponibles et 59 sont investis. Cet artefact du premier trimestre explique 15,5 %/an ici contre 15,6 % dans le prototype de recherche ; les détails sont dans le [journal d'audit](../results/thematique_recalibree/audit_rebalancements.csv).
 
 ![Historique rétrospectif](../results/graphiques/comparaison_historique.png)
 
-## 4. Allocation et contraintes à la constitution
+## 5. Allocation et contraintes à la constitution
 
-| Indicateur au 31/12/2024 | Daphné origine | Daphné risque ESG | Mohamed risque ESG |
-|---|---:|---:|---:|
-| Titres sélectionnés et investis | 56 | 56 | 47 |
-| Santé | 52,50 % | 60,89 % | 54,19 % |
-| Technologie | **40,00 %** | **28,00 %** | 34,05 % |
-| Autres secteurs réunis | 7,50 % | 11,11 % | 11,75 % |
-| Poids minimum observé | 1,00 % | 0,55 % | 0,74 % |
-| Poids maximum observé | 4,50 % | 4,05 % | 4,50 % |
-| Titres au plafond de 4,50 % | 12 | 0 | 3 |
+| Indicateur au 31/12/2024 | Daphné origine | Daphné risque ESG | Mohamed risque ESG | A · Thématique recalibrée |
+|---|---:|---:|---:|---:|
+| Titres sélectionnés | 56 | 56 | 47 | 88 |
+| Titres investis (> 0,01 %) | 56 | 56 | 47 | 59 |
+| Santé | 52,50 % | 60,89 % | 54,19 % | 54,39 % |
+| Technologie | **40,00 %** | **28,00 %** | 34,05 % | 32,47 % |
+| Autres secteurs réunis | 7,50 % | 11,11 % | 11,75 % | 13,14 % (industrie 7,82 %, conso. de base 5,32 %) |
+| Poids maximum | 4,50 % | 4,05 % | 4,50 % | 4,50 % |
+| Titres au plafond de 4,50 % | 12 | 0 | 3 | 1 (NEC) |
 
-Les trois solveurs convergent, les poids somment à 100 % et toutes les contraintes sont respectées à la précision numérique **aux dates de constitution et de rebalancement**. Les contraintes actives expliquent les différences : l'original atteint la borne haute de 40 % en technologie ; Daphné risque ESG atteint sa borne basse de 28 % ; Mohamed risque ESG atteint le plafond de poids sur Kimberly-Clark, Essity et Ono Pharmaceutical. Aucune variante n'atteint le plafond d'ITR moyen de 1,8 °C à la constitution.
+A respecte toutes les contraintes à la précision numérique : santé 50-65 %, technologie 28-40 %, autres secteurs ≤ 15 %, ITR ≤ 1,8 °C, intensité carbone ≤ 427 tCO₂e/M$. Au 31/12/2024, ni la contrainte carbone (394 pour 427 autorisés) ni l'ITR (1,70 °C) ne sont actives sur le mélange. Les diagnostics d'optimisation donnent :
+- tracking error ex ante : 11,0 % pour le mélange, 10,4 % pour la poche tracking error, 12,2 % pour la poche diversification ;
+- ratio de diversification : 2,45 ;
+- volatilité modélisée : 11,5 %.
 
-Après 2024, les poids dérivent avec les cours : au 20/11/2026, le poids maximal atteint **10,46 %** dans l'original (Advantest), **5,67 %** dans Daphné risque ESG et **6,35 %** dans Mohamed risque ESG (Ono Pharmaceutical dans ces deux cas). Les plafonds initiaux ne décrivent donc pas les poids de toute la période de détention. Les allocations sectorielles et les indicateurs ESG ci-dessous sont ceux de fin 2024, pas ceux du portefeuille final dérivé.
+Après 2024, la gestion active garde la santé entre 51 et 55 % et la technologie entre 32 et 36 %, avec 62 à 68 lignes ([audit](../results/thematique_recalibree/audit_rebalancements_post2024.csv), [poids trimestriels](../results/thematique_recalibree/poids_post2024_rebalance.csv)).
 
-Les budgets de risque ESG sont des cibles sous contraintes. L'écart maximum entre budget et contribution au risque réalisée atteint **0,029 point** de part du risque pour Daphné et **0,726 point** pour Mohamed ; la somme des écarts absolus vaut respectivement **0,50** et **2,61 points**. Les contraintes empêchent une égalité exacte, sans indiquer un échec du solveur. Les budgets et contributions figurent dans les CSV de portefeuilles, les contrôles dans les fichiers `diagnostics_optimisation.json` de chaque mode.
+Principales lignes de A au 31/12/2024 : NEC 4,50 %, Merck & Co 4,19 %, Elevance Health 4,14 %, United Therapeutics 4,03 %, Cognizant 3,81 %, Cummins 3,43 %, Molina Healthcare 3,31 %, SOBI 2,84 %, Otsuka 2,76 %, Quest Diagnostics 2,76 %. Les dix premières pèsent 35,8 %. La présence de Cummins (moteurs) via la liste discrétionnaire d'industriels reste une décision de groupe.
 
 ![Allocation sectorielle à la constitution](../results/graphiques/allocation_sectorielle.png)
 
-L'attribution après 2024 décompose exactement le rendement cumulé en `poids initial × rendement du titre en EUR`. Dans l'original, Advantest apporte **+6,74 points**, SOBI **+2,24** et NEC **+2,13**, tandis qu'Intuit coûte **−2,62 points**, Novo Nordisk **−2,45** et Molina **−1,59**. Le rendement du fonds résulte de la somme de toutes les contributions, positives et négatives.
+## 6. ESG : profils améliorés face à l'univers, arbitrages entre modes
 
-Dans Daphné risque ESG, les premiers apports sont Genmab (**+2,49 points**), Ono (**+2,15**) et Advantest (**+1,64**) ; Novo Nordisk retranche **1,21 point**. Dans Mohamed risque ESG, Ono (**+2,40**), Advantest (**+2,08**) et Biogen (**+1,93**) dominent, contre **−1,72 point** pour Novo Nordisk. Ces calculs identifient les titres moteurs sans attribuer leurs variations à des événements de marché non vérifiés.
+| Indicateur pondéré fin 2024 | Daphné origine | Daphné risque ESG | Mohamed risque ESG | A | Univers MSCI World |
+|---|---:|---:|---:|---:|---:|
+| ITR moyen, °C | 1,518 | 1,519 | 1,572 | 1,704 | 2,397 |
+| Intensité carbone scopes 1+2 | 16,41 | 27,68 | 31,88 | 29,42 | 95,89 |
+| Intensité carbone scopes 1+2+3 | 255,99 | 289,89 | 322,61 | 393,91 | 854,08 |
+| Réduction intensité scopes 1+2+3 vs univers | 70,03 % | 66,06 % | 62,23 % | 53,88 % | — |
+| Score net ODD 3 | 1,86 | **2,60** | 2,16 | 1,99 | −0,11 |
+| Score net ODD 9 | **1,18** | 1,06 | 0,89 | **1,18** | 0,10 |
+| Gouvernance /10 | 6,57 | 6,57 | **6,64** | 6,51 | 5,66 |
+| Revenus Taxonomie UE max, % | 2,21 % | 1,92 % | 2,10 % | **4,68 %** | 8,90 % |
 
-## 5. ESG : profils améliorés face à l'univers, arbitrages entre modes
+Les intensités sont en tCO₂e par million de dollars de chiffre d'affaires. La couverture des indicateurs est de 100 % du poids pour les quatre fonds.
 
-| Indicateur pondéré fin 2024 | Daphné origine | Daphné risque ESG | Mohamed risque ESG | Univers MSCI World |
-|---|---:|---:|---:|---:|
-| ITR moyen, °C | 1,518 | 1,519 | 1,572 | 2,397 |
-| Intensité carbone scopes 1+2 | 16,41 | 27,68 | 31,88 | 95,89 |
-| Intensité carbone scopes 1+2+3 | 255,99 | 289,89 | 322,61 | 854,08 |
-| Réduction intensité scopes 1+2+3 vs univers | 70,03 % | 66,06 % | 62,23 % | — |
-| Score net ODD 3 | 1,86 | **2,60** | 2,16 | −0,11 |
-| Score net ODD 9 | **1,18** | 1,06 | 0,89 | 0,10 |
-| Gouvernance /10 | 6,57 | 6,57 | **6,64** | 5,66 |
-| Revenus Taxonomie UE max, % | 2,21 % | 1,92 % | 2,10 % | 8,90 % |
+A échange une partie de la marge climatique contre la performance, en restant nettement sous les seuils :
+- ITR de 1,70 °C, contre 1,52 °C pour Daphné et 2,40 °C pour le MSCI World ;
+- intensité carbone réduite de 54 %, la contrainte imposant au moins 50 %.
 
-Les intensités sont exprimées dans les unités du fichier source, en tCO₂e par million de dollars de chiffre d'affaires. La couverture des indicateurs présentés est de **100 % du poids pour les trois fonds**. Pour le benchmark ESG, elle varie de **99,62 % à 99,78 %** ; les moyennes sont renormalisées sur le poids renseigné, sans assimiler les données manquantes à zéro.
+Ces indicateurs décrivent la composition à la constitution et ne mesurent ni un impact causé, ni une trajectoire de décarbonation réalisée. Aucun résultat ne certifie une classification Article 9 ou une conformité PAB.
 
-L'optimiseur ESG risque Daphné accroît l'exposition santé et le score ODD 3, avec un ITR presque inchangé, mais son intensité carbone est supérieure à celle de l'original. Le mode Mohamed applique une contribution climatique plus stricte tout en autorisant un ITR individuel plus élevé : il ne domine donc pas les deux autres sur les moyennes carbone et température. Ces indicateurs décrivent la composition à la constitution et ne mesurent ni un impact causé ni une trajectoire de décarbonation réalisée.
+## 7. Qualité des prix et limites
 
-Le faible niveau de revenus Taxonomie, malgré les filtres durables, rappelle que la règle Mohamed est une alternative **Taxonomie ou SBTi**. Aucun résultat ne certifie une classification Article 9 ou une conformité PAB ; un ITR proche de 1,5 °C ne constitue pas cette certification.
+Le cache couvre **88 titres distincts plus IWDA**, sur les dates du 02/01/2015 au 20/11/2026. Les quatre modes disposent de tous leurs cours et d'une observation récente. Pour les trois premiers modes, le rafraîchissement n'a déplacé les cours existants que de 3·10⁻⁴ € au plus, et leurs poids et métriques sont inchangés à 10⁻⁶ près.
 
-## 6. Qualité des prix et limites
+L'[audit des prix](../results/qualite_prix.csv) identifie **19 séries avec une variation quotidienne supérieure à 25 %**, conservées sans correction arbitraire. Le mouvement de PTC (+33,43 % le 05/10/2026) est toujours présent.
+- Sensibilité au titre PTC entier, pour les trois premiers modes : +7,74 %, +9,19 % et +8,65 % (fichiers `sensibilite_ptc.csv`).
+- A n'est pas concernée : PTC y a un poids nul au 31/12/2024.
 
-Le cache rafraîchi couvre **64 titres distincts plus IWDA**, sur 3 094 dates du 02/01/2015 au 20/11/2026. Les trois modes disposent de tous leurs cours et d'une observation récente. Les conversions en EUR prennent en compte les sous-unités de cotation ; les valeurs absentes lors des jours fériés sont distinguées de l'absence d'historique avant introduction.
+Les difficultés de données sont détaillées dans la [section 10 de la méthodologie](methodologie_et_chronologie.md) : tickers introuvables, devises mal renseignées, sauts suspects, premier trimestre 2018.
 
-L'[audit des prix](../results/qualite_prix.csv) identifie **11 séries avec une variation maximale supérieure à 25 %**. Une variation élevée n'est pas nécessairement une erreur. Le mouvement de **PTC de +33,43 % le 05/10/2026** est toujours présent après rafraîchissement ; il est conservé, avec besoin de vérification indépendante avant un usage économique des résultats. Aucun choc n'est expliqué par une actualité non vérifiée.
+Les résultats restent sensibles au cache Yahoo ajusté, au change, au traitement des jours sans cotation et aux choix faits après la date de référence. L'absence de frais de gestion, de fiscalité et de coûts de liquidité facilite aussi les performances simulées. La période après 2024 dure moins de deux ans, se termine en plein krach technologique, et ne permet pas de conclure à une supériorité structurelle.
 
-La sensibilité retire **tout le titre PTC**, renormalise les autres poids initiaux puis recalcule la période, sans réoptimisation. Les performances cumulées deviennent **+7,74 %**, **+9,19 %** et **+8,65 %** pour l'original, Daphné risque ESG et Mohamed risque ESG, soit respectivement **+0,32**, **+0,10** et **+0,11 point**. Le classement des trois variantes reste identique. Ce test mesure la dépendance au titre ; il ne corrige ni ne valide le saut du 05/10/2026 et ne garantit pas le respect des contraintes après renormalisation. [Sensibilité originale](../results/daphne_original/sensibilite_ptc.csv) · [Daphné risque ESG](../results/daphne_esg_risk/sensibilite_ptc.csv) · [Mohamed risque ESG](../results/mohamed_esg_risk/sensibilite_ptc.csv).
+## 8. Fichiers à consulter
 
-Les résultats restent sensibles au cache Yahoo ajusté, au change, au traitement des jours sans cotation et aux choix de sélection faits après la date de référence. L'absence de frais de gestion, fiscalité et coûts de liquidité facilite aussi les performances simulées. La période après 2024 dure moins de deux ans et ne permet pas de conclure à une supériorité structurelle.
+| Mode | Métriques (3 périodes) | Portefeuille initial | ESG | Mensuel | Attribution |
+|---|---|---|---|---|---|
+| Daphné origine | [CSV](../results/daphne_original/metriques_backtest.csv) | [CSV](../results/daphne_original/portefeuille_final_pondere.csv) | [CSV](../results/daphne_original/indicateurs_esg.csv) | [CSV](../results/daphne_original/performances_mensuelles.csv) | [CSV](../results/daphne_original/attribution_post2024.csv) |
+| Daphné risque ESG | [CSV](../results/daphne_esg_risk/metriques_backtest.csv) | [CSV](../results/daphne_esg_risk/portefeuille_final_pondere.csv) | [CSV](../results/daphne_esg_risk/indicateurs_esg.csv) | [CSV](../results/daphne_esg_risk/performances_mensuelles.csv) | [CSV](../results/daphne_esg_risk/attribution_post2024.csv) |
+| Mohamed risque ESG | [CSV](../results/mohamed_esg_risk/metriques_backtest.csv) | [CSV](../results/mohamed_esg_risk/portefeuille_final_pondere.csv) | [CSV](../results/mohamed_esg_risk/indicateurs_esg.csv) | [CSV](../results/mohamed_esg_risk/performances_mensuelles.csv) | [CSV](../results/mohamed_esg_risk/attribution_post2024.csv) |
+| A · Thématique recalibrée | [CSV](../results/thematique_recalibree/metriques_backtest.csv) | [CSV](../results/thematique_recalibree/portefeuille_final_pondere.csv) | [CSV](../results/thematique_recalibree/indicateurs_esg.csv) | [CSV](../results/thematique_recalibree/performances_mensuelles.csv) | [CSV](../results/thematique_recalibree/attribution_post2024.csv) |
 
-## 7. Fichiers à consulter
-
-| Mode | Métriques avec équipondéré | Portefeuille initial | ESG | Attribution et poids finaux |
-|---|---|---|---|---|
-| Daphné origine | [CSV](../results/daphne_original/metriques_backtest.csv) | [CSV](../results/daphne_original/portefeuille_final_pondere.csv) | [CSV](../results/daphne_original/indicateurs_esg.csv) | [CSV](../results/daphne_original/attribution_post2024.csv) |
-| Daphné risque ESG | [CSV](../results/daphne_esg_risk/metriques_backtest.csv) | [CSV](../results/daphne_esg_risk/portefeuille_final_pondere.csv) | [CSV](../results/daphne_esg_risk/indicateurs_esg.csv) | [CSV](../results/daphne_esg_risk/attribution_post2024.csv) |
-| Mohamed risque ESG | [CSV](../results/mohamed_esg_risk/metriques_backtest.csv) | [CSV](../results/mohamed_esg_risk/portefeuille_final_pondere.csv) | [CSV](../results/mohamed_esg_risk/indicateurs_esg.csv) | [CSV](../results/mohamed_esg_risk/attribution_post2024.csv) |
-
-Les filtres, les objectifs des optimiseurs, les corrections et la chronologie sont regroupés dans [Méthodologie et chronologie](methodologie_et_chronologie.md). La commande de reproduction est `python run_pipeline.py` ; le renouvellement des prix est facultatif avec `--refresh-prices`.
+Les filtres, les objectifs des optimiseurs, la recherche ayant conduit à A, les difficultés et la chronologie sont regroupés dans [Méthodologie et chronologie](methodologie_et_chronologie.md). La commande de reproduction est `python run_pipeline.py` ; le renouvellement des prix est facultatif avec `--refresh-prices`.

@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/env python3
-"""Exécute les trois variantes de sélection/allocation, avec résultats isolés."""
+"""Exécute les quatre variantes de sélection/allocation, avec résultats isolés."""
 
 import argparse
 import hashlib
@@ -23,6 +23,7 @@ MODES = {
     'daphne_original': ('daphne', 'original', 'Daphné · origine'),
     'daphne_esg_risk': ('daphne', 'esg_risk', 'Daphné · risque ESG'),
     'mohamed_esg_risk': ('mohamed', 'esg_risk', 'Mohamed · risque ESG'),
+    'thematique_recalibree': ('recalibree', 'te_div', 'A · Thématique recalibrée'),
 }
 
 
@@ -127,13 +128,19 @@ def main(argv=None):
         'modes': selected_modes, 'skip_history': args.skip_history, 'refresh_prices': args.refresh_prices,
         'date_constitution': '2024-12-31', 'cache_debut': str(prices.index[0].date()),
         'cache_fin': str(prices.index[-1].date()), 'fenetre_covariance_semaines': 156,
-        'rebalancement_historique': 'trimestriel', 'frais_sur_montant_echange': 0.001,
+        'rebalancement_historique': 'trimestriel',
+        'rebalancement_post_2024': 'poids figés (hors_echantillon) et trimestriel (hors_echantillon_rebalance)',
+        'mode_thematique_recalibree': {'plafond_par_sous_secteur': 0.12, 'intensite_carbone_max_vs_msci': 0.5,
+                                       'sous_secteur': 'gics_sector_name | industry_group (all_data.csv)'},
+        'frais_sur_montant_echange': 0.001,
         'taux_sans_risque_annuel': 0.02,
         'sources': [file_fingerprint(path) for path in (source, sbti, prices_path,
                     prices_path.with_name('prix_devise_locale.csv'), prices_path.with_name('taux_de_change.csv'))],
         'versions': {name: version(name) for name in ('numpy', 'pandas', 'scipy', 'scikit-learn', 'matplotlib', 'yfinance')},
         'limites': ['Univers et scores ESG figés fin 2024 : historique rétrospectif avec biais de sélection/survivance.',
                     'Période post-2024 à poids figés; filtres choisis a posteriori, pas une validation prospective.',
+                    'Gestion active post-2024 : réoptimisation trimestrielle sur les cours connus, univers et ESG figés fin 2024.',
+                    'Mode thematique_recalibree conçu après une recherche sur 2018-2026 : le choix des règles a vu la période post-2024.',
                     'SBTi : photographie du 13/01/2025, validation au cutoff seulement si confirmée par la source.',
                     'Cours ajustés du cache fournis, mouvements atypiques non corrigés arbitrairement.',
                     'Pas de frais de gestion ni de frais de constitution du portefeuille.'],

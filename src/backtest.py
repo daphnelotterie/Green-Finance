@@ -2,6 +2,9 @@
 
 L'univers et les scores ESG restent ceux de fin 2024 : l'historique est
 rétrospectif, même lorsque les entrées de marché sont réestimées à chaque date.
+Après 2024, deux lectures : poids figés à la constitution (``hors_echantillon``)
+et gestion active avec réoptimisation trimestrielle sur les seuls cours connus
+à chaque date (``hors_echantillon_rebalance``).
 """
 
 import csv
@@ -11,9 +14,46 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.optimizer import PedersenPortfolioOptimizer, ESGRiskBudgetingOptimizer, load_prices
+from src.optimizer import (PedersenPortfolioOptimizer, ESGRiskBudgetingOptimizer, TrackingDiversificationOptimizer,
+                           load_prices)
 from src.prices import BENCHMARK_COLUMN
 from src.graphiques import tracer_performances, COULEURS
+
+MOIS_COLONNES = ["janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."]
+PERIODES = {
+    'historique': ('Historique rétrospectif', 'Réoptimisation trimestrielle, frais de transaction 10 pb · univers et ESG figés fin 2024'),
+    'hors_echantillon': ('Depuis fin 2024', 'Poids fin 2024 conservés · cours ajustés en EUR · aucun rebalancement'),
+    'hors_echantillon_rebalance': ('Depuis fin 2024, gestion active',
+                                   'Réoptimisation trimestrielle avec les seuls cours connus · frais 10 pb · univers et ESG figés fin 2024'),
+}
+
+
+def monthly_returns(values):
+    """Rendements mensuels d'une valorisation ; le premier mois part de la date initiale.
+
+    Une série qui démarre le dernier jour coté d'un mois (31/12/2024, 29/12/2017) prend ce
+    mois comme base ; une série qui démarre en cours de mois compte ce mois partiel.
+    """
+    values = values.dropna()
+    month_end = values.resample('ME').last()
+    month_end.index = month_end.index.to_period('M')
+    first_month = values.index[0].to_period('M')
+    if values.index[0] < values[values.index.to_period('M') == first_month].index[-1]:
+        month_end = pd.concat([pd.Series([values.iloc[0]], index=[first_month - 1]), month_end])
+    return month_end.pct_change(fill_method=None).dropna()
+
+
+def monthly_table(series, period):
+    """Tableau année x mois, avec la performance de l'année (mois composés)."""
+    rows = []
+    for name, values in series.items():
+        returns = monthly_returns(values)
+        for year, group in returns.groupby(returns.index.year):
+            row = {'Période': period, 'Série': name, 'Année': year}
+            row.update({MOIS_COLONNES[p.month - 1]: r for p, r in group.items()})
+            row['Année complète'] = float(np.prod(1 + group.values) - 1)
+            rows.append(row)
+    return pd.DataFrame(rows, columns=['Période', 'Série', 'Année', *MOIS_COLONNES, 'Année complète'])
 
 
 def compute_metrics(values, bench, rf_rate=0.02):
@@ -89,6 +129,11 @@ class PortfolioBacktester:
         sector = pd.DataFrame({'secteur': self.data.loc[self.weights.index, 'gics_sector_name'],
                                'poids': self.weights}).groupby('secteur')['poids'].sum()
         sector.to_csv(Path(output_csv_path).with_name('allocation_sectorielle.csv'))
+        # Sous-secteur = secteur GICS + industry_group, comme le plafond de la stratégie A.
+        labels = (self.data.loc[self.weights.index, 'gics_sector_name'] + ' | '
+                  + self.data.loc[self.weights.index, 'industry_group'])
+        pd.DataFrame({'sous_secteur': labels, 'poids': self.weights}).groupby('sous_secteur')['poids'].sum() \
+            .sort_values(ascending=False).to_csv(Path(output_csv_path).with_name('allocation_sous_secteurs.csv'))
         return rows
 
 
@@ -105,7 +150,7 @@ class WalkForwardBacktester:
         self.universe_csv = universe_csv
         self.weighted_portfolio_csv = weighted_portfolio_csv
         self.optimizer_mode = optimizer_mode
-        if optimizer_mode not in ('original', 'esg_risk'):
+        if optimizer_mode not in ('original', 'esg_risk', 'te_div'):
             raise ValueError(f'Optimiseur inconnu : {optimizer_mode}')
         self.split_date, self.first_rebalance = pd.Timestamp(split_date), pd.Timestamp(first_rebalance)
         self.window_weeks, self.rf_rate, self.cost = window_weeks, rf_rate, cost
@@ -154,6 +199,9 @@ class WalkForwardBacktester:
         if self.optimizer_mode == 'original':
             optimizer = PedersenPortfolioOptimizer(None, rows=rows,
                 market_inputs=self.pedersen_market_inputs(date, tickers), verbose=False)
+        elif self.optimizer_mode == 'te_div':
+            optimizer = TrackingDiversificationOptimizer(None, prices=self.prices, benchmark=self.bench, as_of=date,
+                window_weeks=self.window_weeks, rows=rows, verbose=False)
         else:
             optimizer = ESGRiskBudgetingOptimizer(None, prices=self.prices, as_of=date,
                 window_weeks=self.window_weeks, rows=rows, verbose=False)
@@ -217,6 +265,33 @@ class WalkForwardBacktester:
         bench = self.bench.loc[fund.index]
         return {'fonds': fund, 'equipondere': ew, 'msci_world': bench / bench.iloc[0]}
 
+    def run_hors_echantillon_rebalance(self):
+        """Gestion active après 2024 : poids de constitution, puis réoptimisation à chaque fin de
+        trimestre avec les seuls cours connus à la date. Univers et scores ESG restent ceux de fin 2024."""
+        initial = pd.read_csv(self.weighted_portfolio_csv).set_index('ticker')['weight_decimal']
+        if set(initial.index) - set(self.tickers):
+            raise ValueError('Portefeuille et univers incohérents.')
+        idx = self.prices.loc[self.start_oos:].index
+        ends = pd.Series(idx, index=idx).groupby(idx.to_period('Q')).max()
+        dates = [pd.Timestamp(d) for d in ends if self.start_oos < d < self.last_date]
+        n_audit, n_history = len(self.rebalance_audit), len(self.weight_history)
+        weights = {self.start_oos: initial}
+        equal = {self.start_oos: pd.Series(1 / len(self.tickers), index=self.tickers)}
+        for date in dates:
+            weights[date] = self.weights_at(date)
+            equal[date] = pd.Series(1 / len(weights[date]), index=weights[date].index)
+        # Audits de cette période exportés à part : ceux de l'historique restent inchangés.
+        self.post2024_audit = self.rebalance_audit[n_audit:]
+        self.post2024_weights = [initial.rename(self.start_oos)] + self.weight_history[n_history:]
+        del self.rebalance_audit[n_audit:]
+        del self.weight_history[n_history:]
+        fund, rotation = self.simulate(weights, self.last_date)
+        ew, ew_rotation = self.simulate(equal, self.last_date)
+        years = (fund.index[-1] - fund.index[0]).days / 365.25
+        bench = self.bench.loc[fund.index]
+        return ({'fonds': fund, 'equipondere': ew, 'msci_world': bench / bench.iloc[0]},
+                {'fonds': sum(rotation) / years, 'equipondere': sum(ew_rotation) / years})
+
     def export_attribution(self, output_dir, baseline):
         """Contributions exactes à la performance d'un portefeuille sans rebalancement."""
         weights = pd.read_csv(self.weighted_portfolio_csv).set_index('ticker')['weight_decimal']
@@ -257,7 +332,11 @@ class WalkForwardBacktester:
         recent = self.run_hors_echantillon()
         self.export_attribution(output_dir, recent['fonds'])
         periods.append(('hors_echantillon', recent, {}))
-        rows = []
+        active, active_turnover = self.run_hors_echantillon_rebalance()
+        periods.append(('hors_echantillon_rebalance', active, active_turnover))
+        pd.DataFrame(self.post2024_audit).to_csv(output_dir / 'audit_rebalancements_post2024.csv', index=False)
+        pd.DataFrame(self.post2024_weights).fillna(0).to_csv(output_dir / 'poids_post2024_rebalance.csv', index_label='date')
+        rows, monthly = [], []
         names = {'fonds': label, 'equipondere': 'Équipondéré (1/N)', 'msci_world': 'MSCI World (IWDA)'}
         for period, series, turnover in periods:
             for key, values in series.items():
@@ -266,14 +345,13 @@ class WalkForwardBacktester:
                     **compute_metrics(values, series['msci_world'], self.rf_rate),
                     'Rotation annuelle': turnover.get(key, 0.0)})
             pd.DataFrame(series).to_csv(output_dir / f'performances_{period}.csv', index_label='date', float_format='%.10f')
-            historical = period == 'historique'
-            subtitle = ('Réoptimisation trimestrielle, frais de transaction 10 pb · univers et ESG figés fin 2024'
-                        if historical else 'Poids fin 2024 conservés · cours ajustés en EUR · aucun rebalancement')
-            title = f'{"Historique rétrospectif" if historical else "Depuis fin 2024"} : {label}'
+            monthly.append(monthly_table({names[k]: v for k, v in series.items()}, period))
+            title, subtitle = PERIODES[period]
             tracer_performances([(label, series['fonds'], color, 2.4),
                 ('Équipondéré', series['equipondere'], COULEURS['equipondere'], 2.0),
                 ('MSCI World', series['msci_world'], COULEURS['msci_world'], 1.6)],
-                title, subtitle, graph_dir / f'{period}.png')
+                f'{title} : {label}', subtitle, graph_dir / f'{period}.png')
+        pd.concat(monthly).to_csv(output_dir / 'performances_mensuelles.csv', index=False, float_format='%.10f')
         frame = pd.DataFrame(rows)
         frame.to_csv(output_dir / 'metriques_backtest.csv', index=False, float_format='%.10f')
         print(frame[['Période', 'Portefeuille', 'Rendement annualisé', 'Volatilité', 'Sharpe (Rf 2%)']].to_string(index=False))
@@ -284,8 +362,9 @@ def run_comparison(modes, output_dir, skip_history=False):
     """Compare les exécutions demandées, sur leur intersection de dates."""
     output_dir = Path(output_dir)
     (output_dir / 'graphiques').mkdir(parents=True, exist_ok=True)
-    rows = []
-    for period in (['hors_echantillon'] if skip_history else ['historique', 'hors_echantillon']):
+    rows, monthly = [], []
+    periods = ['hors_echantillon', 'hors_echantillon_rebalance']
+    for period in (periods if skip_history else ['historique', *periods]):
         frames = {mode: pd.read_csv(output_dir / mode / f'performances_{period}.csv', index_col=0,
                                     parse_dates=True) for mode, _ in modes}
         common = None
@@ -293,7 +372,7 @@ def run_comparison(modes, output_dir, skip_history=False):
             common = frame.index if common is None else common.intersection(frame.index)
         bench = next(iter(frames.values())).loc[common, 'msci_world']
         bench = bench / bench.iloc[0]
-        curves = []
+        curves, by_label = [], {}
         for mode, label in modes:
             series = frames[mode].loc[common, 'fonds']
             series = series / series.iloc[0]
@@ -301,13 +380,20 @@ def run_comparison(modes, output_dir, skip_history=False):
                          'Début': str(common[0].date()), 'Fin': str(common[-1].date()),
                          **compute_metrics(series, bench)})
             curves.append((label, series, COULEURS[mode], 2.2))
+            by_label[label] = monthly_returns(series)
         rows.append({'mode': 'msci_world', 'Période': period, 'Portefeuille': 'MSCI World (IWDA)',
                      'Début': str(common[0].date()), 'Fin': str(common[-1].date()),
                      **compute_metrics(bench, bench)})
         curves.append(('MSCI World', bench, COULEURS['msci_world'], 1.6))
-        title = 'historique rétrospectif' if period == 'historique' else 'depuis fin 2024'
+        by_label['MSCI World (IWDA)'] = monthly_returns(bench)
+        table = pd.DataFrame(by_label)
+        table.insert(0, 'Mois', table.index.astype(str))
+        table.insert(0, 'Période', period)
+        monthly.append(table)
+        title = PERIODES[period][0].lower()
         tracer_performances(curves, f'Comparaison des modes : {title}',
             'Cours ajustés en EUR · mêmes dates · univers et scores ESG sélectionnés fin 2024',
             output_dir / 'graphiques' / f'comparaison_{period}.png')
     pd.DataFrame(rows).to_csv(output_dir / 'comparaison_modes.csv', index=False, float_format='%.10f')
+    pd.concat(monthly).to_csv(output_dir / 'performances_mensuelles_modes.csv', index=False, float_format='%.10f')
     return rows

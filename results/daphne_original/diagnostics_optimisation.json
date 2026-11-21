@@ -15,7 +15,9 @@
     "tech_min": 0.28,
     "tech_max": 0.4,
     "other_max": 0.15,
-    "max_itr": 1.8
+    "max_itr": 1.8,
+    "max_waci": null,
+    "max_sub_industry": null
   },
   "report": {
     "Santé": 0.5249999999999998,

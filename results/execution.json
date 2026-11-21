@@ -1,9 +1,10 @@
 {
-  "execution_utc": "2026-11-21T15:03:12.670379+00:00",
+  "execution_utc": "2026-11-21T20:39:35.532425+00:00",
   "modes": [
     "daphne_original",
     "daphne_esg_risk",
-    "mohamed_esg_risk"
+    "mohamed_esg_risk",
+    "thematique_recalibree"
   ],
   "skip_history": false,
   "refresh_prices": false,
@@ -12,6 +13,12 @@
   "cache_fin": "2026-11-20",
   "fenetre_covariance_semaines": 156,
   "rebalancement_historique": "trimestriel",
+  "rebalancement_post_2024": "poids figés (hors_echantillon) et trimestriel (hors_echantillon_rebalance)",
+  "mode_thematique_recalibree": {
+    "plafond_par_sous_secteur": 0.12,
+    "intensite_carbone_max_vs_msci": 0.5,
+    "sous_secteur": "gics_sector_name | industry_group (all_data.csv)"
+  },
   "frais_sur_montant_echange": 0.001,
   "taux_sans_risque_annuel": 0.02,
   "sources": [
@@ -27,13 +34,13 @@
     },
     {
       "path": "data/cache/prices/prix_eur.csv",
-      "sha256": "27dd5b1d23332ce5c6c74fd807e42e9b3e2d83ae885759d13d521f59b6314f75",
-      "bytes": 2035042
+      "sha256": "f4fa57ba74de14631cfa9369ca98e17af492c2b5057dcfcf548ed819a57c9bc3",
+      "bytes": 2781305
     },
     {
       "path": "data/cache/prices/prix_devise_locale.csv",
-      "sha256": "60282dc6a1d06e3328cc68a48f6e7b55528dbdfdb28c6729f17527883c7627be",
-      "bytes": 2150755
+      "sha256": "350de2235239b352d042c6c1f66e3e82919bed281fe2e8f0ef168d9b1d68433c",
+      "bytes": 2919097
     },
     {
       "path": "data/cache/prices/taux_de_change.csv",
@@ -52,6 +59,8 @@
   "limites": [
     "Univers et scores ESG figés fin 2024 : historique rétrospectif avec biais de sélection/survivance.",
     "Période post-2024 à poids figés; filtres choisis a posteriori, pas une validation prospective.",
+    "Gestion active post-2024 : réoptimisation trimestrielle sur les cours connus, univers et ESG figés fin 2024.",
+    "Mode thematique_recalibree conçu après une recherche sur 2018-2026 : le choix des règles a vu la période post-2024.",
     "SBTi : photographie du 13/01/2025, validation au cutoff seulement si confirmée par la source.",
     "Cours ajustés du cache fournis, mouvements atypiques non corrigés arbitrairement.",
     "Pas de frais de gestion ni de frais de constitution du portefeuille."
