@@ -16,8 +16,8 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
               (SBTi : photo du 13/01/2025, objectifs validés publiés au 31/12/2024 - Modif Mohamed)
 
   - Étape 8 : Intersection Univers Thématique HealthTech & AI (Slide 62)
-  - Étape 9 : Intersection Univers Financier Quantitatif (Slide 59 & 62, FCF Jensen 1986)
-  ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv' (49 valeurs - Modif Mohamed)
+  - Étape 9 : Intersection Univers Financier Quantitatif (Slide 59 & 62 : rentabilité, FCF > 0, dette, volatilité - Modif Mohamed)
+  ==> Exporte 'data/actifs_notre_secteur_healthtech_ai.csv' (61 valeurs - Modif Mohamed)
 """
 
 import csv
@@ -39,6 +39,7 @@ try:
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
+        FinancialQualityFilterDaphne,  # version d'origine conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,
         SBTI_VALIDATED,  # Modif Mohamed
         SBTI_COMMITTED,  # Modif Mohamed
@@ -58,6 +59,7 @@ except ImportError:
         PositiveContributionFilter,
         HealthTechAIScopeFilter,
         FinancialQualityFilter,
+        FinancialQualityFilterDaphne,  # version d'origine conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,
         SBTI_VALIDATED,  # Modif Mohamed
         SBTI_COMMITTED,  # Modif Mohamed
@@ -206,7 +208,8 @@ def run_pipeline(verbose=True):
     climate_sdg_filter = ClimateSDGFilter()
     pos_contrib_filter = PositiveContributionFilter(sbti_by_isin=sbti_by_isin, min_taxonomy_rev=20.0)
     thematic_filter = HealthTechAIScopeFilter()
-    financial_filter = FinancialQualityFilter()
+    financial_filter = FinancialQualityFilter(companies, vol_percentile=0.90)  # Modif Mohamed
+    # financial_filter = FinancialQualityFilterDaphne()  # version d'origine (Sharpe et rendement 5 ans)  # Modif Mohamed
 
     # --- SÉLECTION EXTRA-FINANCIÈRE (Slides 40 à 50) ---
     if verbose:

@@ -413,6 +413,8 @@ class HealthTechAIScopeFilter(AbstractFilter):
        logiciels de bio-informatique et simulation moléculaire (alignement ODD 9 >= 1.0 ou ODD 3 >= 1.0).
     3. Secteur Industrials : Équipements de laboratoire, filtration d'eau et fluides critiques pour la biopharmacie.
     4. Secteur Consumer Staples : Hygiène préventive et nutrition médicale (ODD 3 >= 2.0).
+    Choix discrétionnaire (Modif Mohamed) : Ansys, sous offre de rachat de Synopsys au 31/12/2024, est écartée
+    et remplacée par PTC (logiciels de conception et de simulation, comme Ansys).
     """
 
     def __init__(self):
@@ -429,6 +431,11 @@ class HealthTechAIScopeFilter(AbstractFilter):
         s3 = company.get_sdg(3)
         s9 = company.get_sdg(9)
 
+        # 0. Titre sous offre de rachat définitive au 31/12/2024, écarté car il va quitter la cote :  # Modif Mohamed
+        #    Ansys (rachat par Synopsys annoncé le 16/01/2024, finalisé en juillet 2025 : plus aucun cours ensuite)  # Modif Mohamed
+        if any(t in name for t in ["ansys"]):  # Modif Mohamed
+            return False  # Modif Mohamed
+
         # 1. Santé au sens large (Pharma, Biotech, Dispositifs médicaux)
         if sec == "Health Care":
             return True
@@ -439,6 +446,10 @@ class HealthTechAIScopeFilter(AbstractFilter):
                 return True
             if s9 >= 1.0 and any(t in ind for t in ["software", "semiconductors", "computers", "electronics"]):
                 return True
+            # Remplaçant d'Ansys : PTC, logiciels de conception (CAO, PLM) et de simulation comme Ansys,  # Modif Mohamed
+            # utilisés par les fabricants de dispositifs médicaux ; passe tous les filtres ESG et financiers  # Modif Mohamed
+            if any(t in name for t in ["ptc inc"]):  # Modif Mohamed
+                return True  # Modif Mohamed
 
         # 3. Équipements de précision industrielle, instrumentation & fluides biopharma
         if sec == "Industrials":
@@ -455,7 +466,56 @@ class HealthTechAIScopeFilter(AbstractFilter):
         return False
 
 
-class FinancialQualityFilter(AbstractFilter):
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+# FILTRE FINANCIER - version qualité (la version d'origine est conservée plus bas,                  # Modif Mohamed
+# sous le nom FinancialQualityFilterDaphne). Pourquoi ces changements :                              # Modif Mohamed
+#  - Plus de sélection sur la performance boursière passée (Sharpe et rendement 5 ans) : c'était    # Modif Mohamed
+#    un filtre de momentum (21 des 26 exclusions du scope thématique venaient de la seule            # Modif Mohamed
+#    performance passée : CSL, Biogen, Humana...), source de biais in-sample avec le backtest        # Modif Mohamed
+#    sur la même période, et un message contraire à la mention AMF « les performances passées       # Modif Mohamed
+#    ne préjugent pas des performances futures ».                                                    # Modif Mohamed
+#  - Le FCF (annoncé « Jensen FCF » mais jamais utilisé) est réellement appliqué : FCF yield > 0.    # Modif Mohamed
+#    Eli Lilly, Vertex et Elevance avaient un FCF négatif au 31/12/2024 et sortent.                  # Modif Mohamed
+#  - Le ROE est retiré : non fiable dans les données (jusqu'à 22 574 % avec des fonds propres ~ 0).  # Modif Mohamed
+#  - Un critère de risque remplace la performance : exclusion des 10 % de titres les plus volatils.  # Modif Mohamed
+#  - Donnée manquante => exclusion (même règle que les filtres extra-financiers, slide 50).          # Modif Mohamed
+#  - Marketing : « durabilité financière » (slide 5 : double durabilité extra-financière et          # Modif Mohamed
+#    financière) = entreprises rentables, qui génèrent du cash et peu endettées.                     # Modif Mohamed
+# ------------------------------------------------------------------------------------------------  # Modif Mohamed
+class FinancialQualityFilter(AbstractFilter):  # Modif Mohamed
+    """
+    Slide 59 & 62 : Univers Financier Quantitatif (« durabilité financière », slide 5).
+    - Rentabilité : ROIC > 5% OU marge nette > 5%
+    - Génération de cash : FCF yield > 0
+    - Solvabilité : Debt/Assets < 65%
+    - Risque : exclusion des 10% de titres les plus volatils du MSCI World (volatilité 5 ans)
+    - Donnée manquante => exclusion
+    """  # Modif Mohamed
+
+    fields = ("ROIC", "Net margin", "FCF yield", "Debt assets", "Volatility 5Y")  # Modif Mohamed
+
+    def __init__(self, companies: List[Company], vol_percentile: float = 0.90):  # Modif Mohamed
+        self.max_volatility = quantile([c.volatility_5y for c in companies if not c.is_missing("Volatility 5Y")],  # Modif Mohamed
+                                       vol_percentile)  # Modif Mohamed
+        super().__init__(  # Modif Mohamed
+            name="Univers Financier Quantitatif (Qualité & Cash)",  # Modif Mohamed
+            slide_ref="Slide 59 & 62",  # Modif Mohamed
+            description=f"Garde les entreprises rentables, à FCF positif, peu endettées et de volatilité <= {self.max_volatility:.1%}."  # Modif Mohamed
+        )  # Modif Mohamed
+
+    def evaluate(self, company: Company) -> bool:  # Modif Mohamed
+        if company.is_missing(*self.fields):  # donnée manquante => exclusion  # Modif Mohamed
+            return False  # Modif Mohamed
+        is_profitable = (company.roic > 5.0) or (company.net_margin > 5.0)  # ROE retiré (non fiable)  # Modif Mohamed
+        generates_cash = company.fcf_yield > 0.0  # FCF réellement appliqué  # Modif Mohamed
+        is_solvent = company.debt_assets < 65.0  # règle inchangée  # Modif Mohamed
+        not_too_volatile = company.volatility_5y <= self.max_volatility  # risque au lieu de la performance passée  # Modif Mohamed
+        return is_profitable and generates_cash and is_solvent and not_too_volatile  # Modif Mohamed
+
+
+# Version d'origine (Daphné), conservée pour mémoire : elle n'est plus utilisée par le pipeline.  # Modif Mohamed
+# Pour la réactiver : dans src/run_tri.py, utiliser la ligne commentée financial_filter = FinancialQualityFilterDaphne().  # Modif Mohamed
+class FinancialQualityFilterDaphne(AbstractFilter):  # ancienne FinancialQualityFilter, renommée  # Modif Mohamed
     """
     Slide 59 & 62 : Univers Financier Quantitatif (Théorie du FCF de Jensen 1986).
     Élimine les entreprises spéculatives non rentables, surendettées ou destructrices de valeur :
