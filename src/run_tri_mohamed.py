@@ -19,7 +19,8 @@ Basé sur les diapositives de 'Finance Durable - Approche Quantitative' (Jean Ja
   - Étape 7 : Intensité carbone sectorielle Scope 1+2+3 (Slide 46 & 50)
   - Étape 8 : ODD climatiques 7, 12, 13 (Slide 47 & 50)
   - Étape 9 : Contribution positive : Taxonomie >= 20% du CA ou objectif SBTi validé (Slide 13)
-              (jointure par ISIN avec les données SBTi de data/sbti/ + rapprochements par nom vérifiés : SBTI_NAME_MATCHES)
+              (photo SBTi du 13/01/2025 jointe à notre univers, statuts au 31/12/2024 ; en option commentée :
+              base de novembre 2026 + rapprochements par nom vérifiés SBTI_NAME_MATCHES)
 
   - Étape 10 : Intersection Univers Thématique HealthTech & AI (Slide 62)
   - Étape 11 : Intersection Univers Financier Quantitatif (Slide 59 & 62 : rentabilité, FCF > 0, dette, volatilité)
@@ -50,6 +51,9 @@ try:
         FinancialQualityFilter,
         FinancialQualityFilterDaphne,  # ancienne version conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,  # Modif Mohamed
+        SBTI_VALIDATED,  # Modif Mohamed
+        SBTI_COMMITTED,  # Modif Mohamed
+        SBTI_REMOVED,  # Modif Mohamed
     )
 except ImportError:
     from filters_mohamed import (  # Modif Mohamed
@@ -69,6 +73,9 @@ except ImportError:
         FinancialQualityFilter,
         FinancialQualityFilterDaphne,  # ancienne version conservée  # Modif Mohamed
         SBTI_STATUS_FIELDS,  # Modif Mohamed
+        SBTI_VALIDATED,  # Modif Mohamed
+        SBTI_COMMITTED,  # Modif Mohamed
+        SBTI_REMOVED,  # Modif Mohamed
     )
 
 
@@ -99,6 +106,8 @@ def export_to_csv(filepath: str, companies, headers):
     print(f"-> Fichier exporté avec succès : {filepath} ({len(companies)} entreprises)")
 
 
+# Utilisés seulement avec la base SBTi de novembre 2026 (option commentée dans run_pipeline) :  # Modif Mohamed
+# la photo du 13/01/2025 contient déjà ses propres rapprochements (ISIN, puis nom et pays).  # Modif Mohamed
 # Rapprochements par nom, vérifiés à la main un par un (nom, pays, secteur) :  # Modif Mohamed
 # fiches SBTi sans ISIN, ou avec un autre ISIN que le nôtre (ancien ISIN avant une division d'actions,  # Modif Mohamed
 # autre classe d'actions, ISIN d'obligation). Clé = ISIN de notre univers, valeur = sbti_id de la base SBTi.  # Modif Mohamed
@@ -200,6 +209,40 @@ def load_sbti_by_isin(filepath: str):  # Modif Mohamed
     return sbti_by_isin  # Modif Mohamed
 
 
+def load_sbti_snapshot_by_isin(filepath: str):  # Modif Mohamed
+    """Charge la photo SBTi du 13/01/2025, déjà jointe à l'univers MSCI, indexée par ISIN (Modif Mohamed).
+
+    Même fonction que dans la version officielle (src/run_tri.py). Elle donne les statuts SBTi à la date
+    de nos données (31/12/2024), sans le biais d'anticipation de la base de novembre 2026.
+      - seuls les rapprochements sûrs sont gardés (sbti_match_status == 'MATCHED') : les cas 'REVIEW'
+        (Roche...) et 'UNMATCHED' restent absents de la base SBTi, une donnée manquante ne vaut pas validation ;
+      - un objectif n'est validé que si sa publication avant le 31/12/2024 est confirmée
+        (sbti_near_term_validation_published_by_cutoff_confirmed == '1') ;
+      - les statuts de la photo ('Targets Set', 'Committed', 'Removed') sont traduits dans le vocabulaire
+        du Target Dashboard utilisé par filters_mohamed.py. Le statut court terme suffit : aucun objectif
+        long terme n'y est validé sans objectif court terme validé.
+    Les rapprochements du fichier recoupent nos SBTI_NAME_MATCHES (Novo Nordisk, Straumann...).
+    """
+    snapshot_to_dashboard = {"Committed": SBTI_COMMITTED, "Removed": SBTI_REMOVED}  # Modif Mohamed
+    sbti_by_isin = {}  # Modif Mohamed
+    if not os.path.exists(filepath):  # Modif Mohamed
+        return sbti_by_isin  # Modif Mohamed
+    with open(filepath, mode="r", encoding="utf-8-sig") as f:  # Modif Mohamed
+        for row in csv.DictReader(f):  # Modif Mohamed
+            isin = (row.get("isin") or "").strip().upper()  # Modif Mohamed
+            if not isin or row.get("sbti_match_status") != "MATCHED":  # Modif Mohamed
+                continue  # Modif Mohamed
+            snapshot = (row.get("sbti_near_term_status_snapshot") or "").strip()  # Modif Mohamed
+            if row.get("sbti_near_term_validation_published_by_cutoff_confirmed") == "1":  # Modif Mohamed
+                near_term = SBTI_VALIDATED  # Modif Mohamed
+            elif snapshot == "Targets Set":  # validé en janvier 2025 mais publication non confirmée au 31/12/2024  # Modif Mohamed
+                near_term = "Targets Set (publication non confirmée au 31/12/2024)"  # Modif Mohamed
+            else:  # Modif Mohamed
+                near_term = snapshot_to_dashboard.get(snapshot, snapshot)  # Modif Mohamed
+            sbti_by_isin[isin] = {"company_name": row.get("sbti_company_name", ""), "near_term_status": near_term}  # Modif Mohamed
+    return sbti_by_isin  # Modif Mohamed
+
+
 def export_sbti_join(filepath: str, companies, contrib_filter):  # Modif Mohamed
     """Exporte la jointure ISIN entre notre univers et la base SBTi (données complémentaires du rendu)."""  # Modif Mohamed
     os.makedirs(os.path.dirname(filepath), exist_ok=True)  # Modif Mohamed
@@ -238,7 +281,9 @@ def run_pipeline(verbose=True):
         print(f"Erreur : Impossible de trouver all_data.csv dans {possible_inputs}")
         sys.exit(1)
 
-    sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")  # Modif Mohamed
+    # Base SBTi de novembre 2026 (postérieure à nos données : biais d'anticipation), avec SBTI_NAME_MATCHES :  # Modif Mohamed
+    # sbti_csv = os.path.join(root_dir, "data", "sbti", "companies-excel.csv")  # Modif Mohamed
+    sbti_csv = os.path.join(root_dir, "data", "sbti", "msci_world_jointure_sbti_2025-01-13.csv")  # photo au 31/12/2024  # Modif Mohamed
     if not os.path.exists(sbti_csv):  # Modif Mohamed
         print(f"Erreur : Impossible de trouver les données SBTi : {sbti_csv}")  # Modif Mohamed
         sys.exit(1)  # Modif Mohamed
@@ -254,8 +299,9 @@ def run_pipeline(verbose=True):
     if verbose:
         print(f"\n[Univers Initial] MSCI World Developed Markets : {total_initial} valeurs\n")
 
-    # Données SBTi (jointure par ISIN + rapprochements par nom vérifiés)  # Modif Mohamed
-    sbti_by_isin = load_sbti_by_isin(sbti_csv)  # Modif Mohamed
+    # Données SBTi : photo du 13/01/2025, statuts au 31/12/2024 (rapprochements déjà faits dans le fichier)  # Modif Mohamed
+    # sbti_by_isin = load_sbti_by_isin(sbti_csv)  # base de novembre 2026 + rapprochements par nom vérifiés  # Modif Mohamed
+    sbti_by_isin = load_sbti_snapshot_by_isin(sbti_csv)  # Modif Mohamed
 
     # 2. Instanciation des filtres (seuils relatifs calculés sur l'univers complet)  # Modif Mohamed
     pab_filter = PABExclusionFilter()
@@ -268,7 +314,7 @@ def run_pipeline(verbose=True):
     climate_sdg_filter = ClimateSDGFilter()
     pos_contrib_filter = PositiveContributionFilter(sbti_by_isin, min_taxonomy_rev=20.0)  # Modif Mohamed
     thematic_filter = HealthTechAIScopeFilter()
-    # Options à faire valider par le groupe (décommenter aussi la classe dans src/filters.py et son import) :  # Modif Mohamed
+    # Options à faire valider par le groupe (décommenter aussi la classe dans src/filters_mohamed.py et son import) :  # Modif Mohamed
     # thematic_filter = HealthTechAIScopeFilterV3()   # V3 : Santé + Tech IA  # Modif Mohamed
     # thematic_filter = HealthTechAIScopeFilterV6b()  # V6b : V3 + industriels choisis  # Modif Mohamed
     financial_filter = FinancialQualityFilter(companies, vol_percentile=0.90)  # Modif Mohamed
@@ -276,7 +322,7 @@ def run_pipeline(verbose=True):
 
     if verbose:  # Modif Mohamed
         sbti_counts = Counter(pos_contrib_filter.sbti_status(c) for c in companies)  # Modif Mohamed
-        print(f"[Données SBTi] {len(sbti_by_isin)} ISIN reliés à une fiche SBTi (dont {len(SBTI_NAME_MATCHES)} rapprochements par nom vérifiés)")  # Modif Mohamed
+        print(f"[Données SBTi] {len(sbti_by_isin)} valeurs retrouvées dans la photo SBTi du 13/01/2025 (statuts au 31/12/2024)")  # Modif Mohamed
         print(f"   Jointure avec notre univers : {total_initial - sbti_counts['Absent de la base SBTi']} valeurs trouvées")  # Modif Mohamed
         for status, n in sbti_counts.most_common():  # Modif Mohamed
             print(f"   - {status:<36} : {n:>4}")  # Modif Mohamed

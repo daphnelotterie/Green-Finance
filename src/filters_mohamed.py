@@ -34,7 +34,8 @@ INTENSITY_FIELDS = ("INTENSITY_SCOPE_1", "INTENSITY_SCOPE_2", "INTENSITY_SCOPE_3
 FOOTPRINT_FIELDS = ("FOOTPRINT_SCOPE_1", "FOOTPRINT_SCOPE_2", "FOOTPRINT_SCOPE_3")  # Modif Mohamed
 CLIMATE_SDGS = (7, 12, 13)  # Modif Mohamed
 
-# Statuts officiels de la base SBTi (Target Dashboard, fichier "companies")  # Modif Mohamed
+# Statuts officiels de la base SBTi (Target Dashboard, fichier "companies") ; les statuts de la photo  # Modif Mohamed
+# du 13/01/2025 sont traduits dans ce vocabulaire par load_sbti_snapshot_by_isin (run_tri_mohamed.py)  # Modif Mohamed
 SBTI_STATUS_FIELDS = ("near_term_status", "long_term_status", "net_zero_status")  # Modif Mohamed
 SBTI_VALIDATION_FIELDS = ("near_term_status", "long_term_status")  # seuls ces statuts valent validation  # Modif Mohamed
 SBTI_VALIDATED = "Validated Targets"           # objectif validé par SBTi  # Modif Mohamed
@@ -354,9 +355,10 @@ class PositiveContributionFilter(AbstractFilter):
     ET contribution positive. Ce filtre vérifie la contribution positive :
     - Au moins 20% du chiffre d'affaires dans des activités durables
       (proxy : CA aligné Taxonomie UE, EST_EU_TAXONOMY_MAX_REV >= 20)
-    - OU un objectif de réduction des émissions validé par SBTi
-      (jointure par ISIN avec data/sbti/companies-excel.csv, source : sciencebasedtargets.org/target-dashboard,
-      complétée par les rapprochements par nom vérifiés à la main : SBTI_NAME_MATCHES dans run_tri.py)
+    - OU un objectif de réduction des émissions validé par SBTi au 31/12/2024
+      (photo SBTi du 13/01/2025 déjà jointe à notre univers : data/sbti/msci_world_jointure_sbti_2025-01-13.csv,
+      lue par load_sbti_snapshot_by_isin dans run_tri_mohamed.py ; option commentée : base de novembre 2026
+      data/sbti/companies-excel.csv + rapprochements par nom SBTI_NAME_MATCHES - Modif Mohamed)
     Règle de validation SBTi : near_term_status == 'Validated Targets' OU long_term_status == 'Validated Targets'.
     Un simple engagement ('Commitment to Set Targets'), un engagement retiré ('Commitment Removed'),
     une absence de la base SBTi ou une donnée manquante ne sont jamais considérés comme une validation.
@@ -408,6 +410,8 @@ class HealthTechAIScopeFilter(AbstractFilter):
        logiciels de bio-informatique et simulation moléculaire (alignement ODD 9 >= 1.0 ou ODD 3 >= 1.0).
     3. Secteur Industrials : Équipements de laboratoire, filtration d'eau et fluides critiques pour la biopharmacie.
     4. Secteur Consumer Staples : Hygiène préventive et nutrition médicale (ODD 3 >= 2.0).
+    Choix discrétionnaire (Modif Mohamed, identique à la version officielle) : Ansys, sous offre de rachat de
+    Synopsys au 31/12/2024, est écartée et remplacée par PTC (logiciels de conception et de simulation).
     """
 
     def __init__(self):
@@ -424,6 +428,11 @@ class HealthTechAIScopeFilter(AbstractFilter):
         s3 = company.get_sdg(3)
         s9 = company.get_sdg(9)
 
+        # 0. Titre sous offre de rachat définitive au 31/12/2024, écarté car il va quitter la cote :  # Modif Mohamed
+        #    Ansys (rachat par Synopsys annoncé le 16/01/2024, finalisé en juillet 2025 : plus aucun cours ensuite)  # Modif Mohamed
+        if any(t in name for t in ["ansys"]):  # Modif Mohamed
+            return False  # Modif Mohamed
+
         # 1. Santé au sens large (Pharma, Biotech, Dispositifs médicaux)
         if sec == "Health Care":
             return True
@@ -434,6 +443,10 @@ class HealthTechAIScopeFilter(AbstractFilter):
                 return True
             if s9 >= 1.0 and any(t in ind for t in ["software", "semiconductors", "computers", "electronics"]):
                 return True
+            # Remplaçant d'Ansys : PTC, logiciels de conception (CAO, PLM) et de simulation comme Ansys,  # Modif Mohamed
+            # utilisés par les fabricants de dispositifs médicaux (même choix que la version officielle)  # Modif Mohamed
+            if any(t in name for t in ["ptc inc"]):  # Modif Mohamed
+                return True  # Modif Mohamed
 
         # 3. Équipements de précision industrielle, instrumentation & fluides biopharma
         if sec == "Industrials":
@@ -454,10 +467,10 @@ class HealthTechAIScopeFilter(AbstractFilter):
 # OPTIONS DE FILTRE THÉMATIQUE À FAIRE CHOISIR PAR LE GROUPE (désactivées)                          # Modif Mohamed
 # Pour activer une option :                                                                         # Modif Mohamed
 #   1. décommenter la classe choisie ci-dessous (pour V6b, décommenter aussi V3 : V6b en hérite),   # Modif Mohamed
-#   2. dans src/run_tri.py, décommenter son import et remplacer thematic_filter = ... (lignes prêtes). # Modif Mohamed
-# Résultats simulés (données au 31/12/2024, nouveau filtre financier, même optimiseur) :           # Modif Mohamed
-#   - V3  : 38 lignes, Santé 68,5% / Tech 31,5%                                                     # Modif Mohamed
-#   - V6b : 43 lignes, Santé 53,1% / Tech 27,9% / Industrie 19,0%                                   # Modif Mohamed
+#   2. dans src/run_tri_mohamed.py, décommenter son import et remplacer thematic_filter = ... (lignes prêtes). # Modif Mohamed
+# Résultats simulés (données et SBTi au 31/12/2024, filtre financier qualité, même optimiseur) :   # Modif Mohamed
+#   - V3  : 32 lignes, Santé 65,2% / Tech 34,8%                                                     # Modif Mohamed
+#   - V6b : 35 lignes, Santé 54,0% / Tech 32,5% / Industrie 13,5%                                   # Modif Mohamed
 # ------------------------------------------------------------------------------------------------  # Modif Mohamed
 
 # class HealthTechAIScopeFilterV3(AbstractFilter):  # Modif Mohamed
@@ -469,7 +482,7 @@ class HealthTechAIScopeFilter(AbstractFilter):
 #     Industrie et Consommation de base exclues.
 #     """  # Modif Mohamed
 #
-#     AI_SOFTWARE = ["cadence design", "synopsys", "dassault systemes", "ansys"]  # liste discrétionnaire (Microsoft à discuter)  # Modif Mohamed
+#     AI_SOFTWARE = ["cadence design", "synopsys", "dassault systemes", "ptc inc"]  # liste discrétionnaire (Microsoft à discuter ; PTC remplace Ansys, rachetée)  # Modif Mohamed
 #
 #     def __init__(self):  # Modif Mohamed
 #         super().__init__(  # Modif Mohamed
@@ -563,7 +576,7 @@ class FinancialQualityFilter(AbstractFilter):  # Modif Mohamed
 
 
 # Version d'origine (Daphne), conservée pour mémoire : elle n'est plus utilisée par le pipeline.  # Modif Mohamed
-# Pour la réactiver : dans src/run_tri.py, utiliser la ligne commentée financial_filter = FinancialQualityFilterDaphne().  # Modif Mohamed
+# Pour la réactiver : dans src/run_tri_mohamed.py, utiliser la ligne commentée financial_filter = FinancialQualityFilterDaphne().  # Modif Mohamed
 class FinancialQualityFilterDaphne(AbstractFilter):  # ancienne FinancialQualityFilter, renommée  # Modif Mohamed
     """
     Slide 59 & 62 : Univers Financier Quantitatif (Théorie du FCF de Jensen 1986).
