@@ -31,6 +31,8 @@ try:
         DNSHControversyFilter,
         GoodGovernanceAndRatingFilter,
         ParisAlignmentITRFilter,
+        EnvironmentalPillarFilter,
+        SectorCarbonFootprintFilter,
         SectorCarbonIntensityFilter,
         ClimateSDGFilter,
         PositiveContributionFilter,
@@ -45,6 +47,8 @@ except ImportError:
         DNSHControversyFilter,
         GoodGovernanceAndRatingFilter,
         ParisAlignmentITRFilter,
+        EnvironmentalPillarFilter,
+        SectorCarbonFootprintFilter,
         SectorCarbonIntensityFilter,
         ClimateSDGFilter,
         PositiveContributionFilter,
@@ -148,11 +152,13 @@ def run_pipeline(verbose=True):
         if sbti_by_isin:
             print(f"[Données SBTi] {len(sbti_by_isin)} entreprises dans la base SBTi (jointure ISIN active)")
 
-    # 2. Instanciation des filtres
+    # 2. Instanciation des filtres (conformes aux Slides 13 & 40 à 50)
     pab_filter = PABExclusionFilter()
     dnsh_filter = DNSHControversyFilter()
     gov_filter = GoodGovernanceAndRatingFilter()
     itr_filter = ParisAlignmentITRFilter(max_itr=2.0)
+    env_pillar_filter = EnvironmentalPillarFilter(companies, quantile_level=0.05)
+    footprint_filter = SectorCarbonFootprintFilter(companies, percentile=0.90)
     carbon_filter = SectorCarbonIntensityFilter(companies, percentile=0.90)
     climate_sdg_filter = ClimateSDGFilter()
     pos_contrib_filter = PositiveContributionFilter(sbti_by_isin=sbti_by_isin, min_taxonomy_rev=20.0)
@@ -167,31 +173,39 @@ def run_pipeline(verbose=True):
 
     step1 = pab_filter.filter(companies)
     if verbose:
-        print(f"[1] {pab_filter.name:<45} ({pab_filter.slide_ref}) : {len(step1):>4} valeurs (-{total_initial - len(step1):>3} exclues)")
+        print(f"[1] {pab_filter.name:<48} ({pab_filter.slide_ref}) : {len(step1):>4} valeurs (-{total_initial - len(step1):>3} exclues)")
 
     step2 = dnsh_filter.filter(step1)
     if verbose:
-        print(f"[2] {dnsh_filter.name:<45} ({dnsh_filter.slide_ref}) : {len(step2):>4} valeurs (-{len(step1) - len(step2):>3} exclues)")
+        print(f"[2] {dnsh_filter.name:<48} ({dnsh_filter.slide_ref}) : {len(step2):>4} valeurs (-{len(step1) - len(step2):>3} exclues)")
 
     step3 = gov_filter.filter(step2)
     if verbose:
-        print(f"[3] {gov_filter.name:<45} ({gov_filter.slide_ref}) : {len(step3):>4} valeurs (-{len(step2) - len(step3):>3} exclues)")
+        print(f"[3] {gov_filter.name:<48} ({gov_filter.slide_ref}) : {len(step3):>4} valeurs (-{len(step2) - len(step3):>3} exclues)")
 
     step4 = itr_filter.filter(step3)
     if verbose:
-        print(f"[4] {itr_filter.name:<45} ({itr_filter.slide_ref}) : {len(step4):>4} valeurs (-{len(step3) - len(step4):>3} exclues)")
+        print(f"[4] {itr_filter.name:<48} ({itr_filter.slide_ref}) : {len(step4):>4} valeurs (-{len(step3) - len(step4):>3} exclues)")
 
-    step5 = carbon_filter.filter(step4)
+    step5 = env_pillar_filter.filter(step4)
     if verbose:
-        print(f"[5] {carbon_filter.name:<45} ({carbon_filter.slide_ref}) : {len(step5):>4} valeurs (-{len(step4) - len(step5):>3} exclues)")
+        print(f"[5] {env_pillar_filter.name:<48} ({env_pillar_filter.slide_ref}) : {len(step5):>4} valeurs (-{len(step4) - len(step5):>3} exclues)")
 
-    step6 = climate_sdg_filter.filter(step5)
+    step6 = footprint_filter.filter(step5)
     if verbose:
-        print(f"[6] {climate_sdg_filter.name:<45} ({climate_sdg_filter.slide_ref}) : {len(step6):>4} valeurs (-{len(step5) - len(step6):>3} exclues)")
+        print(f"[6] {footprint_filter.name:<48} ({footprint_filter.slide_ref}) : {len(step6):>4} valeurs (-{len(step5) - len(step6):>3} exclues)")
 
-    sustainable_companies = pos_contrib_filter.filter(step6)
+    step7 = carbon_filter.filter(step6)
     if verbose:
-        print(f"[7] {pos_contrib_filter.name:<45} ({pos_contrib_filter.slide_ref}) : {len(sustainable_companies):>4} valeurs (-{len(step6) - len(sustainable_companies):>3} exclues)")
+        print(f"[7] {carbon_filter.name:<48} ({carbon_filter.slide_ref}) : {len(step7):>4} valeurs (-{len(step6) - len(step7):>3} exclues)")
+
+    step8 = climate_sdg_filter.filter(step7)
+    if verbose:
+        print(f"[8] {climate_sdg_filter.name:<48} ({climate_sdg_filter.slide_ref}) : {len(step8):>4} valeurs (-{len(step7) - len(step8):>3} exclues)")
+
+    sustainable_companies = pos_contrib_filter.filter(step8)
+    if verbose:
+        print(f"[9] {pos_contrib_filter.name:<48} ({pos_contrib_filter.slide_ref}) : {len(sustainable_companies):>4} valeurs (-{len(step8) - len(sustainable_companies):>3} exclues)")
         print(f"\n=> UNIVERS EXTRA-FINANCIER ÉLIGIBLE ARTICLE 2(17) SFDR : {len(sustainable_companies)} valeurs conservées sur {total_initial}")
         print(f"   Taux de sélectivité extra-financière : {(1 - len(sustainable_companies)/total_initial)*100:.1f}% exclus (conforme AMF > 20% & Slide 50)")
 
@@ -203,11 +217,11 @@ def run_pipeline(verbose=True):
 
     thematic_candidates = thematic_filter.filter(sustainable_companies)
     if verbose:
-        print(f"[8] {thematic_filter.name:<45} ({thematic_filter.slide_ref}) : {len(thematic_candidates):>4} valeurs dans le scope")
+        print(f"[10] {thematic_filter.name:<47} ({thematic_filter.slide_ref}) : {len(thematic_candidates):>4} valeurs dans le scope")
 
     final_selected_universe = financial_filter.filter(thematic_candidates)
     if verbose:
-        print(f"[9] {financial_filter.name:<45} ({financial_filter.slide_ref}) : {len(final_selected_universe):>4} valeurs hautement qualifiées")
+        print(f"[11] {financial_filter.name:<47} ({financial_filter.slide_ref}) : {len(final_selected_universe):>4} valeurs hautement qualifiées")
         print(f"\n=> UNIVERS SÉLECTIONNABLE FINAL (Synapse HealthTech & AI Fund) : {len(final_selected_universe)} actifs")
 
     # Export des actifs du fonds dans data/

@@ -22,12 +22,30 @@ from typing import List, Dict, Any, Optional
 from collections import defaultdict
 
 
+# Champs utilisés par les filtres extra-financiers
+CONTROVERSY_FIELDS = ("ENVIRONMENT_CONTROVERSY_SCORE", "SOCIAL_CONTROVERSY_SCORE", "GOVERNANCE_CONTROVERSY_SCORE")
+INTENSITY_FIELDS = ("INTENSITY_SCOPE_1", "INTENSITY_SCOPE_2", "INTENSITY_SCOPE_3")
+FOOTPRINT_FIELDS = ("FOOTPRINT_SCOPE_1", "FOOTPRINT_SCOPE_2", "FOOTPRINT_SCOPE_3")
+CLIMATE_SDGS = (7, 12, 13)
+
 # Statuts officiels de la base SBTi (Target Dashboard)
 SBTI_STATUS_FIELDS = ("near_term_status", "long_term_status", "net_zero_status")
 SBTI_VALIDATION_FIELDS = ("near_term_status", "long_term_status")
 SBTI_VALIDATED = "Validated Targets"
 SBTI_COMMITTED = "Commitment to Set Targets"
 SBTI_REMOVED = "Commitment Removed"
+
+
+def quantile(values: List[float], q: float) -> float:
+    """Quantile par interpolation linéaire (convention standard numpy / pandas)."""
+    xs = sorted(values)
+    h = (len(xs) - 1) * q
+    lo = int(h)
+    hi = min(lo + 1, len(xs) - 1)
+    t = h - lo
+    if t >= 0.5:
+        return xs[hi] - (xs[hi] - xs[lo]) * (1 - t)
+    return xs[lo] + (xs[hi] - xs[lo]) * t
 
 
 class Company:
@@ -83,6 +101,11 @@ class Company:
         self.intensity_s2 = self._parse_float("INTENSITY_SCOPE_2")
         self.intensity_s3 = self._parse_float("INTENSITY_SCOPE_3")
         self.carbon_intensity_s12 = self.intensity_s1 + self.intensity_s2
+        self.carbon_intensity_s123 = self.carbon_intensity_s12 + self.intensity_s3
+        self.footprint_s1 = self._parse_float("FOOTPRINT_SCOPE_1")
+        self.footprint_s2 = self._parse_float("FOOTPRINT_SCOPE_2")
+        self.footprint_s3 = self._parse_float("FOOTPRINT_SCOPE_3")
+        self.carbon_footprint_s123 = self.footprint_s1 + self.footprint_s2 + self.footprint_s3
 
         # Exclusions PAB (Slide 44)
         self.cweap_tie = data.get("CWEAP_TIE", "").strip() == "1"
@@ -138,9 +161,9 @@ class AbstractFilter(ABC):
 class PABExclusionFilter(AbstractFilter):
     """
     Slide 44 & 50 : Dénomination du fonds & Exclusions relatives au Paris-Aligned Benchmark (PAB).
-    - 0% armes controversées (mines antipersonnel, sous-munitions, armes chimiques/biologiques)
-    - 0% producteurs de tabac
-    - 0% combustibles fossiles / énergie fossile (secteur Energy exclu)
+    - Armes controversées (CWEAP_TIE = 1)
+    - Tabac (TOB_PRODUCER = 1 ; donnée manquante => exclusion, Slide 50 note 1)
+    - Pétrole & charbon (secteur Energy exclu)
     """
 
     def __init__(self):
@@ -153,7 +176,7 @@ class PABExclusionFilter(AbstractFilter):
     def evaluate(self, company: Company) -> bool:
         if company.cweap_tie:
             return False
-        if company.tob_producer:
+        if company.tob_producer or company.is_missing("TOB_PRODUCER"):
             return False
         if company.sector == "Energy":
             return False
@@ -164,17 +187,19 @@ class DNSHControversyFilter(AbstractFilter):
     """
     Slide 42 & 50 : Principe DNSH (Do No Significant Harm).
     Exclusion des controverses sévères sur les 3 piliers Environnement, Social et Gouvernance.
-    Critère : note de controverse >= 2.0 (les scores 0 et 1 correspondent aux alertes rouges MSCI).
+    Critère : note de controverse >= 2.0. Donnée manquante => exclusion (Slide 50, note 1).
     """
 
     def __init__(self):
         super().__init__(
             name="DNSH - Filtrage des Controverses Sévères",
             slide_ref="Slide 42 & 50",
-            description="Exclut les entreprises ayant des controverses environnementales, sociales ou de gouvernance sévères (score < 2)."
+            description="Exclut les entreprises ayant des controverses environnementales, sociales ou de gouvernance sévères (score < 2) ou sans donnée."
         )
 
     def evaluate(self, company: Company) -> bool:
+        if company.is_missing(*CONTROVERSY_FIELDS):
+            return False
         return (
             company.env_controversy >= 2.0
             and company.soc_controversy >= 2.0
@@ -184,24 +209,22 @@ class DNSHControversyFilter(AbstractFilter):
 
 class GoodGovernanceAndRatingFilter(AbstractFilter):
     """
-    Slide 41, 45 & 50 : Pratiques de Bonne Gouvernance (SFDR Art. 2(17) condition 3).
-    - Exclusion des pires notations ESG globales (notes 'CCC' et 'B' exclues)
-    - Exclusion du quantile inférieur à 5% sur le Pilier Gouvernance (note G <= 3.0 / 10 exclue)
+    Slide 41 & 50 : Article 9 - Bonne Gouvernance & Notation ESG.
+    - Exclusion des notes ESG < BB (notes 'B' et 'CCC' exclues)
+    - Note ESG manquante => exclusion (Slide 50, note 1)
     """
 
     def __init__(self):
         super().__init__(
-            name="Bonne Gouvernance & Notation ESG",
-            slide_ref="Slide 41, 45 & 50",
-            description="Exclut les notations spéculatives (CCC, B) et les notes de gouvernance inférieures ou égales à 3/10."
+            name="Bonne Gouvernance - Notation ESG >= BB",
+            slide_ref="Slide 41 & 50",
+            description="Exclut les notations ESG inférieures à BB (B, CCC) et les entreprises non notées."
         )
 
     def evaluate(self, company: Company) -> bool:
-        if company.rating in ["CCC", "B"]:
+        if company.is_missing("IVA_COMPANY_RATING"):
             return False
-        if company.gov_pillar <= 3.0:
-            return False
-        return True
+        return company.rating not in ["CCC", "B"]
 
 
 class ParisAlignmentITRFilter(AbstractFilter):
@@ -209,73 +232,117 @@ class ParisAlignmentITRFilter(AbstractFilter):
     Slide 43 & 50 : Accord de Paris - Trajectoire de Température.
     Exclusion des entreprises dont la trajectoire climatique implicite dépasse 2.0°C.
     Permet au portefeuille d'assurer une trajectoire globale rigoureusement alignée 1.5°C.
+    Donnée ITR manquante => exclusion (Slide 50, note 1).
     """
 
     def __init__(self, max_itr: float = 2.0):
         super().__init__(
             name="Accord de Paris - Trajectoire ITR <= 2.0°C",
             slide_ref="Slide 43 & 50",
-            description=f"Exclut les entreprises dont l'ITR est strictement supérieur à {max_itr}°C."
+            description=f"Exclut les entreprises dont l'ITR est strictement supérieur à {max_itr}°C ou sans donnée."
         )
         self.max_itr = max_itr
 
     def evaluate(self, company: Company) -> bool:
+        if company.is_missing("ITR"):
+            return False
         return company.itr <= self.max_itr
+
+
+class EnvironmentalPillarFilter(AbstractFilter):
+    """
+    Slide 45 & 50 : Exclusions complémentaires - Pilier Environnemental.
+    Exclusion des notes du pilier Environnement inférieures ou égales au quantile à 5% (3.0/10).
+    Pilier E manquant => exclusion (Slide 50, note 1).
+    """
+
+    def __init__(self, companies: List[Company], quantile_level: float = 0.05):
+        valid_scores = [c.env_pillar for c in companies if not c.is_missing("ENVIRONMENTAL_PILLAR_SCORE")]
+        self.min_score = quantile(valid_scores, quantile_level) if valid_scores else 3.0
+        super().__init__(
+            name=f"Pilier E > Q{int(quantile_level * 100)}% ({self.min_score:.1f}/10)",
+            slide_ref="Slide 45 & 50",
+            description=f"Exclut les 5% pires notes du pilier E (note <= {self.min_score:.1f}/10) ou sans donnée."
+        )
+
+    def evaluate(self, company: Company) -> bool:
+        if company.is_missing("ENVIRONMENTAL_PILLAR_SCORE"):
+            return False
+        return company.env_pillar > self.min_score
 
 
 class SectorCarbonIntensityFilter(AbstractFilter):
     """
-    Slide 46 & 50 : Empreinte et Intensité Carbone Sectorielle.
-    Exclusion des 10% d'entreprises les plus émettrices (Scope 1+2) au sein de chaque secteur GICS.
-    Garantit la sélection des meilleurs élèves intra-sectoriels sans biaiser la représentativité sectorielle.
+    Slide 46 & 50 : Intensité Carbone Sectorielle (tCO2e / M$ de chiffre d'affaires).
+    Exclusion des 10% d'entreprises les plus émettrices (Scope 1+2+3) au sein de chaque secteur GICS.
+    Donnée carbone manquante => exclusion (Slide 50, note 1).
     """
 
+    fields = INTENSITY_FIELDS
+    label = "Intensité"
+
     def __init__(self, companies: List[Company], percentile: float = 0.90):
+        self.percentile = percentile
         super().__init__(
-            name="Intensité Carbone Sectorielle (Top 10% exclus)",
+            name=f"{self.label} Carbone Sectorielle S1+2+3 (Top 10% exclus)",
             slide_ref="Slide 46 & 50",
-            description="Exclut le décile supérieur (pire 10%) en intensité carbone Scope 1+2 au sein de chaque secteur."
+            description=f"Exclut le décile supérieur (pire 10%) en {self.label.lower()} carbone Scope 1+2+3 au sein de chaque secteur."
         )
         self.sector_thresholds = self._compute_thresholds(companies, percentile)
+
+    def value(self, company: Company) -> float:
+        return company.carbon_intensity_s123
 
     def _compute_thresholds(self, companies: List[Company], percentile: float) -> Dict[str, float]:
         by_sec = defaultdict(list)
         for c in companies:
-            by_sec[c.sector].append(c.carbon_intensity_s12)
+            if not c.is_missing(*self.fields):
+                by_sec[c.sector].append(self.value(c))
 
         thresholds = {}
         for sec, vals in by_sec.items():
-            vals_sorted = sorted(vals)
-            idx = int(percentile * len(vals_sorted))
-            idx = min(idx, len(vals_sorted) - 1)
-            thresholds[sec] = vals_sorted[idx]
+            if vals:
+                thresholds[sec] = quantile(vals, percentile)
         return thresholds
 
     def evaluate(self, company: Company) -> bool:
+        if company.is_missing(*self.fields):
+            return False
         thresh = self.sector_thresholds.get(company.sector, float("inf"))
-        return company.carbon_intensity_s12 <= thresh
+        return self.value(company) <= thresh
+
+
+class SectorCarbonFootprintFilter(SectorCarbonIntensityFilter):
+    """
+    Slide 46 & 50 : Empreinte Carbone Sectorielle (tCO2e / M$ investi, valeur d'entreprise).
+    Même règle que l'intensité : exclusion du pire décile Scope 1+2+3 de chaque secteur GICS.
+    """
+
+    fields = FOOTPRINT_FIELDS
+    label = "Empreinte"
+
+    def value(self, company: Company) -> float:
+        return company.carbon_footprint_s123
 
 
 class ClimateSDGFilter(AbstractFilter):
     """
-    Slide 47 & 50 : ODD Climatiques et Environnementaux.
-    Exclusion des entreprises ayant un alignement net fortement négatif sur les ODD 7, 12 ou 13
-    (ODD 7: Énergie propre, ODD 12: Consommation responsable, ODD 13: Climat).
-    Seuil : score net d'alignement >= -1.0.
+    Slide 47 & 50 : ODD Climatiques et Environnementaux (ODD 7, 12, 13).
+    Exclusion des entreprises ayant un alignement négatif sévère (score = -10, obstruction MSCI).
+    Donnée manquante => exclusion (Slide 50, note 1).
     """
 
     def __init__(self):
         super().__init__(
             name="ODD Environnementaux (ODD 7, 12, 13)",
             slide_ref="Slide 47 & 50",
-            description="Exclut les entreprises portant atteinte aux ODD climatiques (score < -1.0)."
+            description="Exclut les entreprises en obstruction sévère sur les ODD 7, 12 ou 13 (score = -10) ou sans donnée."
         )
 
     def evaluate(self, company: Company) -> bool:
-        s7 = company.get_sdg(7)
-        s12 = company.get_sdg(12)
-        s13 = company.get_sdg(13)
-        return s7 >= -1.0 and s12 >= -1.0 and s13 >= -1.0
+        if company.is_missing(*(f"SDG_{k:02d}_NET_ALIGNMENT_SCORE" for k in CLIMATE_SDGS)):
+            return False
+        return all(company.get_sdg(k) > -10.0 for k in CLIMATE_SDGS)
 
 
 class PositiveContributionFilter(AbstractFilter):
