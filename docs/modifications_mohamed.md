@@ -12,7 +12,7 @@ Ce document décrit ma version (parties 1 à 7), la fusion (partie 8) et le pass
 - La **contribution positive (slide 13)** repose sur une règle explicite : CA aligné Taxonomie ≥ 20 % **ou** objectif climat validé par SBTi (données officielles SBTi).
 - Le **filtre financier** sélectionne sur la qualité (rentabilité, cash, dette, risque) et plus sur la performance boursière passée.
 - **Deux options de filtre thématique** (V3 et V6b) sont prêtes en commentaire, en attente d'une décision du groupe.
-- Un **module de prix historiques** (`src/prices.py`) prépare le futur backtest.
+- Un **module de prix historiques** (`src/prices.py`) prépare le futur backtest. Il lit le portefeuille final (48 titres sur 49 ont des cours ; Ansys n'en a plus).
 - Résultat (ma version) : **57 lignes** en portefeuille (contre 50), **toutes avec un objectif SBTi validé**.
 - Version officielle (Daphné), avec les données SBTi au 31/12/2024 branchées le 21/11 : **49 lignes** (partie 9).
 
@@ -75,14 +75,16 @@ Pour comparaison, la slide 50 (données Kanopy au 30/09/2026, 1 109 titres) indi
 
 ## 5. Prix historiques (`src/prices.py`)
 
-- Classe `HistoricalPriceLoader`, construite comme l'optimiseur et le backtest. On la lance avec `python src/prices.py`.
-- Elle télécharge avec yfinance les cours de clôture ajustés (dividendes et divisions) des titres de l'univers sélectionnable, ainsi que le benchmark MSCI World (ETF iShares, `IWDA.AS`, coté en euros), du 02/01/2015 au 20/11/2026.
+- Classe `HistoricalPriceLoader`, construite comme l'optimiseur et le backtest. On la lance avec `python src/prices.py`, après `run_pipeline.py`.
+- **Depuis le 21/11, elle lit le portefeuille final** (`data/portefeuille_final_pondere.csv`) et non plus l'univers sélectionnable. Ce fichier n'a ni ticker Yahoo ni devise : elle les reprend dans `data/all_data.csv`, comme `backtest.py`. Dans la version de Daphné, les deux fichiers contiennent les mêmes 49 titres (l'optimiseur garde tout l'univers), donc les séries sont identiques. On peut toujours lui passer l'univers sélectionnable, par exemple pour un optimiseur qui utiliserait la vraie covariance.
+- Elle télécharge avec yfinance les cours de clôture ajustés (dividendes et divisions), ainsi que le benchmark MSCI World (ETF iShares, `IWDA.AS`, coté en euros), du 02/01/2015 au 20/11/2026.
 - Les cours sont convertis en euros ; les cours de Londres, cotés en pence, sont divisés par 100.
 - Fichiers produits dans `data/prix/` : `prix_devise_locale.csv`, `taux_de_change.csv`, `prix_eur.csv`.
-- **Contrôles** :
-  - 59 titres sur 59 ont des données ;
-  - le benchmark fait +10,2 % par an sur 2015-2023, avec 16,3 % de volatilité ;
-  - trois chutes de plus de 35 % en une séance (Synopsys, West Pharmaceutical, ICON) restent à vérifier.
+- **Contrôles** (portefeuille officiel de 49 lignes, 21/11) :
+  - 48 titres sur 49 ont des données, soit 99 % du poids. **Ansys (1 %) n'a plus de cours** : rachetée par Synopsys en juillet 2025, elle a été retirée de la cote et Yahoo a supprimé tout son historique. Les autres sources gratuites testées ne marchent pas. Pistes pour le backtest : exporter son historique depuis Bloomberg, ou répartir ses 1 % sur les autres lignes en le signalant comme limite (biais du survivant) ;
+  - les 48 autres titres ont un historique complet depuis 2015, sans variation de plus de 30 % en une séance (les trois chutes à vérifier de ma version, Synopsys, West Pharmaceutical et ICON, ne sont pas dans ce portefeuille) ;
+  - le benchmark fait +10,2 % par an sur 2015-2023 (volatilité 16,2 %) et +14,9 % par an depuis le 01/01/2024 (volatilité 13,3 %) ;
+  - 3,6 % des cases sont vides : ce sont les jours fériés propres à chaque place. Le backtest devra reprendre le dernier cours connu.
 - Le module n'est pas encore branché dans `run_pipeline.py`, car il a besoin d'internet.
 
 ## 6. Résultats (nos données au 31/12/2024)
@@ -113,7 +115,7 @@ Les chiffres de performance de `backtest.py` ne sont pas repris ici, car la mét
   - « Industrie ≤ 15 % » et « ITR ≤ 1,8 °C » sont annoncées mais pas codées ;
   - un plafond caché ITR ≤ 2,5 retire NVIDIA, AMD…
   - Piste : appliquer la slide 63 (minimum de volatilité) avec la vraie covariance tirée des prix.
-- **Backtest** : il n'utilise aucun prix. À refaire avec `data/prix/`. La période hors échantillon commence le 01/01/2025.
+- **Backtest** : il n'utilise aucun prix. À refaire avec `data/prix/`. La période hors échantillon commence le 01/01/2025. Prévoir le cas d'Ansys (partie 5).
 - **Livrables** : fichiers Excel, PowerPoint, et mise à jour du README et des docs (chiffres obsolètes, formulations à risque vis-à-vis de l'AMF).
 - **Limites à mentionner à l'oral** : ma version lit encore la base SBTi de novembre 2026, alors que nos données sont de fin 2024 (la version officielle utilise désormais la photo au 31/12/2024, voir la partie 9) ; l'exclusion PAB est approchée par le secteur Energy.
 
@@ -186,7 +188,7 @@ Les chiffres de performance de `backtest.py` ne sont pas repris ici, car la mét
 | `2b60248` | rapprochements SBTi par nom, pilier E ≥ Q5, options thématiques V3 et V6b |
 | `43e9ce1` | nouveau filtre financier (ancienne version conservée en `FinancialQualityFilterDaphne`) |
 | `14c3b5b` | fusion : version de Daphné comme version officielle, `filters_mohamed.py`, `run_tri_mohamed.py`, ligne de bascule dans `run_pipeline.py` |
-| commit suivant | données SBTi au 31/12/2024 branchées dans `run_tri.py`, fichiers SBTi de 2025, sorties régénérées (49 lignes) et ce document |
-| non commité | `src/prices.py` et `data/prix/` |
+| `4005abc` | données SBTi au 31/12/2024 branchées dans `run_tri.py`, fichiers SBTi de 2025, sorties régénérées (49 lignes) et ce document |
+| commit suivant | `src/prices.py` sur le portefeuille final et `data/prix/` |
 
 Les commits postérieurs à `deef454` ne sont pas encore poussés sur GitHub.
